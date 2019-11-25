@@ -2,6 +2,7 @@
 #define __INTERSECTION_H__
 
 #include "Tile.h"
+#include "TrafficLight.h"
 
 class Intersection
 {
@@ -11,6 +12,7 @@ private:
   Tile* south;
   Tile* east;
   Tile* west;
+  TrafficLight t;
 
 public:
   Intersection(Tile n, Tile s, Tile e, Tile w);
@@ -21,6 +23,7 @@ public:
   Tile getSouth();
   Tile getEast();
   Tile getWest();
+  Color getLight(); //to set up for traffic light enum color
 
 };
 

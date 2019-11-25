@@ -3,8 +3,9 @@
 
 #include "Tile.h"
 #include "Intersection.h"
+#include "TrafficLight.h"
 
-class Intersection
+class Intersection : public Tile
 {
   Intersection::Intersection(Tile n, Tile s, Tile e, Tile w)
   {
