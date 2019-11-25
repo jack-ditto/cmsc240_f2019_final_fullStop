@@ -5,14 +5,9 @@
 class Tile
 {
 
-private: 
+private:
 	Vehicle* v;
 
 };
-
-
-
-
-
 
 #endif
