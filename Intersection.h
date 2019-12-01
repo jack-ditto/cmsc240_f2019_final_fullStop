@@ -4,7 +4,7 @@
 #include "Tile.h"
 #include "TrafficLight.h"
 
-class Intersection
+class Intersection : public Tile
 {
 
 private:
