@@ -7,12 +7,14 @@
 
 class Intersection : public Tile
 {
-  Intersection::Intersection(Tile n, Tile s, Tile e, Tile w)
+  Intersection::Intersection(Tile n, Tile s, Tile e, Tile w, TrafficLight ns, TrafficLight ew)
   {
     north = n;
     south = s;
     east  = e;
     west  = w;
+    northSouth = ns;
+    eastWest = ew;
   }
 
   Intersection::Intersection(const Intersection other)
@@ -45,6 +47,15 @@ class Intersection : public Tile
     return west;
   }
 
+  Color Intersection::getLightNS()
+  {
+    return northSouth.getColor();
+  }
+
+  Color Intersection::getLightEW()
+  {
+    return eastWest.getColor();
+  }
 
 }
 

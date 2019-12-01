@@ -9,9 +9,9 @@ class TrafficLight
   TrafficLight::TrafficLight(Color col) //, int green, int yellow, int red, int time)
   {
     lightColor = col;
-    //timeGreen = green;
-    //timeYellow = yellow;
-    //timeRed = red;
+    //timeGreen     = green;
+    //timeYellow    = yellow;
+    //timeRed       = red;
     //timeTilChange = time;
   }
 
