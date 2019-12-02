@@ -47,6 +47,33 @@ class TrafficLight
     return timeTilChange;
   }
 
+  void  TrafficLight::decrement()
+  {
+    timeTilChange--;
+
+    if(timeTilChange == 0)
+    {
+      if(lightColor == GREEN)
+      {
+        lightColor == YELLOW;
+        timeTilChange = timeYellow;
+      }
+
+      if(lightColor == YELLOW)
+      {
+        lightColor == RED;
+        timeTilChange = timeRed;
+      }
+
+      if(lightColor == RED)
+      {
+        lightColor == GREEN;
+        timeTilChange = timeGreen;
+      }
+    }
+  }
+
+
 }
 
 #endif

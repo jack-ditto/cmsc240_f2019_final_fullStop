@@ -12,7 +12,7 @@ private:
   int timeGreen;
   int timeYellow;
   int timeRed;
-  int timeTilChange; //maybe do not need
+  int timeTilChange; 
 
 public:
   Color getColor();
@@ -21,6 +21,7 @@ public:
 	int   getTimeYellow();
 	int   getTimeRed();
   int   getTimeTilChange();
+	void  decrement();
 
 };
 
