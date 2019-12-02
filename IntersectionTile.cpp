@@ -1,22 +1,21 @@
-#ifndef __INTERSECTIONTILE_H__
-#define __INTERSECTIONTILE_H__
+#ifndef __INTERSECTIONTILE_CPP__
+#define __INTERSECTIONTILE_CPP__
 
 #include "Tile.h"
 #include "IntersectionTile.h"
 #include "TrafficLight.h"
 
-
-Intersection::IntersectionTile(Tile n, Tile s, Tile e, Tile w, TrafficLight ns, TrafficLight ew)
+IntersectionTile::IntersectionTile(Tile n, Tile s, Tile e, Tile w, TrafficLight ns, TrafficLight ew)
 {
-  north = n;
-  south = s;
-  east  = e;
-  west  = w;
+  north = &n;
+  south = &s;
+  east  = &e;
+  west  = &w;
   northSouth = ns;
   eastWest = ew;
 }
 
-Intersection::IntersectionTile(const Intersection other)
+IntersectionTile::IntersectionTile(const IntersectionTile& other)
 {
   north = other.getNorth();
   south = other.getSouth();
