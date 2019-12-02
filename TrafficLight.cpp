@@ -6,13 +6,13 @@
 class TrafficLight
 {
 
-  TrafficLight::TrafficLight(Color col) //, int green, int yellow, int red, int time)
+  TrafficLight::TrafficLight(Color col, int green, int yellow, int red)
   {
     lightColor = col;
-    //timeGreen     = green;
-    //timeYellow    = yellow;
-    //timeRed       = red;
-    //timeTilChange = time;
+    timeGreen     = green;
+    timeYellow    = yellow;
+    timeRed       = red;
+    timeTilChange = 0;
   }
 
   Color TrafficLight::getColor()
@@ -27,35 +27,52 @@ class TrafficLight
     return old;
   }
 
-  /*void TrafficLight::increment()
+  int   TrafficLight::getTimeGreen()
+  {
+    return timeGreen;
+  }
+
+  int   TrafficLight::getTimeYellow()
+  {
+    return timeYellow;
+  }
+
+  int   TrafficLight::getTimeRed()
+  {
+    return timeRed;
+  }
+
+  int TrafficLight::getTimeTilChange()
+  {
+    return timeTilChange;
+  }
+
+  void  TrafficLight::decrement()
   {
     timeTilChange--;
+
     if(timeTilChange == 0)
     {
       if(lightColor == GREEN)
       {
-        lightColor = YELLOW;
+        lightColor == YELLOW;
         timeTilChange = timeYellow;
       }
 
       if(lightColor == YELLOW)
       {
-        lightColor = RED;
+        lightColor == RED;
         timeTilChange = timeRed;
       }
 
       if(lightColor == RED)
       {
-        lightColor = GREEN;
+        lightColor == GREEN;
         timeTilChange = timeGreen;
       }
     }
-  } */
+  }
 
-  /*int TrafficLight::getTimeTilChange()
-  {
-    return timeTilChange;
-  } */
 
 }
 

@@ -17,9 +17,9 @@ private:
 
 
 public:
-  Intersection(Tile n, Tile s, Tile e, Tile w);
-  Intersection(const Intersection other);
-  ~Intersection();
+  IntersectionTile(Tile n, Tile s, Tile e, Tile w);
+  IntersectionTile(const IntersectionTile other);
+  ~IntersectionTile();
 
   Tile  getNorth();
   Tile  getSouth();

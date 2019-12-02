@@ -9,16 +9,19 @@ enum Color {GREEN, YELLOW, RED};
 
 private:
 	Color lightColor;
-  //int timeGreen;
-  //int timeYellow;
-  //int timeRed;
-  //int timeTilChange; //maybe do not need
+  int timeGreen;
+  int timeYellow;
+  int timeRed;
+  int timeTilChange; 
 
 public:
   Color getColor();
   Color setColor(Color c);
-  //void  increment(); //will need either set color of increment, depends on whether light keeps track of time or game keeps track of time
-  //int   getTimeTilChange();
+	int   getTimeGreen();
+	int   getTimeYellow();
+	int   getTimeRed();
+  int   getTimeTilChange();
+	void  decrement();
 
 };
 

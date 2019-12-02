@@ -8,6 +8,12 @@ class Tile
 private:
 	Vehicle* v;
 
+public:
+	Tile();
+	Tile(Vehicle* v1);
+	~Tile();
+	Vehicle* getVehicle();
+
 };
 
 #endif
