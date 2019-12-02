@@ -5,8 +5,7 @@
 #include "Intersection.h"
 #include "TrafficLight.h"
 
-class IntersectionTile : public Tile
-{
+
   Intersection::IntersectionTile(Tile n, Tile s, Tile e, Tile w, TrafficLight ns, TrafficLight ew)
   {
     north = n;
@@ -56,7 +55,5 @@ class IntersectionTile : public Tile
   {
     return eastWest.getColor();
   }
-
-}
 
 #endif
