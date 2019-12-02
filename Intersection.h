@@ -1,10 +1,10 @@
-#ifndef __INTERSECTION_H__
-#define __INTERSECTION_H__
+#ifndef __INTERSECTIONTILE_H__
+#define __INTERSECTIONTILE_H__
 
 #include "Tile.h"
 #include "TrafficLight.h"
 
-class Intersection : public Tile
+class IntersectionTile : public Tile
 {
 
 private:

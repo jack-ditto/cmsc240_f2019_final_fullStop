@@ -15,11 +15,30 @@ class Vehicle
 
   }
 
-  int Vehicle::getLength();
-  int Vehicle::getID();
-  Tile* Vehicle::getHptr();
-  Tile* Vehicle::getTptr();
-  Turn Vehicle::getTurn();
+  int Vehicle::getLength()
+  {
+    return length;
+  }
+
+  int Vehicle::getID()
+  {
+    return id;
+  }
+
+  Tile* Vehicle::getHptr()
+  {
+    return hptr;
+  }
+
+  Tile* Vehicle::getTptr()
+  {
+    return tptr;
+  }
+
+  Turn Vehicle::getTurn()
+  {
+    return t;
+  }
 
 }
 
