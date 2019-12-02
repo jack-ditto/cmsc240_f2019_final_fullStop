@@ -2,7 +2,7 @@
 #define __INTERSECTIONTILE_H__
 
 #include "Tile.h"
-#include "Intersection.h"
+#include "IntersectionTile.h"
 #include "TrafficLight.h"
 
 class IntersectionTile : public Tile
