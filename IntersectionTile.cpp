@@ -7,6 +7,8 @@
 
 IntersectionTile::IntersectionTile(Tile n, Tile s, Tile e, Tile w, TrafficLight ns, TrafficLight ew)
 {
+
+  //turn and straight
   north = &n;
   south = &s;
   east  = &e;
