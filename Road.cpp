@@ -6,7 +6,7 @@ Road::Road()
 	for(int i =0; i<3; i++)
 	{
 		Tile beginning(); // how to make the pointer to the next ?? Do we need this??
-		Road.push_back(beginning);
+		Road1.push_back(beginning);
 	}
 }
 Road::Road(int num, Intersection a, Intersection b){
@@ -16,19 +16,19 @@ Road::Road(int num, Intersection a, Intersection b){
 		
 		if(i ==num+1){
 
-			Road.push_back(a)
+			Road1.push_back(a);
 
 		}
 
-		if (i == num+2)
+		else if (i == num+2)
 		{
-			Road.push_back(b);
+			Road1.push_back(b);
 		}
 
 		else
 		{
 			Tile temp ();
-			Road.push_back(temp);
+			Road1.push_back(temp);
 		
 		}
 	}

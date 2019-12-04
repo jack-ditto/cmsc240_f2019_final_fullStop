@@ -8,7 +8,7 @@ using namespace std;
 class Road
 {
 private:
-vector<Tile> Road;
+vector<Tile> Road1;
 public: 
 	Road();
 	Road(int num, Tile start,Intersection a, Intersection b);
