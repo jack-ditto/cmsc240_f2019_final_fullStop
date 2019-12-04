@@ -15,6 +15,12 @@ void setOccupied();
 
 	 
 
+public:
+	Tile();
+	Tile(Vehicle* v1);
+	~Tile();
+	Vehicle* getVehicle();
+
 };
 
 #endif
