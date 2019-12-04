@@ -1,3 +1,5 @@
+#ifndef __ROAD_CPP__
+#define __ROAD_CPP__
 
 #include "Road.h"
 
@@ -11,9 +13,9 @@ Road::Road()
 }
 Road::Road(int num, Intersection a, Intersection b){
 
-	
+
 	for(int i=0; i<2*num+2; i++){
-		
+
 		if(i ==num+1){
 
 			Road1.push_back(a);
@@ -28,8 +30,14 @@ Road::Road(int num, Intersection a, Intersection b){
 		else
 		{
 			Tile temp ();
+
 			Road1.push_back(temp);
 		
+			Road.push_back(temp);
+
+
 		}
 	}
 }
+
+#endif
