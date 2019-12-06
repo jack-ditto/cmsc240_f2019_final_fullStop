@@ -7,8 +7,6 @@
 
 IntersectionTile::IntersectionTile(Tile t, Tile s, TrafficLight ns, TrafficLight ew)
 {
-
-  //turn and straight
   turn = &t;
   straight = &s;
   northSouth = ns;
@@ -17,10 +15,8 @@ IntersectionTile::IntersectionTile(Tile t, Tile s, TrafficLight ns, TrafficLight
 
 IntersectionTile::IntersectionTile(const IntersectionTile& other)
 {
-  north = other.getNorth();
-  south = other.getSouth();
-  east  = other.getEast();
-  west  = other.getWest();
+  turn = other.turn;
+  straight = other.straight;
 }
 
 IntersectionTile::~IntersectionTile() {}
