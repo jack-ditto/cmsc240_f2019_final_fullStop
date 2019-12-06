@@ -8,10 +8,8 @@ class IntersectionTile : public Tile
 {
 
 private:
-  Tile*        north;
-  Tile*        south;
-  Tile*        east;
-  Tile*        west;
+  Tile*        turn;
+  Tile*        straight;
   TrafficLight northSouth;
   TrafficLight eastWest
 
@@ -21,10 +19,8 @@ public:
   IntersectionTile(const IntersectionTile other);
   ~IntersectionTile();
 
-  Tile  getNorth();
-  Tile  getSouth();
-  Tile  getEast();
-  Tile  getWest();
+  Tile  getTurn();
+  Tile  getStraight();
   Color getLightNS();
   Color getLightEW(); //to set up for traffic light enum color
 
