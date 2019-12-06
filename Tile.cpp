@@ -1,10 +1,29 @@
-#include"Tile.h"
+#ifndef __TILE_CPP__
+#define __TILE_CPP__
+
+#include "Tile.h"
 
 
 Tile::Tile()
 {
-    isEmpty = false;
+    next = nullptr;
+    isEmpty = true;
 }
+
+Tile::Tile(Tile* n)
+{
+    next = n;
+    isEmpty = true;
+}
+
+Tile::Tile(const Tile& other)
+{
+    next = other.next;
+    isEmpty = other.isEmpty;
+}
+
+Tile::~Tile() {}
+
 bool Tile::isOccupied()
 {
     return isEmpty;
@@ -12,5 +31,7 @@ bool Tile::isOccupied()
 
 void Tile::setOccupied()
 {
-    isEmpty=false;
+    isEmpty = false;
 }
+
+#endif
