@@ -5,32 +5,35 @@
 
 Tile::Tile()
 {
-    delete next;
-    isEmpty = true;
+   this->name = "Tile";
+   delete straight;
+   isEmpty = true;
 }
 
 Tile::Tile(Tile* n)
 {
-    next = n;
-    isEmpty = true;
+   this->name = "Tile";
+   straight = n;
+   isEmpty = true;
 }
 
 Tile::Tile(const Tile& other)
 {
-    next = other.next;
-    isEmpty = other.isEmpty;
+   this->name = other.name;
+   straight = other.straight;
+   isEmpty = other.isEmpty;
 }
 
 Tile::~Tile() {}
 
 bool Tile::isOccupied()
 {
-    return isEmpty;
+   return isEmpty;
 }
 
 void Tile::setOccupied()
 {
-    isEmpty = false;
+   isEmpty = false;
 }
 
 #endif
