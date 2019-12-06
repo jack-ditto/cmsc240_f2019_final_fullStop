@@ -9,7 +9,7 @@ using namespace std;
 class Road
 {
 	private:
-		vector<Tile> Road1;
+		vector<Tile> road;
 	public:
 		Road();
 		Road(int num, Tile start,Intersection a, Intersection b);

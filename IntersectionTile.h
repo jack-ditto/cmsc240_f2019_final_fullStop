@@ -9,7 +9,6 @@ class IntersectionTile : public Tile
 
 private:
   Tile*        turn;
-  Tile*        straight;
   TrafficLight northSouth;
   TrafficLight eastWest
 
@@ -20,7 +19,6 @@ public:
   ~IntersectionTile();
 
   Tile  getTurn();
-  Tile  getStraight();
   Color getLightNS();
   Color getLightEW(); //to set up for traffic light enum color
 
