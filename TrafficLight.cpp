@@ -7,7 +7,6 @@
 //Typical Use Constructor
 TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
 {
-  std::cout << "in typical use constructor" << std::endl;
   lightColor = light;
   timeGreen  = green;
   timeYellow = yellow;
@@ -30,7 +29,6 @@ TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
 //Copy constructor
 TrafficLight::TrafficLight(const TrafficLight& other)
 {
-  std::cout << "in copy constructor" << std::endl;
   lightColor = other.lightColor;
   timeGreen = other.timeGreen;
   timeYellow = other.timeYellow;
@@ -110,40 +108,5 @@ void TrafficLight::decrement()
     }
   }
 }
-
-/*
-int main()
-{
-  TrafficLight t1(RED,1,2,3);
-  TrafficLight t2(t1);
-
-  std::cout << t1.setColor(GREEN) << std::endl;
-  std::cout << t1.getColor() << std::endl;
-  std::cout << t2.getColor() << std::endl;
-
-  std::cout << t1.getTimeRed() << std::endl;
-  std::cout << t1.getTimeTilChange() << std::endl;
-
-  t1.decrement();
-
-  std::cout << t1.getColor() << std::endl;
-  std::cout << t1.getTimeTilChange() << std::endl << std::endl;
-
-  t1.decrement();
-  t1.decrement();
-
-  std::cout << t1.getColor() << std::endl;
-  std::cout << t1.getTimeTilChange() << std::endl << std::endl;
-
-  t1.decrement();
-  t1.decrement();
-  t1.decrement();
-
-  std::cout << t1.getColor() << std::endl;
-  std::cout << t1.getTimeTilChange() << std::endl;
-
-  return 0;
-}
-*/
 
 #endif

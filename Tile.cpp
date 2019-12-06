@@ -26,6 +26,11 @@ Tile::Tile(const Tile& other)
 
 Tile::~Tile() {}
 
+Tile* Tile::getNext()
+{
+    return next;
+}
+
 bool Tile::isOccupied()
 {
    return isEmpty;

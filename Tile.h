@@ -16,6 +16,7 @@ public:
 	Tile(const Tile& other);
 	~Tile();
 
+	Tile* getNext();
 	bool isOccupied();
 	void setOccupied();
 };
