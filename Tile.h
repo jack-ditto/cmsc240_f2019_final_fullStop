@@ -8,17 +8,18 @@ class Tile
 private:
 	bool isEmpty;
 	Tile* straight;
+   std::string name;
 
 public:
-   std::string name;
    Tile();
 	Tile(Tile* n);
 	Tile(const Tile& other);
 	~Tile();
 
-	Tile* getNext();
+	Tile* getStraight();
 	bool isOccupied();
 	void setOccupied();
+   std::string getName();
 };
 
 #endif
