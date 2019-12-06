@@ -1,6 +1,8 @@
 #ifndef __VEHICLE_H__
 #define __VEHICLE_H__
 
+#include "Tile.h"
+
 class Vehicle
 {
 
@@ -10,8 +12,11 @@ private:
   int length;
   int id;
   Tile* hptr;
-  Tile* trptr;
+  Tile* tptr;
   Turn t;
+
+  bool isTurningRight;
+  int movesLeftInTurn;
 
 public:
   Vehicle();
@@ -22,6 +27,8 @@ public:
   Tile* getHptr();
   Tile* getTptr();
   Turn getTurn();
+  void move();
+  void turnRight();
 
 };
 
