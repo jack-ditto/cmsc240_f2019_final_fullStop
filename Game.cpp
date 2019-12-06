@@ -35,6 +35,7 @@ void Game::run()
 {
    std::cout << "The game is running..." << std::endl;
    
+   // TODO: Construct instance of animator here   
    
    int t = 0; // Counter for game
    while (t < this->totalTime)
@@ -42,13 +43,11 @@ void Game::run()
       // Game logic:
       moveTraffic(); 
       
-      // Tell traffic light objects that time has passed
-      // Something like...
-      //
-      // this->trafficLightOne.simSec()
-      // this->trafficLightTwo.simSec()
-      //
-      // Open to suggestions about a better way to do this.
+      // TODO: Tell traffic light objects that time has passed
+      
+      // TODO: Handles operations for animator code.
+      //       This includes setting the traffic light color
+      //       and calling draw()
 
       t++;
 
