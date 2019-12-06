@@ -3,10 +3,9 @@
 
 #include "Tile.h"
 
-
 Tile::Tile()
 {
-    next = nullptr;
+    delete next;
     isEmpty = true;
 }
 
