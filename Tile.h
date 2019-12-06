@@ -1,14 +1,17 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
+#include<string>
+
 class Tile
 {
 private:
 	bool isEmpty;
-	Tile* next;
+	Tile* straight;
 
 public:
-	Tile();
+   std::string name;
+   Tile();
 	Tile(Tile* n);
 	Tile(const Tile& other);
 	~Tile();
