@@ -10,12 +10,12 @@ class IntersectionTile : public Tile
 private:
   Tile*        turn;
   TrafficLight northSouth;
-  TrafficLight eastWest
+  TrafficLight eastWest;
 
 
 public:
   IntersectionTile(Tile n, Tile s, Tile e, Tile w);
-  IntersectionTile(const IntersectionTile other);
+  IntersectionTile(const IntersectionTile &other);
   ~IntersectionTile();
 
   Tile  getTurn();
