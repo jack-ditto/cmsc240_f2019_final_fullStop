@@ -2,8 +2,10 @@
 #define __VEHICLE_CPP__
 
 #include "Vehicle.h"
+#include "IntersectionTile.h"
+#include "VehicleBase.h"
 
-Vehicle::Vehicle()
+Vehicle::Vehicle(VehicleType type, Direction direction): VehicleBase(type, direction)
 {}
 
 Vehicle::~Vehicle()
@@ -43,11 +45,21 @@ void Vehicle::move()
 {
    // Tile has not been implemented yet, so psuedocode so it will compile
    //
-   // if this->isTurning:
-   //    
-   //    turn();
-   //
-   // else if *hptr.next typeof IntersectionTile:
+   //if this->isTurning:
+
+   //    turnRight();
+   
+   if (hptr->getStraight()->getName() == "IntersectionTile")
+   {
+      IntersectionTile *nextTilePtr;
+      nextTilePtr  = dynamic_cast<IntersectionTile*>(hptr->getStraight());
+      
+      //if(nextTile.getLightNS())
+      //{
+      //   
+      //}
+
+   }
    //    
    //    check the light color (through method in the IntersectionTile)
    //

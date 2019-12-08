@@ -2,8 +2,9 @@
 #define __VEHICLE_H__
 
 #include "Tile.h"
+#include "VehicleBase.h"
 
-class Vehicle
+class Vehicle: public VehicleBase
 {
 
 enum Turn {LEFT, RIGHT, STRAIGHT};
@@ -19,7 +20,7 @@ private:
   int movesLeftInTurn;
 
 public:
-  Vehicle();
+  Vehicle(VehicleType type, Direction originalDirection);
   ~Vehicle();
 
   int getLength();
