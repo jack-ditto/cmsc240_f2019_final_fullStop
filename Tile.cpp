@@ -6,19 +6,19 @@
 Tile::Tile()
 {
     this->name = "Tile";
-    delete straight;
+    // delete straight;
     isEmpty = true;
 }
 
-Tile::Tile(Tile* n)
+Tile::Tile(Tile *n)
 {
     this->name = "Tile";
     straight = n;
     isEmpty = true;
 }
 
-Tile::Tile(const Tile& other)
-{  
+Tile::Tile(const Tile &other)
+{
     this->name = other.name;
     straight = other.straight;
     isEmpty = other.isEmpty;
@@ -26,7 +26,7 @@ Tile::Tile(const Tile& other)
 
 Tile::~Tile() {}
 
-Tile* Tile::getStraight()
+Tile *Tile::getStraight()
 {
     return straight;
 }
@@ -43,7 +43,7 @@ void Tile::setOccupied()
 
 std::string Tile::getName()
 {
-   return this->name;
+    return this->name;
 }
 
 #endif

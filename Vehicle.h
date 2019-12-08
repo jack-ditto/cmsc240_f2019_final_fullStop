@@ -4,16 +4,21 @@
 #include "Tile.h"
 #include "VehicleBase.h"
 
-class Vehicle: public VehicleBase
+class Vehicle : public VehicleBase
 {
 
-enum Turn {LEFT, RIGHT, STRAIGHT};
+  enum Turn
+  {
+    LEFT,
+    RIGHT,
+    STRAIGHT
+  };
 
 private:
   int length;
   int id;
-  Tile* hptr;
-  Tile* tptr;
+  Tile *hptr;
+  Tile *tptr;
   Turn t;
 
   bool isTurningRight;
@@ -25,12 +30,11 @@ public:
 
   int getLength();
   int getID();
-  Tile* getHptr();
-  Tile* getTptr();
+  Tile *getHptr();
+  Tile *getTptr();
   Turn getTurn();
   void move();
   void turnRight();
-
 };
 
 #endif

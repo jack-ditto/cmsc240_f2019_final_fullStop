@@ -13,7 +13,7 @@ IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew)
   eastWest = ew;
 }
 
-IntersectionTile::IntersectionTile(const IntersectionTile& other)
+IntersectionTile::IntersectionTile(const IntersectionTile &other)
 {
   turn = other.turn;
   straight = other.straight;
@@ -21,9 +21,11 @@ IntersectionTile::IntersectionTile(const IntersectionTile& other)
   eastWest = other.eastWest;
 }
 
-IntersectionTile::~IntersectionTile() {}
+IntersectionTile::~IntersectionTile()
+{
+}
 
-Tile IntsectionTile::getTurn()
+Tile IntersectionTile::getTurn()
 {
   return turn;
 }
@@ -38,9 +40,9 @@ Color IntersectionTile::getLightEW()
   return eastWest.getColor();
 }
 
-int main()
-{
-    IntersectionTile inter;
-}
+// int main()
+// {
+//   IntersectionTile inter;
+// }
 
 #endif
