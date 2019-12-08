@@ -19,7 +19,7 @@ public:
 	Tile* getStraight();
 	bool isOccupied();
 	void setOccupied();
-   std::string getName();
+   virtual std::string getName();
 };
 
 #endif
