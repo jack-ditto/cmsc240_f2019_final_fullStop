@@ -4,6 +4,14 @@
 #include "Vehicle.h"
 #include "IntersectionTile.h"
 #include "VehicleBase.h"
+#include <iostream>
+
+Vehicle::Vehicle(Tile *tptr, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
+{
+   this->hptr = hptr;
+   this->tptr = tptr;
+   this->setOccupiedTiles();
+}
 
 Vehicle::Vehicle(VehicleType type, Direction direction) : VehicleBase(type, direction)
 {
@@ -38,6 +46,16 @@ Vehicle::Turn Vehicle::getTurn()
    return t;
 }
 
+void Vehicle::setOccupiedTiles()
+{
+   Tile *currTile = this->tptr;
+   while (currTile->getStraight() != this->hptr)
+   {
+      currTile->setOccupied();
+      currTile = currTile->getStraight();
+   }
+}
+
 /**
  *  Called for every 'click' of time. Moves the vehicle one Tile and handles turning 
  *  by calling external method when the Vehicle reaches an intersection. 
@@ -45,6 +63,15 @@ Vehicle::Turn Vehicle::getTurn()
  */
 void Vehicle::move()
 {
+
+   this->tptr->setUnoccupied();
+   this->hptr->setUnoccupied();
+
+   this->hptr = this->hptr->getStraight();
+   this->tptr = this->tptr->getStraight();
+
+   this->setOccupiedTiles();
+
    // Tile has not been implemented yet, so psuedocode so it will compile
    //
    //if this->isTurning:
