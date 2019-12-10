@@ -52,7 +52,17 @@ void Vehicle::setOccupiedTiles()
    while (currTile->getStraight() != this->hptr)
    {
       currTile->setOccupied();
-      currTile = currTile->getStraight();
+
+      if (this->isTurningRight && currTile->getName() == "IntersectionTile")
+      {
+         // This is how this should look, but not yet implemented in IntersecitonTile
+         // Also, may need to downcast currTile to get getRight() method access
+         // currTile = currTile->getRight();
+      }
+      else
+      {
+         currTile = currTile->getStraight();
+      }
    }
 }
 
