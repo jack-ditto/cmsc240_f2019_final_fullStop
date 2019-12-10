@@ -1,2 +1,10 @@
 
+<<<<<<< Updated upstream
 .vscode/settings.json
+=======
+.vscode/
+>>>>>>> Stashed changes
+
+Makefile
+
+tester.cpp
