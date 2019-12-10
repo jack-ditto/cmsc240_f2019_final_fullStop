@@ -5,10 +5,9 @@
 #include "IntersectionTile.h"
 #include "TrafficLight.h"
 
-IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew)
+IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew) : Tile(straight)
 {
   turn = &t;
-  straight = &s;
   northSouth = ns;
   eastWest = ew;
 }
@@ -23,7 +22,7 @@ IntersectionTile::IntersectionTile(const IntersectionTile& other)
 
 IntersectionTile::~IntersectionTile() {}
 
-Tile IntsectionTile::getTurn()
+Tile IntersectionTile::getTurn()
 {
   return turn;
 }
@@ -36,11 +35,6 @@ Color IntersectionTile::getLightNS()
 Color IntersectionTile::getLightEW()
 {
   return eastWest.getColor();
-}
-
-int main()
-{
-    IntersectionTile inter;
 }
 
 #endif
