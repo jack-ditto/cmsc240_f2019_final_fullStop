@@ -33,12 +33,22 @@ Tile *Tile::getStraight()
 
 bool Tile::isOccupied()
 {
-    return isEmpty;
+    return !isEmpty;
+}
+
+void Tile::setStraight(Tile &t)
+{
+    this->straight = &t;
 }
 
 void Tile::setOccupied()
 {
     isEmpty = false;
+}
+
+void Tile::setUnoccupied()
+{
+    isEmpty = true;
 }
 
 std::string Tile::getName()
