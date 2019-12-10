@@ -6,9 +6,27 @@
 class Game
 {
    private:
-      int totalTime;
-   
-   public: 
+      int    maxSimTime;
+      int    numSectionsBeforeIntersection;
+      int    greenNS;
+      int    yellowNS;
+      int    greenEW;
+      int    yellowEW;
+      double probNewVehicleN;
+      double probNewVehicleS;
+      double probNewVehicleE;
+      double probNewVehicleW;
+      double proportionCars;
+      double proportionSUVs;
+      double proprtionTrucks;
+      double probRightCars;
+      double probRightSUVs;
+      double probRightTrucks;
+      double probLeftCars;
+      double probLeftSUVs;
+      double probLeftTrucks;
+
+   public:
 
       // Constructors
       Game();
