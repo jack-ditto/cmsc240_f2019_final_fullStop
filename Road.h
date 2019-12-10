@@ -12,14 +12,18 @@ class Road
 private:
 	vector<Tile *> road;	  // Store Tiles in road as pointer to tiles
 	vector<Vehicle> vehicles; // Store Vehicles on road
+	Tile *queueHead;		  // Stores pointer to last 'invisible' tile on the road
+	int roadLen;
 
 public:
 	Road();
-	Road(int num, Tile start, IntersectionTile a, IntersectionTile b);
+	Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2);
 	void addVehicle(Vehicle a)
 	{
 		vehicles.push_back(a);
 	}
+	Tile *getQueueHead();
+	vector<VehicleBase *> getRoadSnapshot();
 };
 
 #endif

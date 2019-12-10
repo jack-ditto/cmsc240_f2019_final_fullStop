@@ -6,12 +6,18 @@
 #include "VehicleBase.h"
 #include <iostream>
 
-Vehicle::Vehicle(Tile *tptr, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
 {
    this->hptr = hptr;
-   this->tptr = tptr;
+   this->tptr = hptr - this->length;
    this->setOccupiedTiles();
 }
+// Vehicle::Vehicle(Tile *tptr, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
+// {
+//    this->hptr = hptr;
+//    this->tptr = tptr;
+//    this->setOccupiedTiles();
+// }
 
 Vehicle::Vehicle(VehicleType type, Direction direction) : VehicleBase(type, direction)
 {
@@ -51,7 +57,7 @@ void Vehicle::setOccupiedTiles()
    Tile *currTile = this->tptr;
    while (currTile->getStraight() != this->hptr)
    {
-      currTile->setOccupied();
+      currTile->setOccupied(this);
 
       if (this->isTurningRight && currTile->getName() == "IntersectionTile")
       {

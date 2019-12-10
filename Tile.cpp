@@ -2,6 +2,7 @@
 #define __TILE_CPP__
 
 #include "Tile.h"
+#include "Vehicle.h";
 
 Tile::Tile()
 {
@@ -41,13 +42,15 @@ void Tile::setStraight(Tile &t)
     this->straight = &t;
 }
 
-void Tile::setOccupied()
+void Tile::setOccupied(Vehicle *occupyingVehicle)
 {
+    this->occupyingVehicle = occupyingVehicle;
     isEmpty = false;
 }
 
 void Tile::setUnoccupied()
 {
+    this->occupyingVehicle = nullptr;
     isEmpty = true;
 }
 

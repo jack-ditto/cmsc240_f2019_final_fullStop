@@ -28,6 +28,10 @@ private:
 
 public:
   Vehicle(Tile *hptr, Tile *tptr);
+
+  // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
+  Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr);
+
   Vehicle(VehicleType type, Direction originalDirection);
   ~Vehicle();
 
