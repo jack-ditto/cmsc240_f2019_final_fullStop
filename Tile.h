@@ -1,24 +1,25 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-#include<string>
+#include <string>
 
 class Tile
 {
 private:
 	bool isEmpty;
-	Tile* straight;
+	Tile *straight;
+	std::string name;
 
 public:
-   std::string name;
-   Tile();
-	Tile(Tile* n);
-	Tile(const Tile& other);
+	Tile();
+	Tile(Tile *n);
+	Tile(const Tile &other);
 	~Tile();
 
-	Tile* getNext();
+	Tile *getStraight();
 	bool isOccupied();
 	void setOccupied();
+	virtual std::string getName();
 };
 
 #endif

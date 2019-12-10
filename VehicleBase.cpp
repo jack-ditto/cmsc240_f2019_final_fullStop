@@ -6,16 +6,18 @@
 int VehicleBase::vehicleCount = 0;
 
 VehicleBase::VehicleBase(VehicleType type, Direction direction)
-    : vehicleID(VehicleBase::vehicleCount++), 
+    : vehicleID(VehicleBase::vehicleCount++),
       vehicleType(type),
       vehicleDirection(direction)
-{}
+{
+}
 
-VehicleBase::VehicleBase(const VehicleBase& other)
+VehicleBase::VehicleBase(const VehicleBase &other)
     : vehicleID(other.vehicleID),
       vehicleType(other.vehicleType),
       vehicleDirection(other.vehicleDirection)
-{}
+{
+}
 
 VehicleBase::~VehicleBase() {}
 

@@ -8,15 +8,15 @@
 TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
 {
   lightColor = light;
-  timeGreen  = green;
+  timeGreen = green;
   timeYellow = yellow;
-  timeRed    = red;
+  timeRed = red;
 
-  if(light == GREEN)
+  if (light == GREEN)
   {
     timeTilChange = timeGreen;
   }
-  else if(light == YELLOW)    //should never start yellow
+  else if (light == YELLOW) //should never start yellow
   {
     timeTilChange = timeYellow;
   }
@@ -27,7 +27,7 @@ TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
 }
 
 //Copy constructor
-TrafficLight::TrafficLight(const TrafficLight& other)
+TrafficLight::TrafficLight(const TrafficLight &other)
 {
   lightColor = other.lightColor;
   timeGreen = other.timeGreen;
@@ -37,7 +37,7 @@ TrafficLight::TrafficLight(const TrafficLight& other)
 }
 
 //Destructor
-TrafficLight::~TrafficLight(){}
+TrafficLight::~TrafficLight() {}
 
 Color TrafficLight::getColor()
 {
@@ -46,11 +46,11 @@ Color TrafficLight::getColor()
 
 Color TrafficLight::setColor(Color col)
 {
-  if(col == GREEN)
+  if (col == GREEN)
   {
     timeTilChange = timeGreen;
   }
-  else if(col == YELLOW)
+  else if (col == YELLOW)
   {
     timeTilChange = timeYellow;
   }
@@ -87,21 +87,21 @@ void TrafficLight::decrement()
 {
   timeTilChange--;
 
-  if(timeTilChange == 0)
+  if (timeTilChange == 0)
   {
-    if(lightColor == GREEN)
+    if (lightColor == GREEN)
     {
       lightColor = YELLOW;
       timeTilChange = timeYellow;
     }
 
-    else if(lightColor == YELLOW)
+    else if (lightColor == YELLOW)
     {
       lightColor = RED;
       timeTilChange = timeRed;
     }
 
-  else
+    else
     {
       lightColor = GREEN;
       timeTilChange = timeGreen;
