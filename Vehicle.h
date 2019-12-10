@@ -23,8 +23,10 @@ private:
 
   bool isTurningRight;
   int movesLeftInTurn;
+  void setOccupiedTiles();
 
 public:
+  Vehicle(Tile *hptr, Tile *tptr);
   Vehicle(VehicleType type, Direction originalDirection);
   ~Vehicle();
 
