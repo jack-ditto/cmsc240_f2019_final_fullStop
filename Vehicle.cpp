@@ -57,6 +57,25 @@ void Vehicle::setOccupiedTiles()
 }
 
 /**
+ *   Moves the vehicle forward regardless. This is a private method, and should only be called
+ *   from move() to avoid errors.
+ * 
+ */
+void Vehicle::moveForward()
+{
+   // Set the previous tile to unoccupied
+   this->tptr->setUnoccupied();
+   this->hptr->setUnoccupied();
+
+   // Move each pointer forward
+   this->hptr = this->hptr->getStraight();
+   this->tptr = this->tptr->getStraight();
+
+   // Set the tiles between head and tail to occupied (may remove later, not sure if nescessary here)
+   this->setOccupiedTiles();
+}
+
+/**
  *  Called for every 'click' of time. Moves the vehicle one Tile and handles turning 
  *  by calling external method when the Vehicle reaches an intersection. 
  *
@@ -64,88 +83,75 @@ void Vehicle::setOccupiedTiles()
 void Vehicle::move()
 {
 
-   this->tptr->setUnoccupied();
-   this->hptr->setUnoccupied();
+   Tile *next = this->hptr->getStraight();
+   bool turningRight = false; // Determine if we are turning here
 
-   this->hptr = this->hptr->getStraight();
-   this->tptr = this->tptr->getStraight();
+   // Check if next Tile 1) exists and 2) is unoccupied
+   if (next != NULL && !next->isOccupied())
+   {
+      // If we are turning right, let turnRight() handle the move logic
+      if (this->isTurningRight)
+      {
+         turnRight();
+         return;
+      }
 
-   this->setOccupiedTiles();
+      // If next is an IntersectionTile and we're turning right, set turningRight to true
+      if (next->getName() == "IntersectionTile" && turningRight)
+      {
+         // Logic for turning right
+         this->isTurningRight = true;
+         this->movesLeftInTurn = this->length - 1;
+      }
 
-   // Tile has not been implemented yet, so psuedocode so it will compile
-   //
-   //if this->isTurning:
-
-   //    turnRight();
-
-   // if (hptr->getStraight()->getName() == "IntersectionTile")
-   // {
-   //    IntersectionTile *nextTilePtr;
-   //    nextTilePtr = dynamic_cast<IntersectionTile *>(hptr->getStraight());
-
-   //if(nextTile.getLightNS())
-   //{
-   //
-   //}
+      // Move forward regardless
+      this->moveForward();
+   }
 }
-//
-//    check the light color (through method in the IntersectionTile)
-//
-//    decide whether or not to turn right
-//
-//    if the light is green:
-//
-//       if we are turning right:
-//
-//          this->isTurning = true;
-//          this->movesLeftInTurn = this->length+1; // for right turns, takes len+1 moves
-//          this->turnRight();
-//          return;
-//
-// this->hptr = (*hptr).next
-// this->tptr = (*tptr).next
-//
-//if(this->isTurningRight)
-//{
-//   this->turnRight();
-//}
-//else if(*hptr.next typeof
-//{
-
-//}
-// }
 
 /*
  *  When the Vehicle is turning, effectively takes the place of move(); should only be called
- *  by move()
+ *  by move(). Also, will be called when the head is already on the IntersectionTile
  *
  */
 void Vehicle::turnRight()
 {
-   // if movesLeftInTurn != 0:
-   //
-   //    // If the head is on an Itersection Tile, turn it right
-   //    if *(hptr) instanceof IntersectionTile:
-   //
-   //       this->hptr = *(hptr).right;
-   //
-   //    // If the tail is on an Intersection Tile, turn it right
-   //    else if *(tptr) instanceof IntersectionTile:
-   //
-   //       this->tptr = *(tptr).right;
-   //
-   //    // Handles move when head or tail are not on intersection tile
-   //    else:
-   //
-   //       this->hptr = (*hptr).next;
-   //       this->tptr = (*hptr).next;
-   //
-   //    movesLeftInTurn--;
-   //
-   // else:
-   //
-   //    this->isTurning = false;
-   //
+   if (this->movesLeftInTurn != 0)
+   {
+      // Set previous tiles to unoccupied
+      this->tptr->setUnoccupied();
+      this->hptr->setUnoccupied();
+
+      // TODO: may need to set all tiles in between head and tail to occupied
+      // (like in moveForward()), which would be some interesting logic
+
+      // If head is on IntersectionTile, turn the head right
+      if (this->hptr->getName() == "IntersectionTile")
+      {
+         // Downcast to IntersectionTile
+         IntersectionTile *headIntersectionTile = dynamic_cast<IntersectionTile *>(this->hptr);
+
+         // This is how this should look, but not yet implemented in IntersectionTile
+         // this->hptr = headIntersectionTile->getRight();
+      }
+      else if (this->tptr->getName() == "IntersectionTile")
+      {
+         // Downcast to IntersectionTile
+         IntersectionTile *tailIntersectionTile = dynamic_cast<IntersectionTile *>(this->tptr);
+
+         // This is how this should look, but not yet implemented in IntersectionTile
+         // this->hptr = tailIntersectionTile->getRight();
+      }
+      else
+      {
+         moveForward();
+      }
+      movesLeftInTurn--;
+   }
+   else
+   {
+      this->isTurningRight = false;
+   }
 }
 
 #endif
