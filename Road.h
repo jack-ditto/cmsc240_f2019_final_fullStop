@@ -10,12 +10,12 @@ using namespace std;
 class Road
 {
 private:
-	vector<Tile> road;
-	vector<vehicle> vehicles;
+	vector<Tile *> road;	  // Store Tiles in road as pointer to tiles
+	vector<Vehicle> vehicles; // Store Vehicles on road
 
 public:
 	Road();
-	Road(int num, Tile start, Intersection a, Intersection b);
+	Road(int num, Tile start, IntersectionTile a, IntersectionTile b);
 	void addVehicle(Vehicle a)
 	{
 		vehicles.push_back(a);
