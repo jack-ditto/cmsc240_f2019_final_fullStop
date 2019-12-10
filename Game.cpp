@@ -14,19 +14,23 @@ Game::Game(std::string filePath)
    // Do stuff to parse info from file in practice...
    std::cout << "Constructed using file!" << std::endl;
 
-   std::ifstream infile;
-   infile.open(fillePath);
+  /* std::ifstream infile;
+   infile.open(filePath);
 
    if(!infile.is_open())
    {
      std::cerr << "Error opening file: " << filePath << std::endl;
    }
 
+   std::string temp;
+   double d;
    int count = 0;
 
    while (infile.good())
    {
-     infile >> str;
+     infile >> temp;
+     infile >> d;
+     std::cout << temp << " " << d << std::endl;
      count++;
 
      if (infile.fail())
@@ -45,61 +49,61 @@ Game::Game(std::string filePath)
        switch (count)
        {
          case 1:
-            maxSimTime = str;
+            maxSimTime = static_cast<int>(d);
             break;
          case 2:
-            numSectionsBeforeIntersection = str;
+            numSectionsBeforeIntersection = static_cast<int>(d);
             break;
          case 3:
-            greenNS = str;
+            greenNS = static_cast<int>(d);
             break;
          case 4:
-            yellowNS = str;
+            yellowNS = static_cast<int>(d);
             break;
          case 5:
-            greenEW = str;
+            greenEW = static_cast<int>(d);
             break;
          case 6:
-            yellowEW = str;
+            yellowEW = static_cast<int>(d);
             break;
          case 7:
-            probNewVehicleN = str;
+            probNewVehicleN = d;
             break;
          case 8:
-            probNewVehicleS = str;
+            probNewVehicleS = d;
             break;
          case 9:
-            probNewVehicleE = str;
+            probNewVehicleE = d;
             break;
          case 10:
-            probNewVehicleW = str;
+            probNewVehicleW = d;
             break;
          case 11:
-            proportionCars = str;
+            proportionCars = d;
             break;
          case 12:
-            proportionSUVs = str;
+            proportionSUVs = d;
             break;
          case 13:
-            proprtionTrucks = str;
+            proprtionTrucks = d;
             break;
          case 14:
-            probRightCars = str;
+            probRightCars = d;
             break;
          case 15:
-            probRightSUVs = str;
+            probRightSUVs = d;
             break;
          case 16:
-            probRightTrucks = str;
+            probRightTrucks = d;
             break;
          case 17:
-            probLeftCars = str;
+            probLeftCars = d;
             break;
          case 18:
-            probLeftSUVs = str;
+            probLeftSUVs = d;
             break;
          case 19:
-            probLeftTrucks = str;
+            probLeftTrucks = d;
             break;
          default: // code to be executed if n doesn't match any cases
             std::cerr << "Error executing cases." << std::endl;
@@ -108,7 +112,7 @@ Game::Game(std::string filePath)
      }
    }
 
-   infile.close();
+   infile.close(); */
 
 }
 
