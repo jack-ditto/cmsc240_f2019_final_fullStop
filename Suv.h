@@ -11,6 +11,6 @@ class Suv : public Vehicle
     Suv(Direction direction, Tile *hptr);
     ~Suv();
 
-}
+};
 
 #endif
