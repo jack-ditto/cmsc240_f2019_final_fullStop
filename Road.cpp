@@ -2,6 +2,7 @@
 #define __ROAD_CPP__
 
 #include "Road.h"
+#include <iostream>
 
 Road::Road()
 {
@@ -14,17 +15,23 @@ Road::Road()
 Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2)
 {
 	this->roadLen = num * 2 + 2;
-
-	for (int i = 0; i < num + 4; i++)
+	Tile *prevTile = NULL;
+	for (int i = 0; i < roadLen + 4; i++)
 	{
-		Tile *t;
+		Tile *t = new Tile;
 
 		// Store queueHead
-		if (i == 4)
+		if (i == 0)
 		{
 			this->queueHead = t;
 		}
 
+		if (prevTile != NULL)
+		{
+			prevTile->setStraight(t);
+		}
+
+		prevTile = t;
 		this->road.push_back(t);
 	}
 
@@ -64,8 +71,8 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 
 vector<VehicleBase *> Road::getRoadSnapshot()
 {
-	// Maybe should be 0+4 if we don't want to show queue
-	Tile *currTile = this->road[0 + 4];
+
+	Tile *currTile = this->road[4];
 
 	vector<VehicleBase *> snapshot(roadLen, nullptr);
 
@@ -75,6 +82,8 @@ vector<VehicleBase *> Road::getRoadSnapshot()
 		{
 			snapshot[i] = currTile->getOccupyingVehicle();
 		}
+
+		currTile = currTile->getStraight();
 	}
 
 	return snapshot;
