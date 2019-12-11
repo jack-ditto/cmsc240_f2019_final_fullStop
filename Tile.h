@@ -20,11 +20,11 @@ public:
 	Tile(const Tile &other);
 	~Tile();
 
-	Tile *getStraight();
+	virtual Tile *getStraight();
 	bool isOccupied();
 	void setOccupied(VehicleBase *);
 	void setUnoccupied();
-	virtual void setStraight(Tile *t);
+	void setStraight(Tile *t);
 	VehicleBase *getOccupyingVehicle();
 	std::string getName();
 };

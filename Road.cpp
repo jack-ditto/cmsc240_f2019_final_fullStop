@@ -16,7 +16,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 {
 	this->roadLen = num * 2 + 2;
 	Tile *prevTile = NULL;
-	for (int i = 0; i < roadLen + 4; i++)
+	for (int i = 0; i < num + 4; i++)
 	{
 		Tile *t = new Tile;
 
@@ -38,35 +38,18 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	road.push_back(intersectionTile1);
 	road.push_back(intersectionTile2);
 
-	for (int i = 0; i < num; i++)
+	for (int i = 0; i < num + 4; i++)
 	{
-		Tile *t;
+		Tile *t = new Tile;
+
+		if (prevTile != NULL)
+		{
+			prevTile->setStraight(t);
+		}
+
+		prevTile = t;
 		this->road.push_back(t);
 	}
-
-	// for (int i = 0; i < 2 * num + 2; i++)
-	// {
-
-	// 	if (i == num + 1)
-	// 	{
-
-	// 		Road1.push_back(a);
-	// 	}
-
-	// 	else if (i == num + 2)
-	// 	{
-	// 		Road1.push_back(b);
-	// 	}
-
-	// 	else
-	// 	{
-	// 		Tile temp();
-
-	// 		Road1.push_back(temp);
-
-	// 		Road.push_back(temp);
-	// 	}
-	// }
 }
 
 vector<VehicleBase *> Road::getRoadSnapshot()
