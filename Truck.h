@@ -11,6 +11,6 @@ class Truck : public Vehicle
     Truck(Direction direction, Tile *hptr);
     ~Truck();
 
-}
+};
 
 #endif

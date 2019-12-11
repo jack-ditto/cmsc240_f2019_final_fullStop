@@ -11,21 +11,14 @@
  */
 Game::Game(std::string filePath)
 {
-   // Do stuff to parse info from file in practice...
    std::cout << "Constructed using file!" << std::endl;
 
-   if (argc != 2)
-     {
-       std::cerr << "Usage: " << argv[0] << " [input file]" << std::endl;
-       return 0;
-     }
-
         std::ifstream infile;
-        infile.open(argv[1]);
+        infile.open(filePath);
 
         if(!infile.is_open())
         {
-          std::cerr << "Error opening file: " << argv[1] << std::endl;
+          std::cerr << "Error opening file: " << filePath << std::endl;
         }
 
         int    maxSimTime;
