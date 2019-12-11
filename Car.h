@@ -8,7 +8,7 @@
 class Car : public Vehicle
 {
   public:
-    Car(Direction direction, Tile *hptr, int length);
+    Car(Direction direction, Tile *hptr);
     ~Car();
 
 }
