@@ -4,7 +4,6 @@
 #include "Car.h"
 #include "Tile.h"
 #include "Vehicle.h"
-#include "VehicleBase.h"
 #include <iostream>
 
 Car::Car(Direction direction, Tile *hptr) : Vehicle (VehicleType::car, direction, hptr, 2)
