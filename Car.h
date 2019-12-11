@@ -7,13 +7,12 @@
 
 class Car : public Vehicle
 {
+  private:
+    int length = 2;
 
-private:
-  int length = 2;
-
-public:
-  Car(Direction direction, Tile *hptr);
-  ~Car();
+  public:
+    Car(Direction direction, Tile *hptr);
+    ~Car();
 };
 
 #endif
