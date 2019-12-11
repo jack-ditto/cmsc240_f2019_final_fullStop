@@ -30,9 +30,9 @@ public:
   Vehicle(Tile *hptr, Tile *tptr);
 
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
-  Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr);
+  Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr, int length);
 
-  Vehicle(VehicleType type, Direction originalDirection);
+  Vehicle(VehicleType type, Direction originalDirection, int length); //Why do we have this constructor? -- Rachel
   ~Vehicle();
 
   int getLength();
