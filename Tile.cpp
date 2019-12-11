@@ -2,7 +2,7 @@
 #define __TILE_CPP__
 
 #include "Tile.h"
-#include "Vehicle.h";
+#include "Vehicle.h"
 
 Tile::Tile()
 {
