@@ -175,6 +175,7 @@ void Game::run()
    // TODO: Construct instance of animator here
 
    Animator animator(numSectionsBeforeIntersection);
+   
 
    int t = 0; // Counter for game
    while (t < this->maxSimTime)
