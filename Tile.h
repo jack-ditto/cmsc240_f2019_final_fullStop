@@ -8,9 +8,11 @@ class Tile
 {
 private:
 	bool isEmpty;
+	VehicleBase *occupyingVehicle;
+
+protected:
 	Tile *straight;
 	std::string name;
-	Vehicle *occupyingVehicle;
 
 public:
 	Tile();
@@ -20,11 +22,11 @@ public:
 
 	Tile *getStraight();
 	bool isOccupied();
-	void setOccupied(Vehicle *);
+	void setOccupied(VehicleBase *);
 	void setUnoccupied();
-	void setStraight(Tile &t);
-	virtual std::string getName();
-	Vehicle *getOccupyingVehicle();
+	virtual void setStraight(Tile *t);
+	VehicleBase *getOccupyingVehicle();
+	std::string getName();
 };
 
 #endif

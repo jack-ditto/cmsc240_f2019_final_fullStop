@@ -2,12 +2,11 @@
 #define __TILE_CPP__
 
 #include "Tile.h"
-#include "Vehicle.h";
+#include "Vehicle.h"
 
 Tile::Tile()
 {
     this->name = "Tile";
-    // delete straight;
     isEmpty = true;
 }
 
@@ -37,12 +36,12 @@ bool Tile::isOccupied()
     return !isEmpty;
 }
 
-void Tile::setStraight(Tile &t)
+void Tile::setStraight(Tile *t)
 {
-    this->straight = &t;
+    this->straight = t;
 }
 
-void Tile::setOccupied(Vehicle *occupyingVehicle)
+void Tile::setOccupied(VehicleBase *occupyingVehicle)
 {
     this->occupyingVehicle = occupyingVehicle;
     isEmpty = false;
@@ -57,6 +56,11 @@ void Tile::setUnoccupied()
 std::string Tile::getName()
 {
     return this->name;
+}
+
+VehicleBase *Tile::getOccupyingVehicle()
+{
+    return this->occupyingVehicle;
 }
 
 #endif
