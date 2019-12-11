@@ -10,9 +10,10 @@
 Vehicle::Vehicle() : VehicleBase(VehicleType::car, Direction::north) {}
 
 // Typical use constructor for Vehicle
-Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr) : VehicleBase(VehicleType::car, Direction::east)
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, Direction::east)
 {
-   this->length = 3;
+   this->length = vehicleLength;
+   this->willTurnRight = willTurnRight;
 
    this->tptr = tptr;
    this->hptr = tptr;
@@ -47,11 +48,6 @@ Tile *Vehicle::getHptr()
 Tile *Vehicle::getTptr()
 {
    return this->tptr;
-}
-
-Vehicle::Turn Vehicle::getTurn()
-{
-   return t;
 }
 
 void Vehicle::setOccupiedTiles()
@@ -102,7 +98,6 @@ void Vehicle::moveForward()
 void Vehicle::move()
 {
    Tile *next = this->hptr->getStraight();
-   bool turningRight = false; // Determine if we are turning here
 
    // Check if next Tile 1) exists and 2) is unoccupied
    if (next != nullptr && !next->isOccupied())
@@ -115,7 +110,7 @@ void Vehicle::move()
       }
 
       // If next is an IntersectionTile and we're turning right, set turningRight to true
-      if (next->getName() == "IntersectionTile" && turningRight)
+      if (next->getName() == "IntersectionTile" && this->willTurnRight)
       {
          // Logic for turning right
          this->isTurningRight = true;

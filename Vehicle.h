@@ -20,6 +20,7 @@ private:
   Tile *hptr;
   Tile *tptr;
   Turn t;
+  bool willTurnRight;
 
   bool isTurningRight;
   int movesLeftInTurn;
@@ -31,7 +32,7 @@ public:
   Vehicle();
 
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
-  Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr);
+  Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr, int vehicleLength, bool willTurnRight);
 
   Vehicle(VehicleType type, Direction originalDirection);
 
