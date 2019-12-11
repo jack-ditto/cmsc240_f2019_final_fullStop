@@ -6,7 +6,7 @@
 #include "Vehicle.h"
 #include <iostream>
 
-Suv::Suv(Direction direction, Tile *hptr) : Vehicle (VehicleType::suv, direction, hptr, 3)
+Suv::Suv(Direction direction, Tile *tptr) : Vehicle(VehicleType::suv, direction, tptr)
 {
 }
 

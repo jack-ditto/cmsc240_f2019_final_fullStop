@@ -7,10 +7,13 @@
 
 class Suv : public Vehicle
 {
-  public:
-    Suv(Direction direction, Tile *hptr);
-    ~Suv();
 
+private:
+  int length = 3;
+
+public:
+  Suv(Direction direction, Tile *hptr);
+  ~Suv();
 };
 
 #endif
