@@ -31,6 +31,7 @@ class Game
       // Constructors
       Game();
       Game(std::string filePath);
+      void generateVehicles();
 
       // Initial run method
       void run();
