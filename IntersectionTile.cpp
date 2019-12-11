@@ -5,21 +5,32 @@
 #include "IntersectionTile.h"
 #include "TrafficLight.h"
 
-IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew)
+// Removed to make it compile
+// IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew)
+// {
+//   turn = &t;
+//   straight = &s;
+//   northSouth = ns;
+//   eastWest = ew;
+// }
+
+IntersectionTile::IntersectionTile() : Tile()
 {
-  turn = &t;
-  straight = &s;
-  northSouth = ns;
-  eastWest = ew;
+  // Temporary default traffic lights
+  this->northSouth = TrafficLight(Color::GREEN, 0, 0, 0);
+  this->eastWest = TrafficLight(Color::GREEN, 0, 0, 0);
+
+  this->name = "IntersectionTile";
 }
 
-IntersectionTile::IntersectionTile(const IntersectionTile &other)
-{
-  turn = other.turn;
-  straight = other.straight;
-  northSouth = other.northSouth;
-  eastWest = other.eastWest;
-}
+// Removed to make it compile
+// IntersectionTile::IntersectionTile(const IntersectionTile &other)
+// {
+//   turn = other.turn;
+//   straight = other.straight;
+//   northSouth = other.northSouth;
+//   eastWest = other.eastWest;
+// }
 
 IntersectionTile::~IntersectionTile()
 {

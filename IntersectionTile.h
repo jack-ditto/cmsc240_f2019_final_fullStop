@@ -13,6 +13,7 @@ private:
   TrafficLight eastWest;
 
 public:
+  IntersectionTile();
   IntersectionTile(Tile n, Tile s, Tile e, Tile w);
   IntersectionTile(const IntersectionTile &other);
   ~IntersectionTile();
