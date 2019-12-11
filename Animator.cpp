@@ -18,14 +18,14 @@ std::string Animator::SECTION_BOUNDARY_EW = "";
 std::string Animator::EMPTY_SECTION = "";
 
 // see https://unix.stackexchange.com/questions/124407/what-color-codes-can-i-use-in-my-ps1-prompt
-const std::string Animator::COLOR_RED_FG    = "\033[1;31m";
-const std::string Animator::COLOR_GREEN_FG  = "\033[1;32m";
-const std::string Animator::COLOR_BLUE_FG   = "\033[1;34m";
-const std::string Animator::COLOR_RED_BG    = "\033[41m\033[1;37m";
-const std::string Animator::COLOR_GREEN_BG  = "\033[42m\033[1;37m";
-const std::string Animator::COLOR_BLUE_BG   = "\033[44m\033[1;37m";
+const std::string Animator::COLOR_RED_FG = "\033[1;31m";
+const std::string Animator::COLOR_GREEN_FG = "\033[1;32m";
+const std::string Animator::COLOR_BLUE_FG = "\033[1;34m";
+const std::string Animator::COLOR_RED_BG = "\033[41m\033[1;37m";
+const std::string Animator::COLOR_GREEN_BG = "\033[42m\033[1;37m";
+const std::string Animator::COLOR_BLUE_BG = "\033[44m\033[1;37m";
 const std::string Animator::COLOR_YELLOW_BG = "\033[43m\033[1;37m";
-const std::string Animator::COLOR_RESET     = "\033[0m";
+const std::string Animator::COLOR_RESET = "\033[0m";
 
 std::string Animator::GREEN_LIGHT = "";
 std::string Animator::YELLOW_LIGHT = "";
@@ -41,19 +41,18 @@ const std::string Animator::ERROR_MSG =
 Animator::Animator(int numSectionsBeforeIntersection)
 {
     // redo here in case the user set MAX_VEHCILE_COUNT differently
-    Animator::DIGITS_TO_DRAW = Animator::MAX_VEHICLE_COUNT <= 1 ? 
-        2 : static_cast<int>(log10(Animator::MAX_VEHICLE_COUNT)) + 1;
+    Animator::DIGITS_TO_DRAW = Animator::MAX_VEHICLE_COUNT <= 1 ? 2 : static_cast<int>(log10(Animator::MAX_VEHICLE_COUNT)) + 1;
     Animator::SECTION_BOUNDARY_EW = std::string(Animator::DIGITS_TO_DRAW, '-');
     Animator::EMPTY_SECTION = std::string(Animator::DIGITS_TO_DRAW, ' ');
 
     // these will use the redone DIGITS TO DRAW above
-    Animator::GREEN_LIGHT  = createLight(LightColor::green);
+    Animator::GREEN_LIGHT = createLight(LightColor::green);
     Animator::YELLOW_LIGHT = createLight(LightColor::yellow);
-    Animator::RED_LIGHT    = createLight(LightColor::red);
+    Animator::RED_LIGHT = createLight(LightColor::red);
 
     numSectionsBefore = numSectionsBeforeIntersection;
 
-    // each lane will be twice the number of sections provided (before and 
+    // each lane will be twice the number of sections provided (before and
     // after the intersection) plus the two intersection sections
     eastToWest.resize(numSectionsBefore * 2 + 2);
     westToEast.resize(numSectionsBefore * 2 + 2);
@@ -78,9 +77,12 @@ std::string Animator::createLight(LightColor color)
 {
     std::string light = "";
 
-    if (color == LightColor::green)  light += Animator::COLOR_GREEN_BG;
-    if (color == LightColor::yellow) light += Animator::COLOR_YELLOW_BG;
-    if (color == LightColor::red)    light += Animator::COLOR_RED_BG;
+    if (color == LightColor::green)
+        light += Animator::COLOR_GREEN_BG;
+    if (color == LightColor::yellow)
+        light += Animator::COLOR_YELLOW_BG;
+    if (color == LightColor::red)
+        light += Animator::COLOR_RED_BG;
 
     light += std::string(2, ' ') + Animator::COLOR_RESET;
 
@@ -95,16 +97,17 @@ void Animator::draw(int time)
     // ensure all four setVehicles* methods have been called prior
     std::vector<bool>::iterator it = vehiclesAreSet.begin();
     for (; it != vehiclesAreSet.end(); it++)
-        if (*it == false) throw std::runtime_error(Animator::ERROR_MSG.c_str());
+        if (*it == false)
+            throw std::runtime_error(Animator::ERROR_MSG.c_str());
 
-    std::cout << "\x1B[2J\x1B[H";  // clears the screen
+    std::cout << "\x1B[2J\x1B[H"; // clears the screen
 
     drawNorthPortion(time);
     drawWestbound();
     drawEastbound();
     drawSouthPortion();
 
-    // reset the values (to false) in the boolean vector, indicating that the 
+    // reset the values (to false) in the boolean vector, indicating that the
     // user must set the vehicles in each of the four directions using the
     // setVehicles* functions
     vehiclesAreSet.clear();
@@ -114,23 +117,23 @@ void Animator::draw(int time)
 //======================================================================
 //* std::string getVehicleColor(VehicleBase* vptr)
 //======================================================================
-std::string Animator::getVehicleColor(VehicleBase* vptr)
+std::string Animator::getVehicleColor(VehicleBase *vptr)
 {
     Direction dir = vptr->getVehicleOriginalDirection();
     switch (vptr->getVehicleType())
     {
-        case VehicleType::car: 
-            if (dir == Direction::east || dir == Direction::west)
-                return Animator::COLOR_RED_BG;
-            return Animator::COLOR_RED_FG;
-        case VehicleType::suv:
-            if (dir == Direction::east || dir == Direction::west)
-                return Animator::COLOR_BLUE_BG;
-            return Animator::COLOR_BLUE_FG;
-        case VehicleType::truck:
-            if (dir == Direction::east || dir == Direction::west)
-                return Animator::COLOR_GREEN_BG;
-            return Animator::COLOR_GREEN_FG;
+    case VehicleType::car:
+        if (dir == Direction::east || dir == Direction::west)
+            return Animator::COLOR_RED_BG;
+        return Animator::COLOR_RED_FG;
+    case VehicleType::suv:
+        if (dir == Direction::east || dir == Direction::west)
+            return Animator::COLOR_BLUE_BG;
+        return Animator::COLOR_BLUE_FG;
+    case VehicleType::truck:
+        if (dir == Direction::east || dir == Direction::west)
+            return Animator::COLOR_GREEN_BG;
+        return Animator::COLOR_GREEN_FG;
     }
     return Animator::COLOR_RESET;
 }
@@ -145,31 +148,33 @@ std::string Animator::getTrafficLight(Direction direction)
         color = northSouthLightColor;
 
     std::string light = "";
-    
+
     // when odd DIGITS_TO_DRAW, want the extra padding on left of lights
     // for the southbound and eastbound traffice
     if (direction == Direction::south || direction == Direction::east)
-        light += Animator::DIGITS_TO_DRAW % 2 == 0 ?
-            std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ') :
-            std::string((Animator::DIGITS_TO_DRAW - 1) / 2, ' ');
+        light += Animator::DIGITS_TO_DRAW % 2 == 0 ? std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ') : std::string((Animator::DIGITS_TO_DRAW - 1) / 2, ' ');
     else
         light += std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ');
 
     switch (color)
     {
-        case LightColor::green:  light += Animator::GREEN_LIGHT;  break;
-        case LightColor::yellow: light += Animator::YELLOW_LIGHT; break;
-        case LightColor::red:    light += Animator::RED_LIGHT;    break;
+    case LightColor::green:
+        light += Animator::GREEN_LIGHT;
+        break;
+    case LightColor::yellow:
+        light += Animator::YELLOW_LIGHT;
+        break;
+    case LightColor::red:
+        light += Animator::RED_LIGHT;
+        break;
     }
-    
+
     // when odd DIGITS_TO_DRAW, want the extra padding on right of lights
     // for the northbound and westbound traffice
     if (direction == Direction::south || direction == Direction::east)
         light += std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ');
     else
-        light += Animator::DIGITS_TO_DRAW % 2 == 0 ?
-            std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ') :
-            std::string((Animator::DIGITS_TO_DRAW - 1) / 2, ' ');
+        light += Animator::DIGITS_TO_DRAW % 2 == 0 ? std::string((Animator::DIGITS_TO_DRAW - 2) / 2, ' ') : std::string((Animator::DIGITS_TO_DRAW - 1) / 2, ' ');
 
     return light;
 }
@@ -182,16 +187,16 @@ void Animator::drawNorthPortion(int time)
     for (int s = 0; s < numSectionsBefore; s++)
     {
         // draw empty spaces to account for E/W lanes to left of intersection
-        for (int i = 0; i < numSectionsBefore; i++) 
+        for (int i = 0; i < numSectionsBefore; i++)
             if (s == numSectionsBefore - 1 && i == s)
-                std::cout << (i > 0 ? " " : "") 
+                std::cout << (i > 0 ? " " : "")
                           << getTrafficLight(Direction::south); // or north
             else
                 std::cout << (i > 0 ? " " : "") << Animator::EMPTY_SECTION;
 
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
-        // either draw (a portion of) southbound vehicle if present, 
+        // either draw (a portion of) southbound vehicle if present,
         // or an empty section
         if (northToSouth[s] == nullptr)
             std::cout << Animator::EMPTY_SECTION;
@@ -203,7 +208,7 @@ void Animator::drawNorthPortion(int time)
 
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
-        // either draw (a portion of) northbound vehicle if present, 
+        // either draw (a portion of) northbound vehicle if present,
         // or an empty section
         int section = southToNorth.size() - s - 1;
         if (southToNorth[section] == nullptr)
@@ -217,27 +222,28 @@ void Animator::drawNorthPortion(int time)
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
         if (s == numSectionsBefore - 1)
-            std::cout << getTrafficLight(Direction::west);  // or east
+            std::cout << getTrafficLight(Direction::west); // or east
 
         std::cout << std::endl;
 
-        if (s < numSectionsBefore - 1)  // last will be drawn by westbound method
+        if (s < numSectionsBefore - 1) // last will be drawn by westbound method
         {
             // draw empty spaces to account for E/W lanes to left of intersection
-            for (int i = 0; i < numSectionsBefore; i++) 
+            for (int i = 0; i < numSectionsBefore; i++)
                 std::cout << (i > 0 ? " " : "") << Animator::EMPTY_SECTION;
             std::cout << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW
-                      << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW 
+                      << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW
                       << Animator::SECTION_BOUNDARY_NS;
         }
 
         // draw the time halfway down, on right
-        if (s == numSectionsBefore / 2) 
-            std::cout << std::setfill(' ') 
-                << std::setw((numSectionsBefore / 2) * Animator::DIGITS_TO_DRAW)
-                << "time: " << time;
+        if (s == numSectionsBefore / 2)
+            std::cout << std::setfill(' ')
+                      << std::setw((numSectionsBefore / 2) * Animator::DIGITS_TO_DRAW)
+                      << "time: " << time;
 
-        if (s < numSectionsBefore - 1) std::cout << std::endl;
+        if (s < numSectionsBefore - 1)
+            std::cout << std::endl;
     }
 }
 
@@ -247,8 +253,8 @@ void Animator::drawNorthPortion(int time)
 void Animator::drawEastWestBoundary()
 {
     for (int s = 0; s < numSectionsBefore; s++)
-        std::cout << Animator::SECTION_BOUNDARY_EW 
-            << (s == numSectionsBefore-1 ? Animator::SECTION_BOUNDARY_NS : " ");
+        std::cout << Animator::SECTION_BOUNDARY_EW
+                  << (s == numSectionsBefore - 1 ? Animator::SECTION_BOUNDARY_NS : " ");
     std::cout << Animator::SECTION_BOUNDARY_EW << Animator::SECTION_BOUNDARY_NS;
     std::cout << Animator::SECTION_BOUNDARY_EW << Animator::SECTION_BOUNDARY_NS;
     for (int s = 0; s < numSectionsBefore; s++)
@@ -278,8 +284,7 @@ void Animator::drawEastbound()
 
     // now handle the intersection; the first spot in the west to east lane
     // could be occupied by a vehicle in the W2E lane or in the N2S lane
-    VehicleBase* vptr = (westToEast[numSectionsBefore] != nullptr ?
-            westToEast[numSectionsBefore] : northToSouth[numSectionsBefore + 1]);
+    VehicleBase *vptr = (westToEast[numSectionsBefore] != nullptr ? westToEast[numSectionsBefore] : northToSouth[numSectionsBefore + 1]);
     if (vptr == nullptr)
         std::cout << Animator::EMPTY_SECTION << "|";
     else
@@ -290,8 +295,7 @@ void Animator::drawEastbound()
 
     // and the second spot in the west to east lane could be occupied by a
     // vehicle in the W2E lane or in the S2N lane
-    vptr = (westToEast[numSectionsBefore + 1] != nullptr ?
-            westToEast[numSectionsBefore + 1] : southToNorth[numSectionsBefore]);
+    vptr = (westToEast[numSectionsBefore + 1] != nullptr ? westToEast[numSectionsBefore + 1] : southToNorth[numSectionsBefore]);
     if (vptr == nullptr)
         std::cout << Animator::EMPTY_SECTION << "|";
     else
@@ -311,7 +315,7 @@ void Animator::drawEastbound()
                       << std::setfill('0') << std::setw(Animator::DIGITS_TO_DRAW)
                       << westToEast[section]->getVehicleID()
                       << Animator::COLOR_RESET;
-        std::cout << (s < static_cast<int>(westToEast.size()) - 1 ? "|" :  "");
+        std::cout << (s < static_cast<int>(westToEast.size()) - 1 ? "|" : "");
     }
     std::cout << std::endl;
 
@@ -342,8 +346,7 @@ void Animator::drawWestbound()
     // now handle the intersection; the first spot encountered L to R in the
     // east to west lane could be occupied by a vehicle in the E2W lane or in
     // the N2S lane
-    VehicleBase* vptr = (eastToWest[numSectionsBefore + 1] != nullptr ?
-            eastToWest[numSectionsBefore + 1] : northToSouth[numSectionsBefore]);
+    VehicleBase *vptr = (eastToWest[numSectionsBefore + 1] != nullptr ? eastToWest[numSectionsBefore + 1] : northToSouth[numSectionsBefore]);
     if (vptr == nullptr)
         std::cout << Animator::EMPTY_SECTION << "|";
     else
@@ -354,8 +357,7 @@ void Animator::drawWestbound()
 
     // and the second spot encountered L to R in the east to west lane could be
     // occupied by a vehicle in the E2W lane or in the S2N lane
-    vptr = (eastToWest[numSectionsBefore] != nullptr ?
-            eastToWest[numSectionsBefore] : southToNorth[numSectionsBefore + 1]);
+    vptr = (eastToWest[numSectionsBefore] != nullptr ? eastToWest[numSectionsBefore] : southToNorth[numSectionsBefore + 1]);
     if (vptr == nullptr)
         std::cout << Animator::EMPTY_SECTION << "|";
     else
@@ -376,10 +378,9 @@ void Animator::drawWestbound()
                       << std::setfill('0') << std::setw(Animator::DIGITS_TO_DRAW)
                       << eastToWest[section]->getVehicleID()
                       << Animator::COLOR_RESET;
-        std::cout << (s < static_cast<int>(eastToWest.size()) - 1 ? "|" :  "");
+        std::cout << (s < static_cast<int>(eastToWest.size()) - 1 ? "|" : "");
     }
     std::cout << std::endl;
-
 }
 
 //======================================================================
@@ -390,17 +391,16 @@ void Animator::drawSouthPortion()
     for (int s = 0; s < numSectionsBefore; s++)
     {
         // draw empty spaces to account for E/W lanes to left of intersection
-        for (int i = 0; i < numSectionsBefore; i++) 
+        for (int i = 0; i < numSectionsBefore; i++)
             if (s == 0 && i == numSectionsBefore - 1)
-                std::cout << (i > 0 ? " " : "") 
+                std::cout << (i > 0 ? " " : "")
                           << getTrafficLight(Direction::east); // or west
             else
                 std::cout << (i > 0 ? " " : "") << Animator::EMPTY_SECTION;
 
-
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
-        // either draw (a portion of) southbound vehicle if present, 
+        // either draw (a portion of) southbound vehicle if present,
         // or an empty section
         int section = numSectionsBefore + s + 2;
         if (northToSouth[section] == nullptr)
@@ -413,7 +413,7 @@ void Animator::drawSouthPortion()
 
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
-        // either draw (a portion of) northbound vehicle if present, 
+        // either draw (a portion of) northbound vehicle if present,
         // or an empty section
         section = numSectionsBefore - s - 1;
         if (southToNorth[section] == nullptr)
@@ -427,20 +427,19 @@ void Animator::drawSouthPortion()
         std::cout << Animator::SECTION_BOUNDARY_NS;
 
         if (s == 0)
-            std::cout << getTrafficLight(Direction::north);  // or south
-            
+            std::cout << getTrafficLight(Direction::north); // or south
+
         std::cout << std::endl;
 
-        if (s < numSectionsBefore - 1)  // no need to draw last section spacer
+        if (s < numSectionsBefore - 1) // no need to draw last section spacer
         {
             // draw empty spaces to account for E/W lanes to left of intersection
-            for (int i = 0; i < numSectionsBefore; i++) 
+            for (int i = 0; i < numSectionsBefore; i++)
                 std::cout << (i > 0 ? " " : "") << Animator::EMPTY_SECTION;
             std::cout << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW
-                      << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW 
+                      << Animator::SECTION_BOUNDARY_NS << Animator::SECTION_BOUNDARY_EW
                       << Animator::SECTION_BOUNDARY_NS << std::endl;
         }
-
     }
 }
 
