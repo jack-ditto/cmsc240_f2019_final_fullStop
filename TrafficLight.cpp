@@ -4,6 +4,27 @@
 #include <iostream>
 #include "TrafficLight.h"
 
+TrafficLight::TrafficLight()
+{
+  lightColor = Color::RED;
+  timeGreen = 0;
+  timeYellow = 0;
+  timeRed = 0;
+
+  if (lightColor == GREEN)
+  {
+    timeTilChange = timeGreen;
+  }
+  else if (lightColor == YELLOW) //should never start yellow
+  {
+    timeTilChange = timeYellow;
+  }
+  else
+  {
+    timeTilChange = timeRed;
+  }
+}
+
 //Typical Use Constructor
 TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
 {

@@ -1,6 +1,5 @@
 #ifndef __TRAFFICLIGHT_H__
 #define __TRAFFICLIGHT_H__
-
 enum Color
 {
 	GREEN,
@@ -18,6 +17,7 @@ private:
 	int timeTilChange;
 
 public:
+	TrafficLight();
 	TrafficLight(Color light, int green, int yellow, int red);
 	TrafficLight(const TrafficLight &other);
 	~TrafficLight();
