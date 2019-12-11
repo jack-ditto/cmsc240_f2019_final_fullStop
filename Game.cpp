@@ -1,8 +1,9 @@
 #ifndef __GAME_CPP__
 #define __GAME_CPP__
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include "Animator.h"
 #include "Game.h"
 #include "string"
 
@@ -172,6 +173,8 @@ void Game::run()
    std::cout << "The game is running..." << std::endl;
 
    // TODO: Construct instance of animator here
+
+   Animator animator(numSectionsBeforeIntersection);
 
    int t = 0; // Counter for game
    while (t < this->maxSimTime)
