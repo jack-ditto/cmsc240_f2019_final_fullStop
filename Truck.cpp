@@ -6,7 +6,7 @@
 #include "Vehicle.h"
 #include <iostream>
 
-Truck::Truck(Direction direction, Tile *tptr) : Vehicle(VehicleType::truck, direction, tptr)
+Truck::Truck(Direction direction, Tile *tptr, bool willTurnRight) : Vehicle(VehicleType::truck, direction, tptr, 4, willTurnRight)
 {
 }
 

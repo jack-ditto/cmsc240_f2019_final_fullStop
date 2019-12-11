@@ -18,6 +18,7 @@ public:
   IntersectionTile(const IntersectionTile &other);
   ~IntersectionTile();
 
+  
   Tile getTurn();
   Color getLightNS();
   Color getLightEW(); //to set up for traffic light enum color
