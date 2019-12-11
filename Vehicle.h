@@ -1,8 +1,8 @@
 #ifndef __VEHICLE_H__
 #define __VEHICLE_H__
 
-#include "Tile.h"
 #include "VehicleBase.h"
+#include "Tile.h"
 
 class Vehicle : public VehicleBase
 {
@@ -27,12 +27,15 @@ private:
   void moveForward();
 
 public:
-  Vehicle(Tile *hptr, Tile *tptr);
+  // Default constructor
+  Vehicle();
 
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
-  Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr);
+  Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr);
 
   Vehicle(VehicleType type, Direction originalDirection);
+
+  // Destructor
   ~Vehicle();
 
   int getLength();

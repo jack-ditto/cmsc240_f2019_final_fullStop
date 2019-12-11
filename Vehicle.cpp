@@ -2,25 +2,27 @@
 #define __VEHICLE_CPP__
 
 #include "Vehicle.h"
-#include "IntersectionTile.h"
 #include "VehicleBase.h"
 #include <iostream>
+#include "IntersectionTile.h"
 
-Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
+// Default constructor for Vehicle
+Vehicle::Vehicle() : VehicleBase(VehicleType::car, Direction::north) {}
+
+// Typical use constructor for Vehicle
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr) : VehicleBase(VehicleType::car, Direction::east)
 {
-   this->hptr = hptr;
-   this->tptr = hptr - this->length;
+   this->length = 3;
+
+   this->tptr = tptr;
+   this->hptr = tptr;
+
+   for (int i = 0; i < this->length - 1; i++)
+   {
+      this->hptr = this->hptr->getStraight();
+   }
+
    this->setOccupiedTiles();
-}
-// Vehicle::Vehicle(Tile *tptr, Tile *hptr) : VehicleBase(VehicleType::car, Direction::east)
-// {
-//    this->hptr = hptr;
-//    this->tptr = tptr;
-//    this->setOccupiedTiles();
-// }
-
-Vehicle::Vehicle(VehicleType type, Direction direction) : VehicleBase(type, direction)
-{
 }
 
 Vehicle::~Vehicle()
@@ -54,11 +56,11 @@ Vehicle::Turn Vehicle::getTurn()
 
 void Vehicle::setOccupiedTiles()
 {
-   Tile *currTile = this->tptr;
-   while (currTile->getStraight() != this->hptr)
-   {
-      currTile->setOccupied(this);
+   this->hptr->setOccupied(this);
 
+   Tile *currTile = this->tptr;
+   while (currTile != this->hptr)
+   {
       if (this->isTurningRight && currTile->getName() == "IntersectionTile")
       {
          // This is how this should look, but not yet implemented in IntersecitonTile
@@ -67,6 +69,7 @@ void Vehicle::setOccupiedTiles()
       }
       else
       {
+         currTile->setOccupied(this);
          currTile = currTile->getStraight();
       }
    }
@@ -98,12 +101,11 @@ void Vehicle::moveForward()
  */
 void Vehicle::move()
 {
-
    Tile *next = this->hptr->getStraight();
    bool turningRight = false; // Determine if we are turning here
 
    // Check if next Tile 1) exists and 2) is unoccupied
-   if (next != NULL && !next->isOccupied())
+   if (next != nullptr && !next->isOccupied())
    {
       // If we are turning right, let turnRight() handle the move logic
       if (this->isTurningRight)
