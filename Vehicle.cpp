@@ -78,7 +78,7 @@ void Vehicle::setOccupiedTiles()
 /**
  *   Moves the vehicle forward regardless. This is a private method, and should only be called
  *   from move() to avoid errors.
- * 
+ *
  */
 void Vehicle::moveForward()
 {
@@ -95,8 +95,8 @@ void Vehicle::moveForward()
 }
 
 /**
- *  Called for every 'click' of time. Moves the vehicle one Tile and handles turning 
- *  by calling external method when the Vehicle reaches an intersection. 
+ *  Called for every 'click' of time. Moves the vehicle one Tile and handles turning
+ *  by calling external method when the Vehicle reaches an intersection.
  *
  */
 void Vehicle::move()
