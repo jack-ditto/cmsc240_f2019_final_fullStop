@@ -5,15 +5,6 @@
 #include "IntersectionTile.h"
 #include "TrafficLight.h"
 
-// Removed to make it compile
-// IntersectionTile::IntersectionTile(Tile t, TrafficLight ns, TrafficLight ew)
-// {
-//   turn = &t;
-//   straight = &s;
-//   northSouth = ns;
-//   eastWest = ew;
-// }
-
 IntersectionTile::IntersectionTile() : Tile()
 {
   // Temporary default traffic lights
@@ -22,15 +13,6 @@ IntersectionTile::IntersectionTile() : Tile()
 
   this->name = "IntersectionTile";
 }
-
-// Removed to make it compile
-// IntersectionTile::IntersectionTile(const IntersectionTile &other)
-// {
-//   turn = other.turn;
-//   straight = other.straight;
-//   northSouth = other.northSouth;
-//   eastWest = other.eastWest;
-// }
 
 IntersectionTile::~IntersectionTile()
 {
@@ -50,10 +32,5 @@ Color IntersectionTile::getLightEW()
 {
   return eastWest.getColor();
 }
-
-// int main()
-// {
-//   IntersectionTile inter;
-// }
 
 #endif
