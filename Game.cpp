@@ -14,105 +14,149 @@ Game::Game(std::string filePath)
    // Do stuff to parse info from file in practice...
    std::cout << "Constructed using file!" << std::endl;
 
-  /* std::ifstream infile;
-   infile.open(filePath);
-
-   if(!infile.is_open())
-   {
-     std::cerr << "Error opening file: " << filePath << std::endl;
-   }
-
-   std::string temp;
-   double d;
-   int count = 0;
-
-   while (infile.good())
-   {
-     infile >> temp;
-     infile >> d;
-     std::cout << temp << " " << d << std::endl;
-     count++;
-
-     if (infile.fail())
+   if (argc != 2)
      {
-       if (infile.eof())
-       {
-         break;
-       }
-       else
-       {
-           std::cerr << "Error reading the input." << std::endl;
-       }
+       std::cerr << "Usage: " << argv[0] << " [input file]" << std::endl;
+       return 0;
      }
-     else
-     {
-       switch (count)
-       {
-         case 1:
-            maxSimTime = static_cast<int>(d);
-            break;
-         case 2:
-            numSectionsBeforeIntersection = static_cast<int>(d);
-            break;
-         case 3:
-            greenNS = static_cast<int>(d);
-            break;
-         case 4:
-            yellowNS = static_cast<int>(d);
-            break;
-         case 5:
-            greenEW = static_cast<int>(d);
-            break;
-         case 6:
-            yellowEW = static_cast<int>(d);
-            break;
-         case 7:
-            probNewVehicleN = d;
-            break;
-         case 8:
-            probNewVehicleS = d;
-            break;
-         case 9:
-            probNewVehicleE = d;
-            break;
-         case 10:
-            probNewVehicleW = d;
-            break;
-         case 11:
-            proportionCars = d;
-            break;
-         case 12:
-            proportionSUVs = d;
-            break;
-         case 13:
-            proprtionTrucks = d;
-            break;
-         case 14:
-            probRightCars = d;
-            break;
-         case 15:
-            probRightSUVs = d;
-            break;
-         case 16:
-            probRightTrucks = d;
-            break;
-         case 17:
-            probLeftCars = d;
-            break;
-         case 18:
-            probLeftSUVs = d;
-            break;
-         case 19:
-            probLeftTrucks = d;
-            break;
-         default: // code to be executed if n doesn't match any cases
-            std::cerr << "Error executing cases." << std::endl;
-            break;
-       }
-     }
-   }
 
-   infile.close(); */
+        std::ifstream infile;
+        infile.open(argv[1]);
+
+        if(!infile.is_open())
+        {
+          std::cerr << "Error opening file: " << argv[1] << std::endl;
+        }
+
+        int    maxSimTime;
+        int    numSectionsBeforeIntersection;
+        int    greenNS;
+        int    yellowNS;
+        int    greenEW;
+        int    yellowEW;
+        double probNewVehicleN;
+        double probNewVehicleS;
+        double probNewVehicleE;
+        double probNewVehicleW;
+        double proportionCars;
+        double proportionSUVs;
+        double proprtionTrucks;
+        double probRightCars;
+        double probRightSUVs;
+        double probRightTrucks;
+        double probLeftCars;
+        double probLeftSUVs;
+        double probLeftTrucks;
+
+        std::string temp;
+        double d;
+        int count = 0;
+
+        while (infile.good())
+        {
+          infile >> temp;
+          infile >> d;
+          count++;
+
+          if (infile.fail())
+          {
+            if (infile.eof())
+            {
+              break;
+            }
+            else
+            {
+                std::cerr << "Error reading the input." << std::endl;
+            }
+          }
+          else
+          {
+            switch (count)
+            {
+              case 1:
+                 maxSimTime = static_cast<int>(d);
+                 std::cout << maxSimTime << std::endl;
+                 break;
+              case 2:
+                 numSectionsBeforeIntersection = static_cast<int>(d);
+                 std::cout << numSectionsBeforeIntersection << std::endl;
+                 break;
+              case 3:
+                 greenNS = static_cast<int>(d);
+                 std::cout << greenNS << std::endl;
+                 break;
+              case 4:
+                 yellowNS = static_cast<int>(d);
+                 std::cout << yellowNS << std::endl;
+                 break;
+              case 5:
+                 greenEW = static_cast<int>(d);
+                 std::cout << greenEW << std::endl;
+                 break;
+              case 6:
+                 yellowEW = static_cast<int>(d);
+                 std::cout << yellowEW << std::endl;
+                 break;
+              case 7:
+                 probNewVehicleN = d;
+                 std::cout << probNewVehicleN << std::endl;
+                 break;
+              case 8:
+                 probNewVehicleS = d;
+                 std::cout << probNewVehicleS << std::endl;
+                 break;
+              case 9:
+                 probNewVehicleE = d;
+                 std::cout << probNewVehicleE << std::endl;
+                 break;
+              case 10:
+                 probNewVehicleW = d;
+                 std::cout << probNewVehicleW << std::endl;
+                 break;
+              case 11:
+                 proportionCars = d;
+                 std::cout << proportionCars << std::endl;
+                 break;
+              case 12:
+                 proportionSUVs = d;
+                 std::cout << proportionSUVs << std::endl;
+                 break;
+              case 13:
+                 proprtionTrucks = d;
+                 std::cout << proprtionTrucks << std::endl;
+                 break;
+              case 14:
+                 probRightCars = d;
+                 std::cout << probRightCars << std::endl;
+                 break;
+              case 15:
+                 probRightSUVs = d;
+                 std::cout << probRightSUVs << std::endl;
+                 break;
+              case 16:
+                 probRightTrucks = d;
+                 std::cout << probRightTrucks << std::endl;
+                 break;
+              case 17:
+                 probLeftCars = d;
+                 std::cout << probLeftCars << std::endl;
+                 break;
+              case 18:
+                 probLeftSUVs = d;
+                 std::cout << probLeftSUVs << std::endl;
+                 break;
+              case 19:
+                 probLeftTrucks = d;
+                 std::cout << probLeftTrucks << std::endl;
+                 break;
+              default: // code to be executed if n doesn't match any cases
+                 std::cerr << "Error executing cases." << std::endl;
+                 break;
+            }
+          }
+        }
+
+   infile.close();
 
 }
 
