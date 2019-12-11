@@ -2,7 +2,7 @@
 #define __TILE_H__
 
 #include <string>
-#include "Vehicle.h"
+#include "VehicleBase.h"
 
 class Tile
 {
