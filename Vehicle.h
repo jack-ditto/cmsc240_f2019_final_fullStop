@@ -26,6 +26,7 @@ private:
   int movesLeftInTurn;
   void setOccupiedTiles();
   void moveForward();
+  Direction currDirection;
 
 public:
   // Default constructor
@@ -40,6 +41,8 @@ public:
   ~Vehicle();
 
   int getLength();
+  Direction getCurrDirection();
+  void setCurrDirection(Direction direction);
   int getID();
   Tile *getHptr();
   Tile *getTptr();

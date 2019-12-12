@@ -10,7 +10,7 @@
 Vehicle::Vehicle() : VehicleBase(VehicleType::car, Direction::north) {}
 
 // Typical use constructor for Vehicle
-Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, Direction::east)
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
 {
    this->length = vehicleLength;
    this->willTurnRight = willTurnRight;
@@ -52,20 +52,24 @@ Tile *Vehicle::getTptr()
 
 void Vehicle::setOccupiedTiles()
 {
+   // Set the Tile where head is to occupied
    this->hptr->setOccupied(this);
 
+   // Start from tail, setting all Tiles in between to occupied
    Tile *currTile = this->tptr;
    while (currTile != this->hptr)
    {
+      // Set the tile to occupied
+      currTile->setOccupied(this);
+
+      // Check the current tile is an IntersectionTile to account for turns
       if (this->isTurningRight && currTile->getName() == "IntersectionTile")
       {
-         // This is how this should look, but not yet implemented in IntersecitonTile
-         // Also, may need to downcast currTile to get getRight() method access
-         // currTile = currTile->getRight();
+         currTile = dynamic_cast<IntersectionTile *>(currTile)->getRight();
       }
+      // If the next is not IntersectionTile, keep going straight
       else
       {
-         currTile->setOccupied(this);
          currTile = currTile->getStraight();
       }
    }
@@ -79,14 +83,18 @@ void Vehicle::setOccupiedTiles()
 void Vehicle::moveForward()
 {
    // Set the previous tile to unoccupied
-   this->tptr->setUnoccupied();
-   this->hptr->setUnoccupied();
+   Tile *prevt = this->tptr;
+   Tile *prevh = this->hptr;
 
    // Move each pointer forward
    this->hptr = this->hptr->getStraight();
    this->tptr = this->tptr->getStraight();
 
-   // Set the tiles between head and tail to occupied (may remove later, not sure if nescessary here)
+   // Unassign last position
+   prevh->setUnoccupied();
+   prevt->setUnoccupied();
+
+   // Set the tiles between head and tail to occupied
    this->setOccupiedTiles();
 }
 
@@ -97,27 +105,29 @@ void Vehicle::moveForward()
  */
 void Vehicle::move()
 {
+
+   // If we are turning right, let turnRight() handle the move logic
+   if (this->isTurningRight)
+   {
+      turnRight();
+      return;
+   }
+
+   // Get the next Tile
    Tile *next = this->hptr->getStraight();
 
    // Check if next Tile 1) exists and 2) is unoccupied
    if (next != nullptr && !next->isOccupied())
    {
-      // If we are turning right, let turnRight() handle the move logic
-      if (this->isTurningRight)
-      {
-         turnRight();
-         return;
-      }
 
       // If next is an IntersectionTile and we're turning right, set turningRight to true
       if (next->getName() == "IntersectionTile" && this->willTurnRight)
       {
-         // Logic for turning right
          this->isTurningRight = true;
-         this->movesLeftInTurn = this->length - 1;
+         this->movesLeftInTurn = this->length;
       }
 
-      // Move forward regardless
+      // Move forward to the next Tile
       this->moveForward();
    }
 }
@@ -129,42 +139,69 @@ void Vehicle::move()
  */
 void Vehicle::turnRight()
 {
+
    if (this->movesLeftInTurn != 0)
    {
-      // Set previous tiles to unoccupied
-      this->tptr->setUnoccupied();
-      this->hptr->setUnoccupied();
+      // Set prev tiles
+      Tile *prevt = this->tptr;
+      Tile *prevh = this->hptr;
 
-      // TODO: may need to set all tiles in between head and tail to occupied
-      // (like in moveForward()), which would be some interesting logic
-
-      // If head is on IntersectionTile, turn the head right
+      // Check if the head is on an IntersectionTile (it should be initally)
       if (this->hptr->getName() == "IntersectionTile")
       {
          // Downcast to IntersectionTile
          IntersectionTile *headIntersectionTile = dynamic_cast<IntersectionTile *>(this->hptr);
 
-         // This is how this should look, but not yet implemented in IntersectionTile
-         // this->hptr = headIntersectionTile->getRight();
+         // Set the head to the right of the IntersectionTile
+         this->hptr = headIntersectionTile->getRight();
+
+         // Manually move tail pointer
+         this->tptr->setUnoccupied();
+         this->tptr = this->tptr->getStraight();
+
+         // Set the spot where the head was to unoccupied (unescessary but for consistency)
+         prevh->setUnoccupied();
       }
+      // Check if the tail is on an IntersectionTile
       else if (this->tptr->getName() == "IntersectionTile")
       {
          // Downcast to IntersectionTile
          IntersectionTile *tailIntersectionTile = dynamic_cast<IntersectionTile *>(this->tptr);
 
-         // This is how this should look, but not yet implemented in IntersectionTile
-         // this->hptr = tailIntersectionTile->getRight();
+         // Set the tail to the right of the IntersectionTile
+         this->tptr = tailIntersectionTile->getRight();
+
+         // Manually move head pointer
+         this->hptr->setUnoccupied();
+         this->hptr = this->hptr->getStraight();
+
+         // Set the spot where the tail was to unoccupied (unescessary but for consistency)
+         prevt->setUnoccupied();
       }
       else
       {
+         // If the head and tail are not on IntersectionTiles, move head and tail forward
          moveForward();
       }
+      this->setOccupiedTiles();
       movesLeftInTurn--;
    }
-   else
+
+   // If the movesLeftInTurn are used up, set isTurningRight to false
+   if (movesLeftInTurn == 0)
    {
       this->isTurningRight = false;
    }
+}
+
+Direction Vehicle::getCurrDirection()
+{
+   return this->currDirection;
+}
+
+void Vehicle::setCurrDirection(Direction direction)
+{
+   this->currDirection = direction;
 }
 
 #endif
