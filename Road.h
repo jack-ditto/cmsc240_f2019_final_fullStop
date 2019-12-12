@@ -17,7 +17,7 @@ private:
 
 public:
 	Road();
-	Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2);
+	Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction);
 	void addVehicle(Vehicle a)
 	{
 		vehicles.push_back(a);
