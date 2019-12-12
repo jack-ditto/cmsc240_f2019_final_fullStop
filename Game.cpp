@@ -192,8 +192,8 @@ void Game::run()
    std::mt19937 rng(this->seed);
    double a = 0;  double b = 1.0;
    std::uniform_real_distribution<double> rand_double(a, b);
-   double directionprob = rand_double(rng);
-   generateDirections(directionprob,&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
+   double directionProb = rand_double(rng);
+   generateDirections(directionProb,&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
 
    vector<VehicleBase *> westbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
    vector<VehicleBase *> eastbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
@@ -245,23 +245,23 @@ void Game::moveTraffic()
 }
 
 
-void Game:: generateDirections (double directionprob, Road *west, Road *east, Road *south, Road *north)
+void Game:: generateDirections (double directionProb, Road *west, Road *east, Road *south, Road *north)
 {
       Direction direction;
 
-      if(directionprob<=probNewVehicleN)
+      if(directionProb<=probNewVehicleN)
      {
         direction = Direction::north;
         generateVehicles(north);
 
 
      }
-     else if (directionprob <=probNewVehicleN+probNewVehicleS && directionprob >= probNewVehicleN)
+     else if (directionProb <=probNewVehicleN+probNewVehicleS && directionProb >= probNewVehicleN)
      {
         direction = Direction::south;
         generateVehicles(south);
      }
-     else if (directionprob <=probNewVehicleN+probNewVehicleS+ probNewVehicleE && directionprob >= probNewVehicleN+probNewVehicleS)
+     else if (directionProb <=probNewVehicleN+probNewVehicleS+ probNewVehicleE && directionProb >= probNewVehicleN+probNewVehicleS)
      {
         direction = Direction::east;
         generateVehicles (east);
@@ -281,7 +281,7 @@ void Game:: generateVehicles(Road *start)
       double a = 0;  double b = 1.0;
       std::uniform_real_distribution<double> rand_double(a, b); //Generator randomnumber from 0-1
       double vehicletype = rand_double(rng);
-      double directionprob = rand_double(rng);
+      double directionProb = rand_double(rng);
 
       Direction direction;
 
