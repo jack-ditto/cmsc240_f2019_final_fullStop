@@ -190,17 +190,30 @@ void Game::run()
 
    Animator animator(numSectionsBeforeIntersection);
    
-    IntersectionTile it1;
-    IntersectionTile it2;
-    IntersectionTile it3;
-    IntersectionTile it4;
+    // create four intersectionTile
+   IntersectionTile it1;
+   IntersectionTile it2;
+   IntersectionTile it3;
+   IntersectionTile it4;
 
+   // creat roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2);
    Road southBoundRoad(numSectionsBeforeIntersection, &it1, &it3);
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1);
-    
-    
+  
+   // Road *north = &northBoundRoad;
+   // Road *south = &southBoundRoad;
+   // Road *east = &eastBoundRoad;
+   // Road *west = &westBoundRoad;
+  
+
+   // random number for dirction probability
+   std::mt19937 rng(this->seed);
+   double a = 0;  double b = 1.0;
+   std::uniform_real_distribution<double> rand_double(a, b);
+   double directionprob = rand_double(rng);
+   generateDirections(directionprob,&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
 
 
    int t = 0; // Counter for game
@@ -233,30 +246,35 @@ void Game::moveTraffic()
 }
 
 
-void Game:: generateDirections (double directionprob)
+void Game:: generateDirections (double directionprob, Road *west, Road *east, Road *south, Road *north)
 {
       Direction direction;
-      std::mt19937 rng(this->seed);
-      double a = 0;  double b = 1.0;
-      std::uniform_real_distribution<double> rand_double(a, b);
+      
       if(directionprob<=probNewVehicleN)
      {
         direction = Direction::north;
+        generateVehicles(north);
+       
         
      }
      else if (directionprob <=probNewVehicleN+probNewVehicleS && directionprob >= probNewVehicleN)
      {
         direction = Direction::south;
+        generateVehicles(south);
      }
      else if (directionprob <=probNewVehicleN+probNewVehicleS+ probNewVehicleE && directionprob >= probNewVehicleN+probNewVehicleS)
      {
         direction = Direction::east;
+        generateVehicles (east);
      }
      else 
      {
         direction = Direction::west;
+        generateVehicles (west);
      }
 }
+
+
 void Game:: generateVehicles(Road *start)
 {
      
