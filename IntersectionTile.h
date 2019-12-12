@@ -11,6 +11,10 @@ private:
   Tile *turn;
   TrafficLight northSouth;
   TrafficLight eastWest;
+  Tile *north;
+  Tile *south;
+  Tile *east;
+  Tile *west;
 
 public:
   IntersectionTile();
@@ -19,6 +23,11 @@ public:
   ~IntersectionTile();
 
   Tile *getStraight() override;
+  Tile *getRight();
+  void setNorth(Tile *north);
+  void setEast(Tile *east);
+  void setSouth(Tile *south);
+  void setWest(Tile *west);
 
   Tile getTurn();
   Color getLightNS();
