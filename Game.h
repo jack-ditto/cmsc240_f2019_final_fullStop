@@ -2,10 +2,15 @@
 #define __GAME_H__
 
 #include "string"
+#include "IntersectionTile.h"
+#include "Road.h"
+#include <random>
+
 
 class Game
 {
    private:
+      int    seed;
       int    maxSimTime;
       int    numSectionsBeforeIntersection;
       int    greenNS;
@@ -24,14 +29,21 @@ class Game
       double probRightTrucks;
       double probLeftCars;
       double probLeftSUVs;
-      double probLeftTrucks;
+      double probLeftTrucks; 
+
+      Road westRoad;
+      Road northRoad;
+      Road southRoad;
+      Road eastRoad;
+     
+
 
    public:
 
       // Constructors
       Game();
       Game(std::string filePath);
-      void generateVehicles();
+      void generateVehicles(Road *start);
 
       // Initial run method
       void run();

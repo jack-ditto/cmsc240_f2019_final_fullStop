@@ -10,6 +10,7 @@
 // variable in Vehicle. Since length is a constant for each object, I just made it inline in the .h file - Jack
 Car::Car(Direction direction, Tile *tptr, bool willTurnRight) : Vehicle(VehicleType::car, direction, tptr, 2, willTurnRight)
 {
+    
 }
 
 Car::~Car()

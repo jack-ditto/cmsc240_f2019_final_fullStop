@@ -5,12 +5,22 @@
 #include <fstream>
 #include "Game.h"
 #include "string"
+#include <random>
+#include "IntersectionTile.h"
+#include "Road.h"
+#include "Vehicle.h"
+#include "Car.h"
+#include "Truck.h"
+#include "Suv.h"
+
+
 
 /*
  * Typical use constructor. Takes a properly formatted text file of values as input
  */
 Game::Game(std::string filePath)
 {
+   seed = 8675309;
    std::cout << "Constructed using file!" << std::endl;
 
         std::ifstream infile;
@@ -21,25 +31,25 @@ Game::Game(std::string filePath)
           std::cerr << "Error opening file: " << filePath << std::endl;
         }
 
-        int    maxSimTime;
-        int    numSectionsBeforeIntersection;
-        int    greenNS;
-        int    yellowNS;
-        int    greenEW;
-        int    yellowEW;
-        double probNewVehicleN;
-        double probNewVehicleS;
-        double probNewVehicleE;
-        double probNewVehicleW;
-        double proportionCars;
-        double proportionSUVs;
-        double proprtionTrucks;
-        double probRightCars;
-        double probRightSUVs;
-        double probRightTrucks;
-        double probLeftCars;
-        double probLeftSUVs;
-        double probLeftTrucks;
+      //   int    maxSimTime;
+      //   int    numSectionsBeforeIntersection;
+      //   int    greenNS;
+      //   int    yellowNS;
+      //   int    greenEW;
+      //   int    yellowEW;
+      //   double probNewVehicleN;
+      //   double probNewVehicleS;
+      //   double probNewVehicleE;
+      //   double probNewVehicleW;
+      //   double proportionCars;
+      //   double proportionSUVs;
+      //   double proprtionTrucks;
+      //   double probRightCars;
+      //   double probRightSUVs;
+      //   double probRightTrucks;
+      //   double probLeftCars;
+      //   double probLeftSUVs;
+      //   double probLeftTrucks;
 
         std::string temp;
         double d;
@@ -151,6 +161,10 @@ Game::Game(std::string filePath)
 
    infile.close();
 
+
+  
+
+
 }
 
 /*
@@ -200,6 +214,87 @@ void Game::moveTraffic()
    // for each Vehicle v in for each Road:
    //    v.move()
    //
+}
+
+
+void Game:: generateVehicles(Road *start)
+{
+     
+      std::mt19937 rng(this->seed);
+      double a = 0;  double b = 1.0;
+      std::uniform_real_distribution<double> rand_double(a, b);
+      double vehicletype = rand_double(rng);
+      double directionprob = rand_double(rng);
+      
+      Direction direction;
+
+     
+      bool turnright;
+     
+     if(directionprob<=probNewVehicleN)
+     {
+        direction = Direction::north;
+     }
+     else if (directionprob <=probNewVehicleN+probNewVehicleS && directionprob >= probNewVehicleN)
+     {
+        direction = Direction::south;
+     }
+     else if (directionprob <=probNewVehicleN+probNewVehicleS+ probNewVehicleE && directionprob >= probNewVehicleN+probNewVehicleS)
+     {
+        direction = Direction::east;
+     }
+     else 
+     {
+        direction = Direction::west;
+     }
+
+
+      if(vehicletype<=proportionCars)
+      {
+         
+         double turnornot = rand_double(rng);
+         if(turnornot<=probRightCars)
+         {
+           Car a (direction,start->getQueueHead(),true);
+         }
+         else
+         {
+            Car a (direction, start->getQueueHead(), false);
+         }
+      }
+      else if ((vehicletype > proportionCars) && (vehicletype<=proportionCars+proportionSUVs))
+      {
+        
+         double turnornot = rand_double(rng);
+      
+         if (turnornot <= probLeftSUVs )
+         {
+            Suv a(direction,start->getQueueHead(), true);
+         }
+         else
+         {
+            Suv a(direction,start->getQueueHead(), false);
+         }
+      }
+      else
+      {
+         
+         double turnornot = rand_double(rng);
+         
+         if (turnornot <= probRightTrucks)
+         {
+            Truck a (direction,start->getQueueHead(),true);
+         }
+         else
+         {
+            Truck a (direction,start->getQueueHead(),false);
+         }
+
+      }
+
+      
+      
+
 }
 
 #endif
