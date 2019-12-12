@@ -43,6 +43,7 @@ class Game
       // Constructors
       Game();
       Game(std::string filePath);
+      void generatDirections(double directionprob);
       void generateVehicles(Road *start);
 
       // Initial run method
