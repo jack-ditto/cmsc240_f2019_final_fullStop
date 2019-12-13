@@ -166,19 +166,20 @@ void Game::run()
 {
    std::cout << "The game is running..." << std::endl;
 
-   // TODO: Construct instance of animator here
-
    Animator animator(numSectionsBeforeIntersection);
 
    // create two traffic lights
-   TrafficLight northSouth();
-   TrafficLight eastWest;
+   TrafficLight lightNS(LightColor::green, greenNS, yellowNS, greenEW + yellowEW);
+   TrafficLight lightEW(LightColor::red, greenEW, yellowEW, greenNS + yellowNS);
 
    // create four intersectionTile
-   IntersectionTile it1;
-   IntersectionTile it2;
-   IntersectionTile it3;
-   IntersectionTile it4;
+   // 12
+   // 34
+
+   IntersectionTile it1(&lightNS);
+   IntersectionTile it2(&lightEW);
+   IntersectionTile it3(&lightNS);
+   IntersectionTile it4(&lightEW);
 
    // create roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2);
@@ -199,19 +200,19 @@ void Game::run()
    vector<Vehicle> west;
 
    // random number for dirction probability
-   std::mt19937 rng(this->seed);
+   /*std::mt19937 rng(this->seed);
    double a = 0;  double b = 1.0;
    std::uniform_real_distribution<double> rand_double(a, b);
    double directionProb = rand_double(rng);
-   generateDirections(directionProb,&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
+   generateDirections(directionProb,&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);*/
 
    vector<VehicleBase *> westbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
    vector<VehicleBase *> eastbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
    vector<VehicleBase *> southbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
    vector<VehicleBase *> northbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
 
-   animator.setLightNorthSouth(LightColor::red);
-   animator.setLightEastWest(LightColor::green);
+   animator.setLightNorthSouth(lightNS.getColor());
+   animator.setLightEastWest(lightEW.getColor());
 
    animator.setVehiclesNorthbound(northbound);
    animator.setVehiclesSouthbound(southbound);

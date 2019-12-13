@@ -17,6 +17,7 @@ class Game
       int    yellowNS;
       int    greenEW;
       int    yellowEW;
+
       double probNewVehicleN;
       double probNewVehicleS;
       double probNewVehicleE;
@@ -30,13 +31,6 @@ class Game
       double probLeftCars;
       double probLeftSUVs;
       double probLeftTrucks; 
-
-      Road westRoad;
-      Road northRoad;
-      Road southRoad;
-      Road eastRoad;
-     
-
 
    public:
 
