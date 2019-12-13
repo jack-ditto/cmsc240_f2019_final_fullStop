@@ -10,33 +10,6 @@
 class Game
 {
    private:
-<<<<<<< HEAD
-      int    seed;
-      int    maxSimTime;
-      int    numSectionsBeforeIntersection;
-      int    greenNS;
-      int    yellowNS;
-      int    greenEW;
-      int    yellowEW;
-      double probNewVehicleN;
-      double probNewVehicleS;
-      double probNewVehicleE;
-      double probNewVehicleW;
-      double proportionCars;
-      double proportionSUVs;
-      double proprtionTrucks;
-      double probRightCars;
-      double probRightSUVs;
-      double probRightTrucks;
-      double probLeftCars;
-      double probLeftSUVs;
-      double probLeftTrucks; 
-     
-
-     
-     
-
-=======
       int    seed;                              // Seed for random number generator
       int    maxSimTime;                        // Maximum simulation time
       int    numSectionsBeforeIntersection;     // Number of tiles before intersection for each road
@@ -57,31 +30,17 @@ class Game
       double probLeftCars;                      // Probability a car turns left
       double probLeftSUVs;                      // Probability a SUV turns left
       double probLeftTrucks;                    // Probability a truck turns left
->>>>>>> eb1b14b71a4e46cbece2d6e8269c27991c204a86
 
    public:
 
       // Constructors
       Game();
       Game(std::string filePath);
-<<<<<<< HEAD
-      vector<Vehicle> generateDirections(Road *west, Road *east, Road *south, Road *north, vector<Vehicle> veh);
-      vector<Vehicle> generateVehicles(Direction direction, vector<Vehicle> v);
-=======
->>>>>>> eb1b14b71a4e46cbece2d6e8269c27991c204a86
-
-
-<<<<<<< HEAD
-      void moveTraffic(Road *north, Road *south, Road *west, Road *east, vector<Vehicle> a );
-=======
+      
+      void generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot);
+      void moveTraffic(vector<Vehicle*> &a);
       // Simulation running methods
       void run();
       void moveTraffic();
-
-      // Methods to generate new vehicles
-      void generateDirections(Road *west, Road *east, Road *south, Road *north);
-      void generateVehicles(Direction direction);
-
->>>>>>> eb1b14b71a4e46cbece2d6e8269c27991c204a86
 };
 #endif
