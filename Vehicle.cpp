@@ -10,11 +10,14 @@
 Vehicle::Vehicle() : VehicleBase(VehicleType::car, Direction::north) {}
 
 // Typical use constructor for Vehicle
-Vehicle::Vehicle(VehicleType vehicleType, Direction direction, Tile *tptr, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
 {
    this->length = vehicleLength;
    this->willTurnRight = willTurnRight;
+}
 
+void Vehicle::enterRoad(Tile *tptr)
+{
    this->tptr = tptr;
    this->hptr = tptr;
 

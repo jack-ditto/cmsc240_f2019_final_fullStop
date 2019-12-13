@@ -12,7 +12,7 @@ private:
   int length = 4;
 
 public:
-  Truck(Direction direction, Tile *hptr, bool willTurnRight);
+  Truck(Direction direction, bool willTurnRight);
   ~Truck();
 };
 

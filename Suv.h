@@ -12,7 +12,7 @@ private:
   int length = 3;
 
 public:
-  Suv(Direction direction, Tile *hptr, bool willTurnRight);
+  Suv(Direction direction, bool willTurnRight);
   ~Suv();
 };
 
