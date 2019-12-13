@@ -13,7 +13,6 @@ private:
 	int timeTilChange;
 
 public:
-	//TrafficLight();
 	TrafficLight(LightColor light, int g, int y, int r);
 	TrafficLight(const TrafficLight &other);
 	~TrafficLight();

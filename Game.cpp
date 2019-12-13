@@ -191,6 +191,12 @@ void Game::run()
    // Road *east = &eastBoundRoad;
    // Road *west = &westBoundRoad;
 
+   // Need vehicle vectors
+
+   vector<Vehicle> north;
+   vector<Vehicle> south;
+   vector<Vehicle> east;
+   vector<Vehicle> west;
 
    // random number for dirction probability
    std::mt19937 rng(this->seed);
