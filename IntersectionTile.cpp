@@ -6,6 +6,9 @@
 #include "TrafficLight.h"
 #include <iostream>
 
+/*
+ *  Typical use: IntersectionTile should have a traffic light
+ */
 IntersectionTile::IntersectionTile(TrafficLight *trafficLight) : Tile()
 {
   this->name = "IntersectionTile";
@@ -16,6 +19,10 @@ IntersectionTile::~IntersectionTile()
 {
 }
 
+/*
+ * Override of Tile's getStraight(), determines what direction the vehicle occupying it 
+ * is going in and returns "straight" for that Vehicle
+ */
 Tile *IntersectionTile::getStraight()
 {
   switch (this->getOccupyingVehicle()->getVehicleOriginalDirection())
@@ -37,6 +44,10 @@ Tile *IntersectionTile::getStraight()
   }
 }
 
+/**
+ * Similair to IntersectionTile::getStraight(), returns pointer to the "right" Tiles based on
+ * the current direction of the Vehicle occupying it. 
+ */
 Tile *IntersectionTile::getRight()
 {
   switch (this->getOccupyingVehicle()->getVehicleOriginalDirection())
@@ -56,6 +67,7 @@ Tile *IntersectionTile::getRight()
   }
 }
 
+// Set each of the 4 directions, used on construction in Road
 void IntersectionTile::setNorth(Tile *north)
 {
   this->north = north;
@@ -73,6 +85,9 @@ void IntersectionTile::setWest(Tile *west)
   this->west = west;
 }
 
+/*
+ * Returns reference to TrafficLight to be used in Vehicle
+ */
 TrafficLight *IntersectionTile::getTrafficLight()
 {
   return this->trafficLight;

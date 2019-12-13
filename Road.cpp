@@ -4,37 +4,38 @@
 #include "Road.h"
 #include <iostream>
 
-Road::Road()
-{
-	// for (int i = 0; i < 3; i++)
-	// {
-	// 	Tile beginning(); // how to make the pointer to the next ?? Do we need this??
-	// 	Road1.push_back(beginning);
-	// }
-}
+/**
+ * Typical use constructor: constructs the road by linking Tiles and IntersectionTiles and setting the correct
+ * direction pointers in the IntersecitonTiles
+ */
 Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction)
 {
-	this->roadLen = num * 2 + 2;
-	Tile *prevTile = NULL;
+	this->roadLen = num * 2 + 2; // Tiles before intersection + 2 intersection tiles
+	Tile *prevTile = NULL;		 // Initial null value
+
+	// Construct, add, and link first section of Tiles before intersection
 	for (int i = 0; i < num + 4; i++)
 	{
 		Tile *t = new Tile;
 
-		// Store queueHead
+		// Store the first Tile for Vehicle to enter on
 		if (i == 0)
 		{
 			this->queueHead = t;
 		}
 
+		// Link the previous Tile to current
 		if (prevTile != NULL)
 		{
 			prevTile->setStraight(t);
 		}
 
+		// Assign new Prev tile and push Tile to road
 		prevTile = t;
 		this->road.push_back(t);
 	}
 
+	// Push both intersection tiles to the road
 	road.push_back(intersectionTile1);
 	road.push_back(intersectionTile2);
 
@@ -83,11 +84,17 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	}
 }
 
+/**
+ * Returns a "snapshot" of Vehicles on the road, as needed by Animator. Returns a Vector of VehicleBase pointers of size
+ * roadLen, with a reference in ever occupied spot and a nullpointer where there is not a Vehicle. 
+ */
 vector<VehicleBase *> Road::getRoadSnapshot()
 {
 
+	// Initialize vector
 	vector<VehicleBase *> snapshot(roadLen, nullptr);
 
+	// Loop through Tiles and add Vehicle if it is on a Tile
 	for (int i = 0; i < roadLen; i++)
 	{
 		if (road[i + 4]->isOccupied())
@@ -99,6 +106,9 @@ vector<VehicleBase *> Road::getRoadSnapshot()
 	return snapshot;
 }
 
+/**
+ * Returns pointer to the furthest back Tile on a road (aka the first of the invisible Tiles)
+ */
 Tile *Road::getQueueHead()
 {
 	return this->queueHead;

@@ -6,53 +6,39 @@
 #include <iostream>
 #include "IntersectionTile.h"
 
-// Default constructor for Vehicle
-Vehicle::Vehicle() : VehicleBase(VehicleType::car, Direction::north) {}
-
 // Typical use constructor for Vehicle
 Vehicle::Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
 {
-   this->length = vehicleLength;
-   this->willTurnRight = willTurnRight;
-}
-
-void Vehicle::enterRoad(Tile *tptr)
-{
-   this->tptr = tptr;
-   this->hptr = tptr;
-
-   for (int i = 0; i < this->length - 1; i++)
-   {
-      this->hptr = this->hptr->getStraight();
-   }
-
-   this->setOccupiedTiles();
+   this->length = vehicleLength;        // Set the vehicle length
+   this->willTurnRight = willTurnRight; // Whether Vehicle will turn right or now
 }
 
 Vehicle::~Vehicle()
 {
 }
 
+// Getter methods
+
+/*
+ *  Return the length of the Vehicle
+ */
 int Vehicle::getLength()
 {
    return length;
 }
 
-int Vehicle::getID()
+/*
+ *  Return the current direction of the Vehicle
+ */
+Direction Vehicle::getCurrDirection()
 {
-   return id;
+   return this->currDirection;
 }
 
-Tile *Vehicle::getHptr()
-{
-   return this->hptr;
-}
-
-Tile *Vehicle::getTptr()
-{
-   return this->tptr;
-}
-
+/*
+ * Private method, sets all the tiles between head and tail to occupied. Also accounts
+ * for turns. 
+ */
 void Vehicle::setOccupiedTiles()
 {
    // Set the Tile where head is to occupied
@@ -78,10 +64,28 @@ void Vehicle::setOccupiedTiles()
    }
 }
 
-/**
+/*
+ *  Called when vehicle should "drive" itself on to the road. Passed a pointer to  
+ *  the first available tile on a Road, as retrieved by Road.getQueueHead()
+ */
+void Vehicle::enterRoad(Tile *tptr)
+{
+   this->tptr = tptr; // Set tail pointer
+   this->hptr = tptr; // Heat is initially same as tail
+
+   // Move the head forward the length of the car to "drive" on to the Road
+   for (int i = 0; i < this->length - 1; i++)
+   {
+      this->hptr = this->hptr->getStraight();
+   }
+
+   // Set all the Tiles between head and tail to occupied
+   this->setOccupiedTiles();
+}
+
+/*
  *   Moves the vehicle forward regardless. This is a private method, and should only be called
  *   from move() to avoid errors.
- *
  */
 void Vehicle::moveForward()
 {
@@ -101,10 +105,9 @@ void Vehicle::moveForward()
    this->setOccupiedTiles();
 }
 
-/**
+/*
  *  Called for every 'click' of time. Moves the vehicle one Tile and handles turning
  *  by calling external method when the Vehicle reaches an intersection.
- *
  */
 void Vehicle::move()
 {
@@ -126,6 +129,8 @@ void Vehicle::move()
       // If next is an IntersectionTile
       if (next->getName() == "IntersectionTile")
       {
+
+         // Decide what to do based on TrafficLight color
          IntersectionTile *it = dynamic_cast<IntersectionTile *>(next);
          LightColor lightColor = it->getTrafficLight()->getColor();
 
@@ -138,6 +143,7 @@ void Vehicle::move()
             // Logic for yellow turns here
          }
 
+         // Get ready to turn
          if (this->willTurnRight)
          {
             this->isTurningRight = true;
@@ -153,7 +159,6 @@ void Vehicle::move()
 /*
  *  When the Vehicle is turning, effectively takes the place of move(); should only be called
  *  by move(). Also, will be called when the head is already on the IntersectionTile
- *
  */
 void Vehicle::turnRight()
 {
@@ -212,11 +217,9 @@ void Vehicle::turnRight()
    }
 }
 
-Direction Vehicle::getCurrDirection()
-{
-   return this->currDirection;
-}
-
+/*
+ * Not currently used, but for left turns might be important.
+ */
 void Vehicle::setCurrDirection(Direction direction)
 {
    this->currDirection = direction;

@@ -15,41 +15,40 @@ class Vehicle : public VehicleBase
   };
 
 private:
-  int length;
-  int id;
-  Tile *hptr;
-  Tile *tptr;
-  Turn t;
-  bool willTurnRight;
+  int length;              // Vehicle length
+  Tile *hptr;              // Pointer to Tile where head of Vehicle is
+  Tile *tptr;              // Pointer to Tile where tail of Vehicle is
+  bool willTurnRight;      // Vehicle is destined to turn right
+  bool isTurningRight;     // Vehicle is currently turning right
+  int movesLeftInTurn;     // Number of moves left in a turn
+  Direction currDirection; // Current direction of the Vehicle
 
-  bool isTurningRight;
-  int movesLeftInTurn;
-  void setOccupiedTiles();
-  void moveForward();
-  Direction currDirection;
+  void setOccupiedTiles(); // Set all Tiles between head and tail to occupied
+  void moveForward();      // Move the car forward a Tile
 
 public:
-  // Default constructor
-  Vehicle();
-
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
   Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight);
-
-  Vehicle(VehicleType type, Direction originalDirection);
 
   // Destructor
   ~Vehicle();
 
+  // Getter methods
+
   int getLength();
   Direction getCurrDirection();
-  void setCurrDirection(Direction direction);
-  int getID();
   Tile *getHptr();
   Tile *getTptr();
   Turn getTurn();
-  void move();
-  void turnRight();
-  void enterRoad(Tile *tptr);
+
+  // Setter methods
+
+  void setCurrDirection(Direction direction);
+
+  // Actions
+  void move();                // Tell the Vehicle to move
+  void turnRight();           // Takes place of move() when turning
+  void enterRoad(Tile *tptr); // Called after construction, point Vehicle to Road
 };
 
 #endif
