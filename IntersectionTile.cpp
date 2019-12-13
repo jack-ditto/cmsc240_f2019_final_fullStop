@@ -6,27 +6,14 @@
 #include "TrafficLight.h"
 #include <iostream>
 
-IntersectionTile::IntersectionTile() : Tile()
+IntersectionTile::IntersectionTile(TrafficLight *trafficLight) : Tile()
 {
-  // Temporary default traffic lights
-  this->northSouth = TrafficLight(Color::GREEN, 0, 0, 0);
-  this->eastWest = TrafficLight(Color::GREEN, 0, 0, 0);
-
   this->name = "IntersectionTile";
+  this->trafficLight = trafficLight;
 }
 
 IntersectionTile::~IntersectionTile()
 {
-}
-
-Color IntersectionTile::getLightNS()
-{
-  return northSouth.getColor();
-}
-
-Color IntersectionTile::getLightEW()
-{
-  return eastWest.getColor();
 }
 
 Tile *IntersectionTile::getStraight()
@@ -84,6 +71,11 @@ void IntersectionTile::setSouth(Tile *south)
 void IntersectionTile::setWest(Tile *west)
 {
   this->west = west;
+}
+
+TrafficLight *IntersectionTile::getTrafficLight()
+{
+  return this->trafficLight;
 }
 
 #endif

@@ -123,11 +123,26 @@ void Vehicle::move()
    if (next != nullptr && !next->isOccupied())
    {
 
-      // If next is an IntersectionTile and we're turning right, set turningRight to true
-      if (next->getName() == "IntersectionTile" && this->willTurnRight)
+      // If next is an IntersectionTile
+      if (next->getName() == "IntersectionTile")
       {
-         this->isTurningRight = true;
-         this->movesLeftInTurn = this->length;
+         IntersectionTile *it = dynamic_cast<IntersectionTile *>(next);
+         LightColor lightColor = it->getTrafficLight()->getColor();
+
+         if (lightColor == LightColor::red)
+         {
+            return;
+         }
+         else if (lightColor == LightColor::yellow)
+         {
+            // Logic for yellow turns here
+         }
+
+         if (this->willTurnRight)
+         {
+            this->isTurningRight = true;
+            this->movesLeftInTurn = this->length;
+         }
       }
 
       // Move forward to the next Tile
