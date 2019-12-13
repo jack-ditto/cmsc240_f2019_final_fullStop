@@ -1,29 +1,25 @@
 #ifndef __TRAFFICLIGHT_H__
 #define __TRAFFICLIGHT_H__
-enum Color
-{
-	GREEN,
-	YELLOW,
-	RED
-};
+
+#include "VehicleBase.h"
 
 class TrafficLight
 {
 private:
-	Color lightColor;
+	LightColor lightColor;
 	int timeGreen;
 	int timeYellow;
 	int timeRed;
 	int timeTilChange;
 
 public:
-	TrafficLight();
-	TrafficLight(Color light, int green, int yellow, int red);
+	//TrafficLight();
+	TrafficLight(LightColor light, int g, int y, int r);
 	TrafficLight(const TrafficLight &other);
 	~TrafficLight();
 
-	Color getColor();
-	Color setColor(Color c);
+	LightColor getColor();
+	LightColor setColor(LightColor c);
 	int getTimeGreen();
 	int getTimeYellow();
 	int getTimeRed();

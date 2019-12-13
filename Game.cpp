@@ -3,18 +3,18 @@
 
 #include <fstream>
 #include <iostream>
-#include "Animator.h"
-#include "Game.h"
-#include "string"
 #include <random>
+
+#include "Animator.h"
+#include "Car.h"
+#include "Game.h"
 #include "IntersectionTile.h"
 #include "Road.h"
-#include "Vehicle.h"
-#include "Car.h"
-#include "Truck.h"
+#include "string"
 #include "Suv.h"
-
-
+#include "TrafficLight.h"
+#include "Truck.h"
+#include "Vehicle.h"
 
 /*
  * Typical use constructor. Takes a properly formatted text file of values as input
@@ -170,13 +170,17 @@ void Game::run()
 
    Animator animator(numSectionsBeforeIntersection);
 
-    // create four intersectionTile
+   // create two traffic lights
+   TrafficLight northSouth();
+   TrafficLight eastWest;
+
+   // create four intersectionTile
    IntersectionTile it1;
    IntersectionTile it2;
    IntersectionTile it3;
    IntersectionTile it4;
 
-   // creat roads
+   // create roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2);
    Road southBoundRoad(numSectionsBeforeIntersection, &it1, &it3);
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4);
