@@ -172,19 +172,19 @@ void Game::run()
    TrafficLight lightNS(LightColor::green,greenNS,yellowNS,greenEW+yellowEW);
    TrafficLight lightEW(LightColor::red,greenEW,yellowEW,greenNS+yellowNS);
 
-   // create four intersectionTile
+   // create four intersectionTiles
    IntersectionTile it1(&lightNS);
    IntersectionTile it2(&lightEW);
    IntersectionTile it3(&lightEW);
    IntersectionTile it4(&lightNS);
 
-   // creat roads
+   // create roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2, Direction::north);
    Road southBoundRoad(numSectionsBeforeIntersection, &it1, &it3, Direction::south);
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
 
-   // TODO: create generate vehicle,add to road
+   // TODO: vehicle vector
 
    int t = 0; // Counter for game
    while (t < this->maxSimTime)

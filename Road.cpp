@@ -8,8 +8,9 @@
  * Typical use constructor: constructs the road by linking Tiles and IntersectionTiles and setting the correct
  * direction pointers in the IntersecitonTiles
  */
-Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction)
+Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction dir)
 {
+	this->direction = dir;
 	this->roadLen = num * 2 + 2; // Tiles before intersection + 2 intersection tiles
 	Tile *prevTile = NULL;		 // Initial null value
 
@@ -86,7 +87,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 
 /**
  * Returns a "snapshot" of Vehicles on the road, as needed by Animator. Returns a Vector of VehicleBase pointers of size
- * roadLen, with a reference in ever occupied spot and a nullpointer where there is not a Vehicle. 
+ * roadLen, with a reference in ever occupied spot and a nullpointer where there is not a Vehicle.
  */
 vector<VehicleBase *> Road::getRoadSnapshot()
 {
@@ -112,6 +113,11 @@ vector<VehicleBase *> Road::getRoadSnapshot()
 Tile *Road::getQueueHead()
 {
 	return this->queueHead;
+}
+
+Direction Road::getDirection()
+{
+	return this->direction;
 }
 
 #endif
