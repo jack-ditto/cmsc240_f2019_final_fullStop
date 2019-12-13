@@ -110,5 +110,4 @@ void TrafficLight::decrement()
   }
 }
 
-
 #endif

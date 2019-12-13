@@ -9,7 +9,7 @@ class Car : public Vehicle
 {
 
 public:
-  Car(Direction direction, Tile *hptr, bool willTurnRight);
+  Car(Direction direction, bool willTurnRight);
   ~Car();
 };
 

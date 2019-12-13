@@ -7,26 +7,30 @@
 class Tile
 {
 private:
-	bool isEmpty;
-	VehicleBase *occupyingVehicle;
+	bool isEmpty;				   // Tile has a Vehicle on it
+	VehicleBase *occupyingVehicle; // VehicleBase pointer to Vehicle occupying Tile
+
+	// NOTE: It would have been better here to use Vehicle instead of VehicleBase, but since Vehicle include Tile,
+	// Including Vehicle here would have caused a circular depenency. VehicleBase works just fine.
 
 protected:
-	Tile *straight;
-	std::string name;
+	Tile *straight;   // Next tile
+	std::string name; // Name of tile (see Tile::getName() for explanation)
 
 public:
 	Tile();
-	Tile(Tile *n);
-	Tile(const Tile &other);
 	~Tile();
 
-	virtual Tile *getStraight();
-	bool isOccupied();
-	void setOccupied(VehicleBase *);
-	void setUnoccupied();
-	void setStraight(Tile *t);
-	VehicleBase *getOccupyingVehicle();
-	std::string getName();
+	// Getters
+	virtual Tile *getStraight();		// getStraight, overrwritten in IntersectionTile
+	bool isOccupied();					// Tile has a Vehicle on it
+	VehicleBase *getOccupyingVehicle(); // Get VehicleBase reference to occupying vehicle
+	std::string getName();				// Return name ("Tile")
+
+	// Setters
+	void setOccupied(VehicleBase *); // Tell Tile that there is a Vehicle on it
+	void setUnoccupied();			 // Tell Tile there is not longer a Vehicle on it
+	void setStraight(Tile *t);		 // Set the next Tile
 };
 
 #endif
