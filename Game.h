@@ -17,7 +17,6 @@ class Game
       int    yellowNS;
       int    greenEW;
       int    yellowEW;
-
       double probNewVehicleN;
       double probNewVehicleS;
       double probNewVehicleE;
@@ -30,15 +29,15 @@ class Game
       double probRightTrucks;
       double probLeftCars;
       double probLeftSUVs;
-      double probLeftTrucks; 
+      double probLeftTrucks;
 
    public:
 
       // Constructors
       Game();
       Game(std::string filePath);
-      void generateDirections(double directionprob, Road *west, Road *east, Road *south, Road *north);
-      void generateVehicles(Road *start);
+      void generateDirections(Road *west, Road *east, Road *south, Road *north);
+      void generateVehicles(Direction direction);
 
       // Initial run method
       void run();
