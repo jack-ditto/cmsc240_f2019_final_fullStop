@@ -44,7 +44,7 @@ class Game
       Game();
       Game(std::string filePath);
       void generateDirections(Road *west, Road *east, Road *south, Road *north);
-      void generateVehicles(Road *start);
+      void generateVehicles(Direction direction);
 
       // Initial run method
       void run();

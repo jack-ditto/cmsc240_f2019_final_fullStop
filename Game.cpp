@@ -3,18 +3,18 @@
 
 #include <fstream>
 #include <iostream>
-#include "Animator.h"
-#include "Game.h"
-#include "string"
 #include <random>
+
+#include "Animator.h"
+#include "Car.h"
+#include "Game.h"
 #include "IntersectionTile.h"
 #include "Road.h"
-#include "Vehicle.h"
-#include "Car.h"
-#include "Truck.h"
+#include "string"
 #include "Suv.h"
-
-
+#include "TrafficLight.h"
+#include "Truck.h"
+#include "Vehicle.h"
 
 /*
  * Typical use constructor. Takes a properly formatted text file of values as input
@@ -170,7 +170,11 @@ void Game::run()
 
    Animator animator(numSectionsBeforeIntersection);
 
-    // create four intersectionTile
+   // create two traffic lights
+   TrafficLight northSouth();
+   TrafficLight eastWest();
+
+   // create four intersectionTile
    IntersectionTile it1;
    IntersectionTile it2;
    IntersectionTile it3;
@@ -182,10 +186,6 @@ void Game::run()
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
 
-   // Road *north = &northBoundRoad;
-   // Road *south = &southBoundRoad;
-   // Road *east = &eastBoundRoad;
-   // Road *west = &westBoundRoad;
 
 
    // random number for dirction probability
@@ -234,7 +234,8 @@ void Game::run()
  */
 void Game::moveTraffic()
 {
-   
+
+
    // Going to iterate through something here
    // What I'm thinking: something like...
    //
@@ -258,8 +259,8 @@ void Game:: generateDirections(Road *west, Road *east, Road *south, Road *north)
       cout << "The number of diretion probability for north should be " << directionProb << endl;
       if(directionProb<=probNewVehicleN)
      {
-        direction = Direction::north;
-        generateVehicles(north);
+        
+        generateVehicles(Direction::north);
         cout << "It havs generated a vehicle in the north lane " << endl;
 
 
@@ -272,8 +273,8 @@ void Game:: generateDirections(Road *west, Road *east, Road *south, Road *north)
 
      if (directionProb <=probNewVehicleN+probNewVehicleS && directionProb >= probNewVehicleN)
      {
-        direction = Direction::south;
-        generateVehicles(south);
+        
+        generateVehicles(Direction::south);
           cout << "It havs generated a vehicle in the south lane " << endl;
      }
 
@@ -283,8 +284,8 @@ void Game:: generateDirections(Road *west, Road *east, Road *south, Road *north)
 
      if(directionProb <=probNewVehicleN+probNewVehicleS + probNewVehicleE && directionProb >= probNewVehicleN+probNewVehicleS)
      {
-        direction = Direction::east;
-        generateVehicles (east);
+   
+        generateVehicles (Direction::east);
         cout << "It havs generated a vehicle in the east lane " << endl;
      }
 
@@ -294,14 +295,14 @@ void Game:: generateDirections(Road *west, Road *east, Road *south, Road *north)
 
      if(directionProb <=1 && directionProb >= probNewVehicleN+probNewVehicleS+probNewVehicleE)
      {
-        direction = Direction::west;
-        generateVehicles (west);
+        
+        generateVehicles (Direction::west);
         cout << "It havs generated a vehicle in the west lane " << endl;
      }
 }
 
 
-void Game:: generateVehicles(Road *start)
+void Game:: generateVehicles(Direction direction)
 {
 
       std::mt19937 rng(this->seed);
@@ -310,7 +311,7 @@ void Game:: generateVehicles(Road *start)
       double vehicletype = rand_double(rng);
       double directionProb = rand_double(rng);
 
-      Direction direction;
+     
 
 
       bool turnright;
@@ -326,13 +327,13 @@ void Game:: generateVehicles(Road *start)
          cout << "The probability of turn to the right or not should be " << turnornot << endl;
          if(turnornot<=probRightCars)
          {
-           Car a (direction,start->getQueueHead(),true);
+           Car a (direction,true);
 
            cout << "Test" << "It's car with right turn" << endl;
          }
          else
          {
-            Car a (direction, start->getQueueHead(), false);
+            Car a (direction, false);
             cout << "Test" << "It's a car with straight road" <<endl;
 
          }
@@ -346,12 +347,12 @@ void Game:: generateVehicles(Road *start)
          {
 
             cout << "Test" << "It's SUV with right turn" << endl;
-            Suv a(direction,start->getQueueHead(), true);
+            Suv a(direction,true);
          }
          else
          {
             cout << "Test" << "It's a SUV with straight road" <<endl;
-            Suv a(direction,start->getQueueHead(), false);
+            Suv a(direction,false);
          }
       }
       else
@@ -362,13 +363,13 @@ void Game:: generateVehicles(Road *start)
          if (turnornot <= probRightTrucks)
          {
             cout << "Test" << "It's a truck with right turn" << endl;
-            Truck a (direction,start->getQueueHead(),true);
+            Truck a (direction,true);
          }
          else
          {
             cout << "Test" << "It's a truck with straight road" <<endl;
 
-            Truck a (direction,start->getQueueHead(),false);
+            Truck a (direction,false);
          }
 
       }

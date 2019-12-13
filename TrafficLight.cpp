@@ -3,19 +3,20 @@
 
 #include <iostream>
 #include "TrafficLight.h"
+#include "VehicleBase.h"
 
-TrafficLight::TrafficLight()
+/* TrafficLight::TrafficLight()
 {
-  lightColor = Color::RED;
-  timeGreen = 0;
-  timeYellow = 0;
-  timeRed = 0;
+  lightColor = LightColor::red;
+  timeGreen = 10;
+  timeYellow = 5;
+  timeRed = 15;
 
-  if (lightColor == GREEN)
+  if (lightColor == LightColor::green)
   {
     timeTilChange = timeGreen;
   }
-  else if (lightColor == YELLOW) //should never start yellow
+  else if (lightColor == LightColor::yellow) //should never start yellow
   {
     timeTilChange = timeYellow;
   }
@@ -23,21 +24,21 @@ TrafficLight::TrafficLight()
   {
     timeTilChange = timeRed;
   }
-}
+} */
 
 //Typical Use Constructor
-TrafficLight::TrafficLight(Color light, int green, int yellow, int red)
+TrafficLight::TrafficLight(LightColor light, int g, int y, int r)
 {
   lightColor = light;
-  timeGreen = green;
-  timeYellow = yellow;
-  timeRed = red;
+  timeGreen = g;
+  timeYellow = y;
+  timeRed = r;
 
-  if (light == GREEN)
+  if (light == LightColor::green)
   {
     timeTilChange = timeGreen;
   }
-  else if (light == YELLOW) //should never start yellow
+  else if (light == LightColor::yellow) //should never start yellow
   {
     timeTilChange = timeYellow;
   }
@@ -60,18 +61,18 @@ TrafficLight::TrafficLight(const TrafficLight &other)
 //Destructor
 TrafficLight::~TrafficLight() {}
 
-Color TrafficLight::getColor()
+LightColor TrafficLight::getColor()
 {
   return lightColor;
 }
 
-Color TrafficLight::setColor(Color col)
+LightColor TrafficLight::setColor(LightColor col)
 {
-  if (col == GREEN)
+  if (col == LightColor::green)
   {
     timeTilChange = timeGreen;
   }
-  else if (col == YELLOW)
+  else if (col == LightColor::yellow)
   {
     timeTilChange = timeYellow;
   }
@@ -80,7 +81,7 @@ Color TrafficLight::setColor(Color col)
     timeTilChange = timeRed;
   }
 
-  Color old = lightColor;
+  LightColor old = lightColor;
   lightColor = col;
   return old;
 }
@@ -110,21 +111,21 @@ void TrafficLight::decrement()
 
   if (timeTilChange == 0)
   {
-    if (lightColor == GREEN)
+    if (lightColor == LightColor::green)
     {
-      lightColor = YELLOW;
+      lightColor = LightColor::yellow;
       timeTilChange = timeYellow;
     }
 
-    else if (lightColor == YELLOW)
+    else if (lightColor == LightColor::yellow)
     {
-      lightColor = RED;
+      lightColor = LightColor::red;
       timeTilChange = timeRed;
     }
 
     else
     {
-      lightColor = GREEN;
+      lightColor = LightColor::green;
       timeTilChange = timeGreen;
     }
   }

@@ -10,18 +10,12 @@ using namespace std;
 class Road
 {
 private:
-	vector<Tile *> road;	  // Store Tiles in road as pointer to tiles
-	vector<Vehicle> vehicles; // Store Vehicles on road
-	Tile *queueHead;		  // Stores pointer to last 'invisible' tile on the road
-	int roadLen;
+	vector<Tile *> road; // Store Tiles in road as pointer to tiles
+	Tile *queueHead;	 // Stores pointer to last 'invisible' tile on the road
+	int roadLen;		 // Total length of road NOT including invisible tiles (+8)
 
 public:
-	Road();
 	Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction);
-	void addVehicle(Vehicle a)
-	{
-		vehicles.push_back(a);
-	}
 	Tile *getQueueHead();
 	vector<VehicleBase *> getRoadSnapshot();
 };

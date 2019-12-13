@@ -8,30 +8,27 @@ class IntersectionTile : public Tile
 {
 
 private:
-  Tile *turn;
-  TrafficLight northSouth;
-  TrafficLight eastWest;
-  Tile *north;
-  Tile *south;
-  Tile *east;
-  Tile *west;
+  Tile *north;                // North pointer
+  Tile *south;                // South pointer
+  Tile *east;                 // East pointer
+  Tile *west;                 // West pointer
+  TrafficLight *trafficLight; // Reference to TrafficLight
 
 public:
-  IntersectionTile();
-  IntersectionTile(Tile n, Tile s, Tile e, Tile w);
-  IntersectionTile(const IntersectionTile &other);
-  ~IntersectionTile();
+  IntersectionTile(TrafficLight *TrafficLight);    // Typical use constructor
+  IntersectionTile(const IntersectionTile &other); // Copy constructor
+  ~IntersectionTile();                             // Deconstructor
 
+  // Getter methods
   Tile *getStraight() override;
   Tile *getRight();
+  TrafficLight *getTrafficLight();
+
+  // Setter methods
   void setNorth(Tile *north);
   void setEast(Tile *east);
   void setSouth(Tile *south);
   void setWest(Tile *west);
-
-  Tile getTurn();
-  Color getLightNS();
-  Color getLightEW(); //to set up for traffic light enum color
 };
 
 #endif
