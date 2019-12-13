@@ -166,25 +166,24 @@ void Game::run()
 {
    std::cout << "The game is running..." << std::endl;
 
-   // TODO: Construct instance of animator here
-
    Animator animator(numSectionsBeforeIntersection);
 
    // create two traffic lights
-   TrafficLight northSouth(LightColor::green,greenNS,yellowNS,greenEW+yellowEW); 
-   TrafficLight eastWest(LightColor::red,greenEW,yellowEW,greenNS+yellowNS);
+   TrafficLight lightNS(LightColor::green,greenNS,yellowNS,greenEW+yellowEW);
+   TrafficLight lightEW(LightColor::red,greenEW,yellowEW,greenNS+yellowNS);
 
    // create four intersectionTile
-   IntersectionTile it1(&northSouth);
-   IntersectionTile it2(&eastWest);
-   IntersectionTile it3(&eastWest);
-   IntersectionTile it4(&northSouth);
+   IntersectionTile it1(&lightNS);
+   IntersectionTile it2(&lightEW);
+   IntersectionTile it3(&lightEW);
+   IntersectionTile it4(&lightNS);
 
    // creat roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2, Direction::north);
    Road southBoundRoad(numSectionsBeforeIntersection, &it1, &it3, Direction::south);
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
+
 
 
    vector<Vehicle> vehicles;
@@ -206,28 +205,35 @@ void Game::run()
    animator.setVehiclesWestbound(westbound);
    // to do create generate vehicle,add to road 
 
+
+
    // Vector to store the vehicles on the road 
 
    int t = 0; // Counter for game
    while (t < this->maxSimTime)
    {
-      animator.draw(t);
+     //Set up animation
+     animator.setLightNorthSouth(lightNS.getColor());
+     animator.setLightEastWest(lightEW.getColor());
+
 
       //Update vehicles:
       moveTraffic(&northBoundRoad,&southBoundRoad,&westBoundRoad, &eastBoundRoad, vehicles);
 
-      // TODO: Tell traffic light objects that time has passed
+     animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+     animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+     animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+     animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-      // TODO: Handles operations for animator code.
-      //       This includes setting the traffic light color
-      //       and calling draw()
+     animator.draw(t);
 
-      animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
-      animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
-      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
-      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-      t++;
+
+     //Increment time: traffic light and for game
+     lightNS.decrement();
+     lightEW.decrement();
+
+     t++;
    }
 }
 
@@ -262,14 +268,17 @@ vector<Vehicle> Game:: generateDirections(Road *west, Road *east, Road *south, R
       std::mt19937 rng(this->seed);
       double a = 0;  double b = 1.0;
       std::uniform_real_distribution<double> rand_double(a, b);
-     
+
       double directionProb = rand_double(rng);
 
       cout << "The number of diretion probability for north should be " << directionProb << endl;
       if(directionProb<=probNewVehicleN)
      {
+
         
         veh = generateVehicles(Direction::north,veh);
+
+
         cout << "It havs generated a vehicle in the north lane " << endl;
 
 
@@ -282,8 +291,10 @@ vector<Vehicle> Game:: generateDirections(Road *west, Road *east, Road *south, R
 
      if (directionProb <=probNewVehicleN+probNewVehicleS && directionProb >= probNewVehicleN)
      {
+
         
         veh = generateVehicles(Direction::south, veh);
+
           cout << "It havs generated a vehicle in the south lane " << endl;
      }
 
@@ -293,8 +304,10 @@ vector<Vehicle> Game:: generateDirections(Road *west, Road *east, Road *south, R
 
      if(directionProb <=probNewVehicleN+probNewVehicleS + probNewVehicleE && directionProb >= probNewVehicleN+probNewVehicleS)
      {
+
    
         veh = generateVehicles (Direction::east, veh);
+
         cout << "It havs generated a vehicle in the east lane " << endl;
      }
 
@@ -304,8 +317,13 @@ vector<Vehicle> Game:: generateDirections(Road *west, Road *east, Road *south, R
 
      if(directionProb <=1 && directionProb >= probNewVehicleN+probNewVehicleS+probNewVehicleE)
      {
+
         
         veh = generateVehicles (Direction::west, veh);
+
+
+
+
         cout << "It havs generated a vehicle in the west lane " << endl;
      }
 
@@ -322,7 +340,7 @@ vector<Vehicle> Game:: generateVehicles(Direction direction, vector<Vehicle> v)
       double vehicletype = rand_double(rng);
       double directionProb = rand_double(rng);
 
-     
+
 
 
       bool turnright;
@@ -334,7 +352,7 @@ vector<Vehicle> Game:: generateVehicles(Direction direction, vector<Vehicle> v)
       {
 
          double turnornot = rand_double(rng);
-         
+
          cout << "The probability of turn to the right or not should be " << turnornot << endl;
          if(turnornot<=probRightCars)
          {
