@@ -184,46 +184,31 @@ void Game::run()
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
 
-
-
-   // random number for dirction probability
-
-   generateDirections(&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
-
-   vector<VehicleBase *> westbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
-   vector<VehicleBase *> eastbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
-   vector<VehicleBase *> southbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
-   vector<VehicleBase *> northbound(numSectionsBeforeIntersection * 2 + 2, nullptr);
-
-   animator.setLightNorthSouth(LightColor::red);
-   animator.setLightEastWest(LightColor::green);
-
-   animator.setVehiclesNorthbound(northbound);
-   animator.setVehiclesSouthbound(southbound);
-   animator.setVehiclesEastbound(eastbound);
-   animator.setVehiclesWestbound(westbound);
-   // to do create generate vehicle,add to road
+   // TODO: create generate vehicle,add to road
 
    int t = 0; // Counter for game
    while (t < this->maxSimTime)
    {
-      animator.draw(t);
+     //Set up animation
+     animator.setLightNorthSouth(lightNS.getColor());
+     animator.setLightEastWest(lightEW.getColor());
 
-      //Update vehicles:
-      moveTraffic();
+     animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+     animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+     animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+     animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-      // TODO: Tell traffic light objects that time has passed
+     animator.draw(t);
 
-      // TODO: Handles operations for animator code.
-      //       This includes setting the traffic light color
-      //       and calling draw()
+     //Update vehicles:
+     generateDirections(&westBoundRoad ,&eastBoundRoad , &southBoundRoad, &northBoundRoad);
+     moveTraffic();
 
-      animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
-      animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
-      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
-      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
+     //Increment time: traffic light and for game
+     lightNS.decrement();
+     lightEW.decrement();
 
-      t++;
+     t++;
    }
 }
 
