@@ -131,9 +131,5 @@ void TrafficLight::decrement()
   }
 }
 
-int main()
-{
-  TrafficLight()
-}
 
 #endif
