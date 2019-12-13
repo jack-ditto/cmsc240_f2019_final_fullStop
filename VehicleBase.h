@@ -41,6 +41,7 @@ public:
 
    inline VehicleType getVehicleType() const { return this->vehicleType; }
    inline Direction getVehicleOriginalDirection() const { return this->vehicleDirection; }
+   inline void setVehicleDirection(Direction direction) { this->vehicleDirection = direction; }
 };
 
 #endif
