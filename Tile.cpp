@@ -5,7 +5,7 @@
 #include "Vehicle.h"
 
 /*
- * Default constructor 
+ * Default constructor
  */
 Tile::Tile()
 {
@@ -13,6 +13,9 @@ Tile::Tile()
     isEmpty = true;
 }
 
+/*
+ * Destructor
+ */
 Tile::~Tile() {}
 
 /*
@@ -49,7 +52,7 @@ void Tile::setOccupied(VehicleBase *occupyingVehicle)
 }
 
 /*
- *  Opposite of setOccupied, removes VehicleBase reference and sets the Tile to empty.  
+ *  Opposite of setOccupied, removes VehicleBase reference and sets the Tile to empty.
  */
 void Tile::setUnoccupied()
 {
@@ -58,7 +61,7 @@ void Tile::setUnoccupied()
 }
 
 /*
- *  Returns the "name" of the Tile. This method exists for ease of type identification when 
+ *  Returns the "name" of the Tile. This method exists for ease of type identification when
  *  casting from Tile to IntersectionTile. Name will be "Tile" or "IntersectionTile"
  */
 std::string Tile::getName()

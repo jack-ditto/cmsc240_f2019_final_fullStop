@@ -5,28 +5,7 @@
 #include "TrafficLight.h"
 #include "VehicleBase.h"
 
-/* TrafficLight::TrafficLight()
-{
-  lightColor = LightColor::red;
-  timeGreen = 10;
-  timeYellow = 5;
-  timeRed = 15;
-
-  if (lightColor == LightColor::green)
-  {
-    timeTilChange = timeGreen;
-  }
-  else if (lightColor == LightColor::yellow) //should never start yellow
-  {
-    timeTilChange = timeYellow;
-  }
-  else
-  {
-    timeTilChange = timeRed;
-  }
-} */
-
-//Typical Use Constructor
+//Typical use constructor
 TrafficLight::TrafficLight(LightColor light, int g, int y, int r)
 {
   lightColor = light;
@@ -38,7 +17,7 @@ TrafficLight::TrafficLight(LightColor light, int g, int y, int r)
   {
     timeTilChange = timeGreen;
   }
-  else if (light == LightColor::yellow) //should never start yellow
+  else if (light == LightColor::yellow)
   {
     timeTilChange = timeYellow;
   }
