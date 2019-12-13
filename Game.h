@@ -31,10 +31,7 @@ class Game
       double probLeftSUVs;
       double probLeftTrucks; 
 
-      Road westRoad;
-      Road northRoad;
-      Road southRoad;
-      Road eastRoad;
+     
      
 
 

@@ -171,14 +171,14 @@ void Game::run()
    Animator animator(numSectionsBeforeIntersection);
 
    // create two traffic lights
-   TrafficLight northSouth();
-   TrafficLight eastWest();
+   TrafficLight northSouth(LightColor::green,greenNS,yellowNS,greenEW+yellowEW); 
+   TrafficLight eastWest(LightColor::red,greenEW,yellowEW,greenNS+yellowNS);
 
    // create four intersectionTile
-   IntersectionTile it1;
-   IntersectionTile it2;
-   IntersectionTile it3;
-   IntersectionTile it4;
+   IntersectionTile it1(&northSouth);
+   IntersectionTile it2(&eastWest);
+   IntersectionTile it3(&eastWest);
+   IntersectionTile it4(&northSouth);
 
    // creat roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2, Direction::north);
@@ -234,6 +234,7 @@ void Game::run()
  */
 void Game::moveTraffic()
 {
+
 
 
    // Going to iterate through something here
