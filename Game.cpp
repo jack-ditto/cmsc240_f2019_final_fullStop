@@ -184,12 +184,12 @@ void Game::run()
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
 
-    animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
-    animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
-    animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
-    animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
+   animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+   animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+   animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+   animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-   // to do create generate vehicle,add to road 
+   // to do create generate vehicle,add to road
 
    std::mt19937 rng(this->seed);
    double a = 0;  double b = 1.0;
@@ -200,14 +200,14 @@ void Game::run()
 
    vector<Vehicle*> vehicles;
 
-   // Vector to store the vehicles on the road 
+   // Vector to store the vehicles on the road
 
 
    int t = 0; // Counter for game
- 
+
    while (t < this->maxSimTime)
    {
-      
+
      //Set up animation
      animator.setLightNorthSouth(lightNS.getColor());
      animator.setLightEastWest(lightEW.getColor());
@@ -217,46 +217,38 @@ void Game::run()
      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-  
      animator.draw(t);
      std::cin.ignore();
- 
 
+     // update vehicles
+     directionProb = rand_double(rng);
+     vehicleProb = rand_double(rng);
+     turnOrNot = rand_double(rng);
+     generateDirections(&northBoundRoad,vehicles, directionProb,probNewVehicleN,vehicleProb,turnOrNot); //north
 
-   // update vehicles 
-   directionProb = rand_double(rng);
-   vehicleProb = rand_double(rng);
-   turnOrNot = rand_double(rng);
- 
-   generateDirections(&northBoundRoad,vehicles, directionProb,probNewVehicleN,vehicleProb,turnOrNot); //north
+     directionProb = rand_double(rng);
+     vehicleProb = rand_double(rng);
+     turnOrNot = rand_double(rng);
+     generateDirections(&southBoundRoad,vehicles, directionProb,probNewVehicleS,vehicleProb,turnOrNot);//south
 
-   directionProb = rand_double(rng);
-   vehicleProb = rand_double(rng);
-   turnOrNot = rand_double(rng);
-  generateDirections(&southBoundRoad,vehicles, directionProb,probNewVehicleS,vehicleProb,turnOrNot);//south
-   
-   directionProb = rand_double(rng);
-   vehicleProb = rand_double(rng);
-   turnOrNot = rand_double(rng);
+     directionProb = rand_double(rng);
+     vehicleProb = rand_double(rng);
+     turnOrNot = rand_double(rng);
+     generateDirections(&eastBoundRoad, vehicles, directionProb,probNewVehicleE,vehicleProb,turnOrNot); //east
 
-   generateDirections(&eastBoundRoad, vehicles, directionProb,probNewVehicleE,vehicleProb,turnOrNot); //east
+     directionProb = rand_double(rng);
+     vehicleProb = rand_double(rng);
+     turnOrNot = rand_double(rng);
+     generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb,turnOrNot); //west
 
-   directionProb = rand_double(rng);
-   vehicleProb = rand_double(rng);
-   turnOrNot = rand_double(rng);
-  
-   generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb,turnOrNot); //west
+     moveTraffic(vehicles); //updated
 
-  
-   
-   moveTraffic(vehicles); //updated
-
-   //Increment time: traffic light and for game
-   lightNS.decrement();
-   lightEW.decrement();
+     //Increment time: traffic light and for game
+    lightNS.decrement();
+    lightEW.decrement();
 
      t++;
-     
+
    }
 }
 
@@ -265,32 +257,21 @@ void Game::run()
  */
 void Game::moveTraffic(vector<Vehicle*> &a)
 {
-  
+
    for (int i =0; i<a.size(); i++)
-   { 
-      
-      
+   {
       Vehicle* temp = a[i];
-     
-   
-      if (temp->isOutOfBound())  
-      {  
-         
+
+      if (temp->isOutOfBound())
+      {
           delete a[i];
       }
 
       else
       {
-         
-       
-         temp->move(); // problem 
-        
-       
+         temp->move(); // problem
       }
-      
-
    }
-
 }
 
 
@@ -298,53 +279,46 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
 {
    Road temp = *r;
    Direction direction =temp.getDirection();
-  
-   
-   if (temp.canSpawnVehicle()){
-   if(direction == Direction::north){
-   cout << "the direction now should be " << "north" << endl;
-   }
-   else if (direction == Direction::south)
-   {
-      cout << "direction now should be " << "south" << endl;
-   }
-   else if (direction == Direction::east)
-   {
-      cout << "direction now should be " << "east" << endl;
-   }
-   else
-   {
-      cout << "direction now should be " << "west" << endl;
-   }
-   
-   
-   
-      
 
-     
-      if(directionprob<=probNewVehicle)
+   if (temp.canSpawnVehicle())
+   {
+
+     if(direction == Direction::north)
      {
+       cout << "the direction now should be " << "north" << endl;
+     }
 
-         bool turnright = false;
+     else if (direction == Direction::south)
+     {
+       cout << "direction now should be " << "south" << endl;
+     }
 
+     else if (direction == Direction::east)
+     {
+      cout << "direction now should be " << "east" << endl;
+     }
 
+     else
+     {
+      cout << "direction now should be " << "west" << endl;
+     }
 
+   if(directionprob <= probNewVehicle)
+   {
+      bool turnright = false;
 
-      if(vehicletype<=proportionCars)
+      if(vehicletype <= proportionCars)
       {
-
-      
          cout << "The probability of turn to the right or not should be " << turnornot << endl;
+
          if(turnornot<=probRightCars)
          {
            Car* a  = new Car (direction,true);
-           
            a->enterRoad(r->getQueueHead());
            v.push_back(a);
-         
-
            cout << "Test" << "It's car with right turn" << endl;
          }
+
          else
          {
             Car* a  = new Car (direction, false);
@@ -354,20 +328,18 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
 
          }
       }
+
       else if ((vehicletype > proportionCars) && (vehicletype<=proportionCars+proportionSUVs))
       {
 
-         //double turnornot = rand_double(rng);
-
-         if (turnornot <= probLeftSUVs )
+         if (turnornot <= probLeftSUVs)
          {
-
-            cout << "Test" << "It's SUV with right turn" << endl;
             Suv* a = new Suv(direction,true);
-           
             a->enterRoad(r->getQueueHead());
             v.push_back(a);
+            cout << "Test" << "It's SUV with right turn" << endl;
          }
+
          else
          {
             cout << "Test" << "It's a SUV with straight road" <<endl;
@@ -376,40 +348,26 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
              v.push_back(a);
          }
       }
+
       else
       {
-
-        
-
          if (turnornot <= probRightTrucks)
          {
             cout << "Test" << "It's a truck with right turn" << endl;
             Truck* a = new Truck (direction,true);
-             a->enterRoad(r->getQueueHead());
-             v.push_back(a);
+            a->enterRoad(r->getQueueHead());
+            v.push_back(a);
          }
+
          else
          {
             cout << "Test" << "It's a truck with straight road" <<endl;
-
             Truck* a = new Truck (direction,false);
-             a->enterRoad(r->getQueueHead());
-             v.push_back(a);
+            a->enterRoad(r->getQueueHead());
+            v.push_back(a);
          }
-
-        
-         
       }
-
-
-       
-
-    
-
-         
-      }
-
-     }
-   
+    }
+  }
 }
 #endif
