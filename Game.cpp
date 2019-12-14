@@ -216,19 +216,18 @@ void Game::run()
 
       animator.draw(t);
       std::cin.ignore();
-      
+
       // update vehicles
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
       generateDirections(&northBoundRoad, vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
-      
+
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
       generateDirections(&southBoundRoad, vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
 
-          
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
@@ -294,8 +293,8 @@ void Game::moveTraffic(vector<Vehicle *> &a)
    //       temp->move();
    //    }
    // }
-   
-   if(a.size() != 0)
+
+   if (a.size() != 0)
    {
 
       for (int i = 0; i < a.size(); i++)
