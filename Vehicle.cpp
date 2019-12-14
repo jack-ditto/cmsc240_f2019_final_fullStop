@@ -69,15 +69,15 @@ void Vehicle::setOccupiedTiles()
  *  Called when vehicle should "drive" itself on to the road. Passed a pointer to  
  *  the first available tile on a Road, as retrieved by Road.getQueueHead()
  */
-void Vehicle::enterRoad(Tile *tptr)
+void Vehicle::enterRoad(Tile *hptr)
 {
-   this->tptr = tptr; // Set tail pointer
-   this->hptr = tptr; // Heat is initially same as tail
+   this->hptr = hptr; // Set head pointer
+   this->tptr = hptr; // Tail is initially same as head
 
-   // Move the head forward the length of the car to "drive" on to the Road
+   // Move the tail backward the length of the car to "drive" on to the Road
    for (int i = 0; i < this->length - 1; i++)
    {
-      this->hptr = this->hptr->getStraight();
+      this->tptr = this->tptr->getBack();
    }
 
    // Set all the Tiles between head and tail to occupied
@@ -128,33 +128,72 @@ void Vehicle::move()
    if (next != nullptr && !next->isOccupied())
    {
 
-      // If next is an IntersectionTile
-      if (next->getName() == "IntersectionTile")
+      // The next tile is an IntersectionTile and we don't already have a green light
+      if (next->getName() == "IntersectionTile" && !this->hasGreen)
       {
-
-         // Decide what to do based on TrafficLight color
+         // Cast Tile to IntersectionTile
          IntersectionTile *it = dynamic_cast<IntersectionTile *>(next);
+
+         // Get the light color from IntersectionTile
          LightColor lightColor = it->getTrafficLight()->getColor();
 
+         // If the light is red, don't go forward but can turn
          if (lightColor == LightColor::red)
          {
+            // Check if you can turn and turn
+            if (this->willTurnRight && this->canTurnRight(it))
+            {
+               turnRight();
+            }
             return;
          }
+         // If the light is yellow, only Vehicle can make it
          else if (lightColor == LightColor::yellow)
          {
-            // Logic for yellow turns here
-         }
+            if (it->getTrafficLight()->getTimeTilChange() >= this->length + 1 && this->willTurnRight)
+            {
+               turnRight();
+               return;
+            }
 
-         // Get ready to turn
-         if (this->willTurnRight)
+            if (it->getTrafficLight()->getTimeTilChange() >= this->length + 2)
+            {
+               this->hasGreen = true;
+               this->moveForward();
+            }
+         }
+         else if (lightColor == LightColor::green)
          {
-            this->isTurningRight = true;
-            this->movesLeftInTurn = this->length;
+            this->hasGreen = true;
+
+            // If the light is green and Vehicle is turning right, just do it
+            if (this->willTurnRight)
+            {
+               turnRight();
+               return;
+            }
+            this->moveForward();
          }
       }
+      else
+      {
+         // Move forward to the next Tile
+         this->moveForward();
+      }
+   }
+   else if (next == nullptr)
+   {
+      this->reachedEndOfRoad = true;
 
-      // Move forward to the next Tile
-      this->moveForward();
+      Tile *tail = this->tptr;
+
+      while (tail != hptr)
+      {
+         tail->setUnoccupied();
+         tail = tail->getStraight();
+      }
+
+      this->hptr->setUnoccupied();
    }
 }
 
@@ -164,6 +203,14 @@ void Vehicle::move()
  */
 void Vehicle::turnRight()
 {
+   std::cout << "Turning" << std::endl;
+
+   // Set turning right to true if it isn't already
+   if (!this->isTurningRight)
+   {
+      this->isTurningRight = true;
+      this->movesLeftInTurn = this->length + 1;
+   }
 
    if (this->movesLeftInTurn != 0)
    {
@@ -225,6 +272,50 @@ void Vehicle::turnRight()
 void Vehicle::setCurrDirection(Direction direction)
 {
    this->currDirection = direction;
+}
+
+/*
+ * Check if a Vehicle can turn right on a red light
+ */
+bool Vehicle::canTurnRight(IntersectionTile *it)
+{
+
+   if (it->getTrafficLight()->getColor() == LightColor::green)
+   {
+      return true;
+   }
+
+   IntersectionTile *it2;
+   switch (this->getVehicleOriginalDirection())
+   {
+   case Direction::north:
+      it2 = dynamic_cast<IntersectionTile *>(it->getWest());
+      break;
+   case Direction::east:
+      it2 = dynamic_cast<IntersectionTile *>(it->getNorth());
+      break;
+   case Direction::south:
+      it2 = dynamic_cast<IntersectionTile *>(it->getEast());
+   case Direction::west:
+      it2 = dynamic_cast<IntersectionTile *>(it->getSouth());
+   }
+
+   if (it2->isOccupied())
+   {
+      return false;
+   }
+
+   Tile *checkTile = it2->getBack();
+   for (int i = 0; i < this->length - 1; i++)
+   {
+      if (checkTile->isOccupied())
+      {
+         return false;
+      }
+      checkTile = checkTile->getBack();
+   }
+
+   return true;
 }
 
 #endif

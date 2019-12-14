@@ -5,7 +5,9 @@
 #include "TrafficLight.h"
 #include "VehicleBase.h"
 
-//Typical use constructor
+/**
+ * Typical use constructor
+ */
 TrafficLight::TrafficLight(LightColor light, int g, int y, int r)
 {
   lightColor = light;
@@ -27,7 +29,9 @@ TrafficLight::TrafficLight(LightColor light, int g, int y, int r)
   }
 }
 
-//Copy constructor
+/**
+ * Copy constructor
+ */
 TrafficLight::TrafficLight(const TrafficLight &other)
 {
   lightColor = other.lightColor;
@@ -37,14 +41,22 @@ TrafficLight::TrafficLight(const TrafficLight &other)
   timeTilChange = other.timeTilChange;
 }
 
-//Destructor
+/**
+ * Destructor
+ */
 TrafficLight::~TrafficLight() {}
 
+/**
+ * Returns the current color of the light
+ */
 LightColor TrafficLight::getColor()
 {
   return lightColor;
 }
 
+/**
+ * Changes the color of the light, updates timeTilChange, and returns its previous color
+ */
 LightColor TrafficLight::setColor(LightColor col)
 {
   if (col == LightColor::green)
@@ -65,25 +77,41 @@ LightColor TrafficLight::setColor(LightColor col)
   return old;
 }
 
+/**
+ * Returns the length of time the light is green
+ */
 int TrafficLight::getTimeGreen()
 {
   return timeGreen;
 }
 
+/**
+ * Returns the length of time the light is yellow
+ */
 int TrafficLight::getTimeYellow()
 {
   return timeYellow;
 }
 
+/**
+ * Returns the length of time the light is red
+ */
 int TrafficLight::getTimeRed()
 {
   return timeRed;
 }
 
+/**
+ * Returns the length of time until the light changes
+ */
 int TrafficLight::getTimeTilChange()
 {
   return timeTilChange;
 }
+
+/**
+ * Decrements timeTilChange and changes the light color when timeTilChange reaches 0
+ */
 void TrafficLight::decrement()
 {
   timeTilChange--;

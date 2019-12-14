@@ -6,10 +6,16 @@
 #include "Vehicle.h"
 #include <iostream>
 
+/**
+ * Typical use constructor for truck
+ */
 Truck::Truck(Direction direction, bool willTurnRight) : Vehicle(VehicleType::truck, direction, 4, willTurnRight)
 {
 }
 
+/**
+ * Destructor for truck
+ */
 Truck::~Truck()
 {
 }

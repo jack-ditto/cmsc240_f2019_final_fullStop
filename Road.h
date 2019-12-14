@@ -10,16 +10,20 @@ using namespace std;
 class Road
 {
 	private:
-		vector<Tile *> road; // Store Tiles in road as pointer to tiles
-		Tile *queueHead;	 // Stores pointer to last 'invisible' tile on the road
-		int roadLen;		 // Total length of road NOT including invisible tiles (+8)
-		Direction direction;
+		vector<Tile *> road; 	// Store Tiles in road as pointer to tiles
+		Tile *queueHead;	 		// Stores pointer to last 'invisible' tile on the road
+		int roadLen;		 			// Total length of road NOT including invisible tiles (+8)
+		Direction direction;  // The direction of the road
 
 	public:
+		//Constructor
 		Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction);
-		Tile *getQueueHead();
-		vector<VehicleBase *> getRoadSnapshot();
-		Direction getDirection(); // Should be needed by generate vehicle
+
+		//Getters
+		vector<VehicleBase *> getRoadSnapshot();	// Returns a VehicleBase pointer of the locations of Vehicles
+		Tile *getQueueHead();											// Returns a pointer to the first tile of a road
+		Direction getDirection(); 								// Returns the direction associated with the road
+
 };
 
 #endif

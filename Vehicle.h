@@ -3,6 +3,7 @@
 
 #include "VehicleBase.h"
 #include "Tile.h"
+#include "IntersectionTile.h"
 
 class Vehicle : public VehicleBase
 {
@@ -22,9 +23,12 @@ private:
   bool isTurningRight;     // Vehicle is currently turning right
   int movesLeftInTurn;     // Number of moves left in a turn
   Direction currDirection; // Current direction of the Vehicle
+  bool hasGreen = false;
+  bool reachedEndOfRoad = false;
 
   void setOccupiedTiles(); // Set all Tiles between head and tail to occupied
   void moveForward();      // Move the car forward a Tile
+  bool canTurnRight(IntersectionTile *it);
 
 public:
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
@@ -34,15 +38,14 @@ public:
   ~Vehicle();
 
   // Getter methods
-
   int getLength();
   Direction getCurrDirection();
   Tile *getHptr();
   Tile *getTptr();
   Turn getTurn();
+  inline bool hasReachedEndOfRoad() { return this->reachedEndOfRoad; }
 
   // Setter methods
-
   void setCurrDirection(Direction direction);
 
   // Actions

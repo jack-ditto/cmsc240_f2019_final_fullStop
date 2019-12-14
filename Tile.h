@@ -15,6 +15,7 @@ private:
 
 protected:
 	Tile *straight;   // Next tile
+	Tile *back;		  // Previous tile
 	std::string name; // Name of tile (see Tile::getName() for explanation)
 
 public:
@@ -23,6 +24,7 @@ public:
 
 	// Getters
 	virtual Tile *getStraight();		// getStraight, overrwritten in IntersectionTile
+	virtual Tile *getBack();			// getBack, overwritten in IntersectionTile
 	bool isOccupied();					// Tile has a Vehicle on it
 	VehicleBase *getOccupyingVehicle(); // Get VehicleBase reference to occupying vehicle
 	std::string getName();				// Return name ("Tile")
@@ -31,6 +33,7 @@ public:
 	void setOccupied(VehicleBase *); // Tell Tile that there is a Vehicle on it
 	void setUnoccupied();			 // Tell Tile there is not longer a Vehicle on it
 	void setStraight(Tile *t);		 // Set the next Tile
+	void setBack(Tile *t);
 };
 
 #endif

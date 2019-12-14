@@ -8,10 +8,8 @@
 class Suv : public Vehicle
 {
 
-private:
-  int length = 3;
-
 public:
+  //Constructors and destructors
   Suv(Direction direction, bool willTurnRight);
   ~Suv();
 };

@@ -9,6 +9,7 @@ class Car : public Vehicle
 {
 
 public:
+  //Constructors and destructors
   Car(Direction direction, bool willTurnRight);
   ~Car();
 };
