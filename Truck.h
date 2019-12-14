@@ -8,9 +8,6 @@
 class Truck : public Vehicle
 {
 
-private:
-  int length = 4;
-
 public:
   Truck(Direction direction, bool willTurnRight);
   ~Truck();
