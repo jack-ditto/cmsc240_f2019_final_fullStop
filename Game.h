@@ -32,11 +32,9 @@ class Game
       double probLeftTrucks;                    // Probability a truck turns left
 
    public:
-
       // Constructors
       Game();
       Game(std::string filePath);
-
 
       // Simulation running methods
       void run();

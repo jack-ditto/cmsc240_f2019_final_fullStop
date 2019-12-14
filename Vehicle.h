@@ -24,7 +24,7 @@ private:
   Direction currDirection; // Current direction of the Vehicle
 
   void setOccupiedTiles(); // Set all Tiles between head and tail to occupied
-  void moveForward();      // Move the car forward a Tile
+  void moveForward();      // Move the vehicle forward a Tile
 
 public:
   // Typical use: hptr here is a the queueHead in Road. tptr calculated in constructor based on length
@@ -34,7 +34,6 @@ public:
   ~Vehicle();
 
   // Getter methods
-
   int getLength();
   Direction getCurrDirection();
   Tile *getHptr();
@@ -42,7 +41,6 @@ public:
   Turn getTurn();
 
   // Setter methods
-
   void setCurrDirection(Direction direction);
 
   // Actions

@@ -91,7 +91,6 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
  */
 vector<VehicleBase *> Road::getRoadSnapshot()
 {
-
 	// Initialize vector
 	vector<VehicleBase *> snapshot(roadLen, nullptr);
 
@@ -115,6 +114,9 @@ Tile *Road::getQueueHead()
 	return this->queueHead;
 }
 
+/**
+ * Returns the direction in which the road is constructed
+ */
 Direction Road::getDirection()
 {
 	return this->direction;
