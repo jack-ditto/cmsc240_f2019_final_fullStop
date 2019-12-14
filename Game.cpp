@@ -156,6 +156,15 @@ Game::Game()
    std::cout << "Constructed using default constructor!" << std::endl;
 }
 
+Game::~Game()
+{
+   for ( int i = 0; i < this->vehicles.size(); i++ ) 
+    {       
+        delete this->vehicles[i];    
+    }    
+    this->vehicles.clear(); 
+}
+
 /*
  * Main run method, runs the game.
  */
@@ -196,8 +205,6 @@ void Game::run()
    double vehicleProb;
    double turnOrNot;
 
-   vector<Vehicle *> vehicles;
-
    // Vector to store the vehicles on the road
 
    int t = 0; // Counter for game
@@ -221,22 +228,22 @@ void Game::run()
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&northBoundRoad, vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
+      generateDirections(&northBoundRoad, &vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&southBoundRoad, vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
+      generateDirections(&southBoundRoad, &vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&eastBoundRoad, vehicles, directionProb, probNewVehicleE, vehicleProb, turnOrNot); //east
+      generateDirections(&eastBoundRoad, &vehicles, directionProb, probNewVehicleE, vehicleProb, turnOrNot); //east
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
+      generateDirections(&westBoundRoad, &vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
 
       moveTraffic(vehicles); //updated
 
@@ -253,46 +260,6 @@ void Game::run()
  */
 void Game::moveTraffic(vector<Vehicle *> &a)
 {
-
-   // for (int i =0; i<a.size(); i++)
-   // {
-   //    it = a.begin();
-   //    Vehicle* temp = a[i];
-
-   //    if (i==0)
-   //    {
-   //       temp->move();
-   //    }
-
-   //    else if (temp->hasReachedEndOfRoad())
-   //    {
-   //       cout << "the currentID is in nullptr " << temp->getVehicleID() <<endl;
-   //       cout << "the current i is " <<i <<endl;
-   //         delete (*it);
-   //    }
-
-   //    else
-   //    {
-
-   //    // cout << " the current ID is " << temp->getVehicleID() << endl;
-   //     //cout << "the current i is " <<i <<endl;
-   //       temp->move(); // problem
-
-   //    }
-
-   // for (it = a.begin(); it != a.end();)
-   // {
-   //    Vehicle *temp = *it;
-   //    if (temp->hasReachedEndOfRoad())
-   //    {
-   //       it = a.erase(it);
-   //    }
-   //    else
-   //    {
-   //       it++;
-   //       temp->move();
-   //    }
-   // }
 
    if (a.size() != 0)
    {
@@ -311,12 +278,8 @@ void Game::moveTraffic(vector<Vehicle *> &a)
    }
 }
 
-void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
+void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
 {
-   //std::cout << "GenerateDirections() called" << std::endl;
-
-   // The current road we are going to spawn a vehicle on
-   //Road temp = *r;
 
    // The direction of the road
    Direction direction = r->getDirection();
@@ -337,14 +300,14 @@ void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionpro
                Car *a = new Car(direction, true);
 
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
 
             else
             {
                Car *a = new Car(direction, false);
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
          }
 
@@ -355,14 +318,14 @@ void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionpro
             {
                Suv *a = new Suv(direction, true);
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
 
             else
             {
                Suv *a = new Suv(direction, false);
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
          }
 
@@ -372,7 +335,7 @@ void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionpro
             {
                Truck *a = new Truck(direction, true);
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
 
             else
@@ -380,7 +343,7 @@ void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionpro
 
                Truck *a = new Truck(direction, false);
                a->enterRoad(r->getQueueHead());
-               v.push_back(a);
+               v->push_back(a);
             }
          }
       }

@@ -86,6 +86,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	for (int i = 0; i < num + 3; i++)
 	{
 		Tile *t = new Tile();
+
 		if (prevTile != NULL)
 		{
 			t->setBack(prevTile);
@@ -100,8 +101,16 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 Road::~Road()
 {
 
-   std::cout << "Road out of scope" << std::endl;
-
+	for ( int i = 0; i < this->road.size(); i++ ) 
+    {     
+		// Only tiles were dynamically allocated, so don't free intersectiontiles
+		if(road[i]->getName() == "Tile")
+		{
+			delete this->road[i];    
+		}
+        
+    }    
+    road.clear(); 
 }
 
 /**

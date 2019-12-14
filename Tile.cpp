@@ -17,7 +17,10 @@ Tile::Tile()
 /*
  * Destructor
  */
-Tile::~Tile() {}
+Tile::~Tile() 
+{
+    // std::cout << "Tile deconstructed!" << std::endl;
+}
 
 /*
  * Return pointer to next Tile as set by setStraight()

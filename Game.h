@@ -5,6 +5,7 @@
 #include "IntersectionTile.h"
 #include "Road.h"
 #include <random>
+#include <vector>
 
 
 class Game
@@ -30,13 +31,15 @@ class Game
       double probLeftCars;                      // Probability a car turns left
       double probLeftSUVs;                      // Probability a SUV turns left
       double probLeftTrucks;                    // Probability a truck turns left
+      vector<Vehicle *> vehicles;
 
    public:
       // Constructors
       Game();
       Game(std::string filePath);
+      ~Game();
       
-      void generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot);
+      void generateDirections(Road *r, vector<Vehicle*> *v, double directionprob, double probNewVehicle, double vehicletype, double turnornot);
       void moveTraffic(vector<Vehicle*> &a);
       // Simulation running methods
       void run();
