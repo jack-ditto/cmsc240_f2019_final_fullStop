@@ -216,18 +216,19 @@ void Game::run()
 
       animator.draw(t);
       std::cin.ignore();
-
+      
       // update vehicles
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
       generateDirections(&northBoundRoad, vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
-
+      
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
       generateDirections(&southBoundRoad, vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
 
+          
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
@@ -253,7 +254,6 @@ void Game::run()
  */
 void Game::moveTraffic(vector<Vehicle *> &a)
 {
-   vector<Vehicle *>::iterator it;
 
    // for (int i =0; i<a.size(); i++)
    // {
@@ -294,32 +294,36 @@ void Game::moveTraffic(vector<Vehicle *> &a)
    //       temp->move();
    //    }
    // }
-
-   for (int i = 0; i < a.size(); i++)
+   
+   if(a.size() != 0)
    {
-      if (a[i]->hasReachedEndOfRoad())
+
+      for (int i = 0; i < a.size(); i++)
       {
-         a.erase(a.begin() + i);
-      }
-      else
-      {
-         a[i]->move();
+         if (a[i]->hasReachedEndOfRoad())
+         {
+            a.erase(a.begin() + i);
+         }
+         else
+         {
+            a[i]->move();
+         }
       }
    }
 }
 
 void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
 {
-   std::cout << "GenerateDirections() called" << std::endl;
+   //std::cout << "GenerateDirections() called" << std::endl;
 
    // The current road we are going to spawn a vehicle on
-   Road temp = *r;
+   //Road temp = *r;
 
    // The direction of the road
-   Direction direction = temp.getDirection();
+   Direction direction = r->getDirection();
 
    // Make sure there is space to spawn a vehicle
-   if (temp.canSpawnVehicle())
+   if (r->canSpawnVehicle())
    {
 
       if (directionprob <= probNewVehicle)
