@@ -20,7 +20,12 @@ Tile::~Tile() {}
  */
 Tile *Tile::getStraight()
 {
-    return straight;
+    return this->straight;
+}
+
+Tile *Tile::getBack()
+{
+    return this->back;
 }
 
 /*
@@ -37,6 +42,11 @@ bool Tile::isOccupied()
 void Tile::setStraight(Tile *t)
 {
     this->straight = t;
+}
+
+void Tile::setBack(Tile *t)
+{
+    this->back = t;
 }
 
 /*

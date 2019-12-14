@@ -67,22 +67,29 @@ Tile *IntersectionTile::getRight()
   }
 }
 
-// Set each of the 4 directions, used on construction in Road
-void IntersectionTile::setNorth(Tile *north)
+Tile *IntersectionTile::getBack()
 {
-  this->north = north;
-}
-void IntersectionTile::setEast(Tile *east)
-{
-  this->east = east;
-}
-void IntersectionTile::setSouth(Tile *south)
-{
-  this->south = south;
-}
-void IntersectionTile::setWest(Tile *west)
-{
-  this->west = west;
+
+  if (this->getOccupyingVehicle() == nullptr)
+  {
+    return Tile::getBack();
+  }
+
+  switch (this->getOccupyingVehicle()->getVehicleOriginalDirection())
+  {
+  case Direction::north:
+    return this->south;
+    break;
+  case Direction::east:
+    return this->west;
+    break;
+  case Direction::south:
+    return this->north;
+    break;
+  case Direction::west:
+    return this->east;
+    break;
+  }
 }
 
 /*
