@@ -112,20 +112,17 @@ void Vehicle::moveForward()
  */
 void Vehicle::move()
 {
-   
+
    // If we are turning right, let turnRight() handle the move logic
    if (this->isTurningRight)
    {
-      cout << "it is turning right" << endl;
-      cout <<"The vehicle ID is  " << this->getVehicleID() << endl;
       turnRight();
       return;
    }
-  
+
    // Get the next Tile
    Tile *next = this->hptr->getStraight();
-  
-  
+
    // Check if next Tile 1) exists and 2) is unoccupied
    if (next != nullptr && !next->isOccupied())
    {
@@ -133,7 +130,6 @@ void Vehicle::move()
       // The next tile is an IntersectionTile and we don't already have a green light
       if (next->getName() == "IntersectionTile" && !this->hasGreen)
       {
-         cout << " the veh is on the intersection tile " << this->getVehicleID()<< endl;
          // Cast Tile to IntersectionTile
          IntersectionTile *it = dynamic_cast<IntersectionTile *>(next);
 
@@ -146,7 +142,6 @@ void Vehicle::move()
             // Check if you can turn and turn
             if (this->willTurnRight && this->canTurnRight(it))
             {
-               cout << "when light is red, the v will turn right and it can turn right" <<endl;
                turnRight();
             }
             return;
@@ -156,7 +151,6 @@ void Vehicle::move()
          {
             if (it->getTrafficLight()->getTimeTilChange() >= this->length + 1 && this->willTurnRight)
             {
-                cout << "when light is yellow, the v will turn right and time is enough" <<this->getVehicleID() << endl;
                turnRight();
                return;
             }
@@ -170,30 +164,25 @@ void Vehicle::move()
          else if (lightColor == LightColor::green)
          {
             this->hasGreen = true;
-         
+
             // If the light is green and Vehicle is turning right, just do it
             if (this->willTurnRight)
             {
-               cout << "the light is green, it will turn right on the intersection" <<endl;
                turnRight();
                return;
             }
-           
-           cout << "what about your ID??? " << this->getVehicleID() <<endl;
-             this->moveForward();
-            
+
+            this->moveForward();
          }
       }
       else
       {
          // Move forward to the next Tile
-         //cout << "move forward" << this->getVehicleID() << endl;
          this->moveForward();
       }
    }
    else if (next == nullptr)
    {
-      cout << " it is  null ptr " << this->getVehicleID()<< endl;
       this->reachedEndOfRoad = true;
 
       Tile *tail = this->tptr;
@@ -213,9 +202,9 @@ void Vehicle::move()
  *  by move(). Also, will be called when the head is already on the IntersectionTile
  */
 void Vehicle::turnRight()
-{  
-   cout << "we are turning right" <<endl;
-  
+{
+
+   std::cout << this->getVehicleID() << " turning right..." << std::endl;
 
    // Set turning right to true if it isn't already
    if (!this->isTurningRight)
