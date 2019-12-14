@@ -8,7 +8,7 @@ class Tile
 {
 private:
 	bool isEmpty;				   // Tile has a Vehicle on it
-	VehicleBase *occupyingVehicle; // VehicleBase pointer to Vehicle occupying Tile
+	VehicleBase *occupyingVehicle = nullptr; // VehicleBase pointer to Vehicle occupying Tile
 
 	// NOTE: It would have been better here to use Vehicle instead of VehicleBase, but since Vehicle include Tile,
 	// Including Vehicle here would have caused a circular depenency. VehicleBase works just fine.
