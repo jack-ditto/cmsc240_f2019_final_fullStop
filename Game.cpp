@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <iterator>
 
 #include "Animator.h"
 #include "Car.h"
@@ -15,6 +16,7 @@
 #include "TrafficLight.h"
 #include "Truck.h"
 #include "Vehicle.h"
+using namespace std;
 
 /*
  * Typical use constructor. Takes a properly formatted text file of values as input
@@ -265,33 +267,57 @@ void Game::run()
  */
 void Game::moveTraffic(vector<Vehicle*> &a)
 {
+   cout << "the number of the current vehicles is " << a.size() <<endl;
+   vector<Vehicle*>::iterator it;
   
-   for (int i =0; i<a.size(); i++)
-   { 
+   // for (int i =0; i<a.size(); i++)
+   // { 
+   //    it = a.begin();
+   //    Vehicle* temp = a[i];
+     
+   //    if (i==0)
+   //    {
+   //       temp->move();
+   //    }
       
-      
-      Vehicle* temp = a[i];
      
    
-      if (temp->isOutOfBound())  
-      {  
-         
-          delete a[i];
-      }
+   //    else if (temp->hasReachedEndOfRoad())  
+   //    {  
+   //       cout << "the currentID is in nullptr " << temp->getVehicleID() <<endl;
+   //       cout << "the current i is " <<i <<endl;
+   //         delete (*it);
+   //    }
 
-      else
-      {
+   //    else
+   //    {
          
-       
-         temp->move(); // problem 
+        
+   //    // cout << " the current ID is " << temp->getVehicleID() << endl;
+   //     //cout << "the current i is " <<i <<endl;
+   //       temp->move(); // problem 
         
        
-      }
+   //    }
       
+      for (it = a.begin(); it!=a.end(); )
+      {
+         Vehicle* temp = *it;
+         if(temp->hasReachedEndOfRoad())
+         {
+            it=a.erase(*it); // how to erase the elements become a problem, I do not know why the iterator does not work.
+         }
+         else
+         {
+            it++;
+            temp->move();
+         }
+      }
+      it++;
 
    }
 
-}
+
 
 
 void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
@@ -301,21 +327,21 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
   
    
    if (temp.canSpawnVehicle()){
-   if(direction == Direction::north){
-   cout << "the direction now should be " << "north" << endl;
-   }
-   else if (direction == Direction::south)
-   {
-      cout << "direction now should be " << "south" << endl;
-   }
-   else if (direction == Direction::east)
-   {
-      cout << "direction now should be " << "east" << endl;
-   }
-   else
-   {
-      cout << "direction now should be " << "west" << endl;
-   }
+   // if(direction == Direction::north){
+   // cout << "the direction now should be " << "north" << endl;
+   // }
+   // else if (direction == Direction::south)
+   // {
+   //    cout << "direction now should be " << "south" << endl;
+   // }
+   // else if (direction == Direction::east)
+   // {
+   //    cout << "direction now should be " << "east" << endl;
+   // }
+   // else
+   // {
+   //    cout << "direction now should be " << "west" << endl;
+   // }
    
    
    
@@ -338,6 +364,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          if(turnornot<=probRightCars)
          {
            Car* a  = new Car (direction,true);
+            cout << "it is turning?" << "true" <<endl;
            
            a->enterRoad(r->getQueueHead());
            v.push_back(a);
@@ -351,6 +378,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
             a->enterRoad(r->getQueueHead());
             v.push_back(a);
             cout << "Test" << "It's a car with straight road" <<endl;
+             cout << "it is turning?" << "false" <<endl;
 
          }
       }
@@ -364,7 +392,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
 
             cout << "Test" << "It's SUV with right turn" << endl;
             Suv* a = new Suv(direction,true);
-           
+           cout << "it is turning?" << "true" <<endl;
             a->enterRoad(r->getQueueHead());
             v.push_back(a);
          }
@@ -372,8 +400,10 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          {
             cout << "Test" << "It's a SUV with straight road" <<endl;
             Suv* a = new Suv(direction,false);
+             cout << "it is turning?" << "false" <<endl;
             a->enterRoad(r->getQueueHead());
              v.push_back(a);
+             
          }
       }
       else
@@ -385,6 +415,8 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          {
             cout << "Test" << "It's a truck with right turn" << endl;
             Truck* a = new Truck (direction,true);
+           
+             cout << "it is turning?" << "true" <<endl;
              a->enterRoad(r->getQueueHead());
              v.push_back(a);
          }
@@ -393,6 +425,8 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
             cout << "Test" << "It's a truck with straight road" <<endl;
 
             Truck* a = new Truck (direction,false);
+           
+            cout << "it is turning?" << "false" <<endl;
              a->enterRoad(r->getQueueHead());
              v.push_back(a);
          }
