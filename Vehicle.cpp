@@ -120,9 +120,10 @@ void Vehicle::move()
       turnRight();
       return;
    }
-
+   cout << "again???" <<endl;
    // Get the next Tile
    Tile *next = this->hptr->getStraight();
+  
   
    // Check if next Tile 1) exists and 2) is unoccupied
    if (next != nullptr && !next->isOccupied())

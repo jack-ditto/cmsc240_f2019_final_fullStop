@@ -184,6 +184,11 @@ void Game::run()
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
    Road westBoundRoad(numSectionsBeforeIntersection, &it2, &it1, Direction::west);
 
+    animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+    animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+    animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+    animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
+
    // to do create generate vehicle,add to road 
 
    std::mt19937 rng(this->seed);
@@ -214,7 +219,7 @@ void Game::run()
 
   
      animator.draw(t);
-  
+     std::cin.ignore();
  
 
 
@@ -246,9 +251,9 @@ void Game::run()
    
    moveTraffic(vehicles); //updated
 
-     //Increment time: traffic light and for game
-     lightNS.decrement();
-     lightEW.decrement();
+   //Increment time: traffic light and for game
+   lightNS.decrement();
+   lightEW.decrement();
 
      t++;
      
@@ -263,20 +268,23 @@ void Game::moveTraffic(vector<Vehicle*> &a)
   
    for (int i =0; i<a.size(); i++)
    { 
+      
+      
       Vehicle* temp = a[i];
-      //bool isnull = (a[i]==NULL);
-     // cout << "the null pointer " << isnull <<endl;
-      //Vehicle v = *temp;
+     
    
       if (temp->isOutOfBound())  
       {  
+         
           delete a[i];
       }
+
       else
       {
          
-         //cout << "is it null???" <<  isnull <<endl;
+       
          temp->move(); // problem 
+        
        
       }
       
@@ -289,7 +297,10 @@ void Game::moveTraffic(vector<Vehicle*> &a)
 void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
 {
    Road temp = *r;
-   Direction direction = temp.getDirection();
+   Direction direction =temp.getDirection();
+  
+   
+   if (temp.canSpawnVehicle()){
    if(direction == Direction::north){
    cout << "the direction now should be " << "north" << endl;
    }
@@ -327,6 +338,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          if(turnornot<=probRightCars)
          {
            Car a (direction,true);
+           a.enterRoad(r->getQueueHead());
            v.push_back(&a);
          
 
@@ -335,6 +347,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          else
          {
             Car a (direction, false);
+            a.enterRoad(r->getQueueHead());
             v.push_back(&a);
             cout << "Test" << "It's a car with straight road" <<endl;
 
@@ -350,24 +363,28 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
 
             cout << "Test" << "It's SUV with right turn" << endl;
             Suv a(direction,true);
-             v.push_back(&a);
+            Suv* addy = &a;
+            a.enterRoad(r->getQueueHead());
+            v.push_back(&a);
          }
          else
          {
             cout << "Test" << "It's a SUV with straight road" <<endl;
             Suv a(direction,false);
+            a.enterRoad(r->getQueueHead());
              v.push_back(&a);
          }
       }
       else
       {
 
-         //double turnornot = rand_double(rng);
+        
 
          if (turnornot <= probRightTrucks)
          {
             cout << "Test" << "It's a truck with right turn" << endl;
             Truck a (direction,true);
+             a.enterRoad(r->getQueueHead());
              v.push_back(&a);
          }
          else
@@ -375,6 +392,7 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
             cout << "Test" << "It's a truck with straight road" <<endl;
 
             Truck a (direction,false);
+             a.enterRoad(r->getQueueHead());
              v.push_back(&a);
          }
 
@@ -383,142 +401,14 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
       }
 
 
-        
-        //veh = generateVehicles(Direction::north,veh);
+       
+
+    
 
          
-
+      }
 
      }
-   //    directionProb = rand_double(rng);
-
-   //     cout << "The number of diretion probability for south should be " << directionProb << endl;
-
-
-
-   //   if (directionProb <=probNewVehicleN+probNewVehicleS && directionProb >= probNewVehicleN)
-   //   {
-
-        
-   //      //veh = generateVehicles(Direction::south, veh);
-   //       generateVehicles(Direction::south, veh);
-   //        cout << "It havs generated a vehicle in the south lane " << endl;
-   //   }
-
-   //    directionProb = rand_double(rng);
-
-   //    cout << "The number of diretion probability for east should be " << directionProb << endl;
-
-   //   if(directionProb <=probNewVehicleN+probNewVehicleS + probNewVehicleE && directionProb >= probNewVehicleN+probNewVehicleS)
-   //   {
-
    
-   //      veh = generateVehicles (Direction::east, veh);
-
-   //      cout << "It havs generated a vehicle in the east lane " << endl;
-   //   }
-
-   //   directionProb = rand_double(rng);
-
-   // cout << "The number of diretion probability for west should be " << directionProb << endl;
-
-   //   if(directionProb <=1 && directionProb >= probNewVehicleN+probNewVehicleS+probNewVehicleE)
-   //   {
-
-        
-   //      veh = generateVehicles (Direction::west, veh);
-
-
-
-
-   //      cout << "It havs generated a vehicle in the west lane " << endl;
-   //   }
-
-   // return veh;
 }
-
-
-// void  Game:: generateVehicles(Direction direction, vector<Vehicle> v, double vehicletype, double TurnOrNot, double directionProb)
-// {
-
-    
-    
-
-
-
-
-//       bool turnright;
-
-
-
-
-//       if(vehicletype<=proportionCars)
-//       {
-
-//          double turnornot = rand_double(rng);
-
-//          cout << "The probability of turn to the right or not should be " << turnornot << endl;
-//          if(turnornot<=probRightCars)
-//          {
-//            Car a (direction,true);
-//            v.push_back(a);
-         
-
-//            cout << "Test" << "It's car with right turn" << endl;
-//          }
-//          else
-//          {
-//             Car a (direction, false);
-//             v.push_back(a);
-//             cout << "Test" << "It's a car with straight road" <<endl;
-
-//          }
-//       }
-//       else if ((vehicletype > proportionCars) && (vehicletype<=proportionCars+proportionSUVs))
-//       {
-
-//          double turnornot = rand_double(rng);
-
-//          if (turnornot <= probLeftSUVs )
-//          {
-
-//             cout << "Test" << "It's SUV with right turn" << endl;
-//             Suv a(direction,true);
-//              v.push_back(a);
-//          }
-//          else
-//          {
-//             cout << "Test" << "It's a SUV with straight road" <<endl;
-//             Suv a(direction,false);
-//              v.push_back(a);
-//          }
-//       }
-//       else
-//       {
-
-//          double turnornot = rand_double(rng);
-
-//          if (turnornot <= probRightTrucks)
-//          {
-//             cout << "Test" << "It's a truck with right turn" << endl;
-//             Truck a (direction,true);
-//              v.push_back(a);
-//          }
-//          else
-//          {
-//             cout << "Test" << "It's a truck with straight road" <<endl;
-
-//             Truck a (direction,false);
-//              v.push_back(a);
-//          }
-
-        
-         
-//       }
-
-
-//       return v;
-
-// }
-
 #endif
