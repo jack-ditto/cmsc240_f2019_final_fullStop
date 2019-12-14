@@ -12,6 +12,7 @@ private:
   int length = 4;
 
 public:
+  //Constructors and destructors
   Truck(Direction direction, bool willTurnRight);
   ~Truck();
 };
