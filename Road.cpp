@@ -17,7 +17,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	// Construct, add, and link first section of Tiles before intersection
 	for (int i = 0; i < num + 4; i++)
 	{
-		Tile *t = new Tile;
+		Tile *t = new Tile();
 
 		// Store the first Tile for Vehicle to enter on
 		if (i == 3)
@@ -44,8 +44,8 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	// Point the last Tile before intersection to IntersectionTile
 	prevTile->setStraight(intersectionTile1);
 	intersectionTile1->setBack(prevTile);
-
-	Tile *transition = new Tile; // Transition tile from 2nd intersection to rest of road
+   
+	Tile *transition = new Tile(); // Transition tile from 2nd intersection to rest of road
 
 	// Point 1) first IntersectionTile to prev tile
 	//		 2) first IntersectionTile to secton IntersectionTile
@@ -85,8 +85,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	// Continue building the road of Tiles after intersection
 	for (int i = 0; i < num + 3; i++)
 	{
-		Tile *t = new Tile;
-
+		Tile *t = new Tile();
 		if (prevTile != NULL)
 		{
 			t->setBack(prevTile);
@@ -96,6 +95,13 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 		prevTile = t;
 		this->road.push_back(t);
 	}
+}
+
+Road::~Road()
+{
+
+   std::cout << "Road out of scope" << std::endl;
+
 }
 
 /**

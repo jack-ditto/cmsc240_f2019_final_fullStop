@@ -11,7 +11,7 @@ using namespace std;
 Tile::Tile()
 {
     this->name = "Tile";
-    isEmpty = true;
+    this->isEmpty = true;
 }
 
 /*

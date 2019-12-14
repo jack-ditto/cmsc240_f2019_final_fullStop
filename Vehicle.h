@@ -20,7 +20,7 @@ private:
   Tile *hptr;              // Pointer to Tile where head of Vehicle is
   Tile *tptr;              // Pointer to Tile where tail of Vehicle is
   bool willTurnRight;      // Vehicle is destined to turn right
-  bool isTurningRight;     // Vehicle is currently turning right
+  bool isTurningRight = false;     // Vehicle is currently turning right
   int movesLeftInTurn;     // Number of moves left in a turn
   Direction currDirection; // Current direction of the Vehicle
   bool hasGreen = false;

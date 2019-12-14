@@ -18,6 +18,9 @@ private:
 public:
 	//Constructor
 	Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *intersectionTile2, Direction direction);
+   
+   //Destructor
+   ~Road();
 
 	//Getters
 	vector<VehicleBase *> getRoadSnapshot(); // Returns a VehicleBase pointer of the locations of Vehicles
