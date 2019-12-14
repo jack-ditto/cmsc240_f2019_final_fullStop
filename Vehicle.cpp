@@ -4,6 +4,8 @@
 #include "Vehicle.h"
 #include "VehicleBase.h"
 #include <iostream>
+#include "IntersectionTile.h"
+using namespace std;
 
 // Typical use constructor for Vehicle
 Vehicle::Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
@@ -110,18 +112,19 @@ void Vehicle::moveForward()
  */
 void Vehicle::move()
 {
-
+   
    // If we are turning right, let turnRight() handle the move logic
    if (this->isTurningRight)
    {
+      
       turnRight();
       return;
    }
 
    // Get the next Tile
    Tile *next = this->hptr->getStraight();
-
-   // The next tile exists and is not occupied
+  
+   // Check if next Tile 1) exists and 2) is unoccupied
    if (next != nullptr && !next->isOccupied())
    {
 

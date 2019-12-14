@@ -35,14 +35,11 @@ class Game
       // Constructors
       Game();
       Game(std::string filePath);
-
+      
+      void generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot);
+      void moveTraffic(vector<Vehicle*> &a);
       // Simulation running methods
       void run();
       void moveTraffic();
-
-      // Methods to generate new vehicles
-      void generateDirections(Road *west, Road *east, Road *south, Road *north);
-      void generateVehicles(Direction direction);
-
 };
 #endif

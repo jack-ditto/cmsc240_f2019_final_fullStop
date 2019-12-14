@@ -52,6 +52,8 @@ public:
   void move();                // Tell the Vehicle to move
   void turnRight();           // Takes place of move() when turning
   void enterRoad(Tile *tptr); // Called after construction, point Vehicle to Road
+  bool isOutOfBound(){return hptr==nullptr;} // check whether the vehicle is out of bound
+  
 };
 
 #endif
