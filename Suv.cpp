@@ -6,10 +6,16 @@
 #include "Vehicle.h"
 #include <iostream>
 
+/**
+ * Typical use constructor for SUV
+ */
 Suv::Suv(Direction direction, bool willTurnRight) : Vehicle(VehicleType::suv, direction, 3, willTurnRight)
 {
 }
 
+/**
+ * Destructor for SUV
+ */
 Suv::~Suv()
 {
 }

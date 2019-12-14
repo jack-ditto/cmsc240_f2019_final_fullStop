@@ -38,7 +38,6 @@ public:
   ~Vehicle();
 
   // Getter methods
-
   int getLength();
   Direction getCurrDirection();
   Tile *getHptr();
@@ -47,7 +46,6 @@ public:
   inline bool hasReachedEndOfRoad() { return this->reachedEndOfRoad; }
 
   // Setter methods
-
   void setCurrDirection(Direction direction);
 
   // Actions

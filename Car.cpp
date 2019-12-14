@@ -5,13 +5,16 @@
 #include "Vehicle.h"
 #include <iostream>
 
-// Vehicle needs to take VehicleType, Direction, and a pointer to the back of the 'invisible' part of
-// the road. As for length, we can just make it an instance variable of Car which overrides the length
-// variable in Vehicle. Since length is a constant for each object, I just made it inline in the .h file - Jack
+/**
+ * Typical use constructor for car
+ */
 Car::Car(Direction direction, bool willTurnRight) : Vehicle(VehicleType::car, direction, 2, willTurnRight)
 {
 }
 
+/**
+ * Destructor for car
+ */
 Car::~Car()
 {
 }

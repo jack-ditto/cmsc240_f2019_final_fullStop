@@ -9,6 +9,7 @@ class Suv : public Vehicle
 {
 
 public:
+  //Constructors and destructors
   Suv(Direction direction, bool willTurnRight);
   ~Suv();
 };
