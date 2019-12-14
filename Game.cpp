@@ -337,18 +337,19 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          cout << "The probability of turn to the right or not should be " << turnornot << endl;
          if(turnornot<=probRightCars)
          {
-           Car a (direction,true);
-           a.enterRoad(r->getQueueHead());
-           v.push_back(&a);
+           Car* a  = new Car (direction,true);
+           
+           a->enterRoad(r->getQueueHead());
+           v.push_back(a);
          
 
            cout << "Test" << "It's car with right turn" << endl;
          }
          else
          {
-            Car a (direction, false);
-            a.enterRoad(r->getQueueHead());
-            v.push_back(&a);
+            Car* a  = new Car (direction, false);
+            a->enterRoad(r->getQueueHead());
+            v.push_back(a);
             cout << "Test" << "It's a car with straight road" <<endl;
 
          }
@@ -362,17 +363,17 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          {
 
             cout << "Test" << "It's SUV with right turn" << endl;
-            Suv a(direction,true);
-            Suv* addy = &a;
-            a.enterRoad(r->getQueueHead());
-            v.push_back(&a);
+            Suv* a = new Suv(direction,true);
+           
+            a->enterRoad(r->getQueueHead());
+            v.push_back(a);
          }
          else
          {
             cout << "Test" << "It's a SUV with straight road" <<endl;
-            Suv a(direction,false);
-            a.enterRoad(r->getQueueHead());
-             v.push_back(&a);
+            Suv* a = new Suv(direction,false);
+            a->enterRoad(r->getQueueHead());
+             v.push_back(a);
          }
       }
       else
@@ -383,17 +384,17 @@ void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionpro
          if (turnornot <= probRightTrucks)
          {
             cout << "Test" << "It's a truck with right turn" << endl;
-            Truck a (direction,true);
-             a.enterRoad(r->getQueueHead());
-             v.push_back(&a);
+            Truck* a = new Truck (direction,true);
+             a->enterRoad(r->getQueueHead());
+             v.push_back(a);
          }
          else
          {
             cout << "Test" << "It's a truck with straight road" <<endl;
 
-            Truck a (direction,false);
-             a.enterRoad(r->getQueueHead());
-             v.push_back(&a);
+            Truck* a = new Truck (direction,false);
+             a->enterRoad(r->getQueueHead());
+             v.push_back(a);
          }
 
         
