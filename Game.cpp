@@ -202,7 +202,7 @@ void Game::run()
  
    while (t < this->maxSimTime)
    {
- 
+      
      //Set up animation
      animator.setLightNorthSouth(lightNS.getColor());
      animator.setLightEastWest(lightEW.getColor());
@@ -212,23 +212,23 @@ void Game::run()
      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
+  
      animator.draw(t);
+  
+ 
 
-   //Update vehicles:
-   // double directionProbN = rand_double(rng);
-   // double directionProbS = rand_double(rng);
-   // double directionProbE = rand_double(rng);
-   // double directionProbW = rand_double(rng);
 
+   // update vehicles 
    directionProb = rand_double(rng);
    vehicleProb = rand_double(rng);
    turnOrNot = rand_double(rng);
+ 
    generateDirections(&northBoundRoad,vehicles, directionProb,probNewVehicleN,vehicleProb,turnOrNot); //north
 
    directionProb = rand_double(rng);
    vehicleProb = rand_double(rng);
    turnOrNot = rand_double(rng);
-  generateDirections(&northBoundRoad,vehicles, directionProb,probNewVehicleS,vehicleProb,turnOrNot);//south
+  generateDirections(&southBoundRoad,vehicles, directionProb,probNewVehicleS,vehicleProb,turnOrNot);//south
    
    directionProb = rand_double(rng);
    vehicleProb = rand_double(rng);
@@ -240,10 +240,10 @@ void Game::run()
    vehicleProb = rand_double(rng);
    turnOrNot = rand_double(rng);
   
-  generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb,turnOrNot); //west
+   generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb,turnOrNot); //west
 
   
-
+   
    moveTraffic(vehicles); //updated
 
      //Increment time: traffic light and for game
@@ -260,18 +260,24 @@ void Game::run()
  */
 void Game::moveTraffic(vector<Vehicle*> &a)
 {
-   
+  
    for (int i =0; i<a.size(); i++)
-   {
+   { 
       Vehicle* temp = a[i];
-      Vehicle v = *temp;
-      if (v.isOutOfBound())  
-      {
+      //bool isnull = (a[i]==NULL);
+     // cout << "the null pointer " << isnull <<endl;
+      //Vehicle v = *temp;
+   
+      if (temp->isOutOfBound())  
+      {  
           delete a[i];
       }
       else
       {
-         v.move();
+         
+         //cout << "is it null???" <<  isnull <<endl;
+         temp->move(); // problem 
+       
       }
       
 
@@ -282,9 +288,26 @@ void Game::moveTraffic(vector<Vehicle*> &a)
 
 void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
 {
-
-   Direction direction = *r->getDirection();
-
+   Road temp = *r;
+   Direction direction = temp.getDirection();
+   if(direction == Direction::north){
+   cout << "the direction now should be " << "north" << endl;
+   }
+   else if (direction == Direction::south)
+   {
+      cout << "direction now should be " << "south" << endl;
+   }
+   else if (direction == Direction::east)
+   {
+      cout << "direction now should be " << "east" << endl;
+   }
+   else
+   {
+      cout << "direction now should be " << "west" << endl;
+   }
+   
+   
+   
       
 
      

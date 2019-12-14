@@ -3,7 +3,8 @@
 
 #include "Tile.h"
 #include "Vehicle.h"
-
+#include <iostream>
+using namespace std;
 /*
  * Default constructor
  */
@@ -23,6 +24,7 @@ Tile::~Tile() {}
  */
 Tile *Tile::getStraight()
 {
+    
     return straight;
 }
 
