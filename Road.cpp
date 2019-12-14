@@ -135,4 +135,16 @@ Direction Road::getDirection()
 	return this->direction;
 }
 
+bool Road::canSpawnVehicle()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (road[i]->isOccupied())
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 #endif
