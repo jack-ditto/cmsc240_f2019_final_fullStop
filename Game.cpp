@@ -26,128 +26,123 @@ Game::Game(std::string filePath)
    seed = 8675309;
    std::cout << "Constructed using file!" << std::endl;
 
-        std::ifstream infile;
-        infile.open(filePath);
+   std::ifstream infile;
+   infile.open(filePath);
 
-        if(!infile.is_open())
-        {
-          std::cerr << "Error opening file: " << filePath << std::endl;
-        }
+   if (!infile.is_open())
+   {
+      std::cerr << "Error opening file: " << filePath << std::endl;
+   }
 
-        std::string temp;
-        double d;
-        int count = 0;
+   std::string temp;
+   double d;
+   int count = 0;
 
-        while (infile.good())
-        {
-          infile >> temp;
-          infile >> d;
-          count++;
+   while (infile.good())
+   {
+      infile >> temp;
+      infile >> d;
+      count++;
 
-          if (infile.fail())
-          {
-            if (infile.eof())
-            {
-              break;
-            }
-            else
-            {
-                std::cerr << "Error reading the input." << std::endl;
-            }
-          }
-          else
-          {
-            switch (count)
-            {
-              case 1:
-                 maxSimTime = static_cast<int>(d);
-                 std::cout << maxSimTime << std::endl;
-                 break;
-              case 2:
-                 numSectionsBeforeIntersection = static_cast<int>(d);
-                 std::cout << numSectionsBeforeIntersection << std::endl;
-                 break;
-              case 3:
-                 greenNS = static_cast<int>(d);
-                 std::cout << greenNS << std::endl;
-                 break;
-              case 4:
-                 yellowNS = static_cast<int>(d);
-                 std::cout << yellowNS << std::endl;
-                 break;
-              case 5:
-                 greenEW = static_cast<int>(d);
-                 std::cout << greenEW << std::endl;
-                 break;
-              case 6:
-                 yellowEW = static_cast<int>(d);
-                 std::cout << yellowEW << std::endl;
-                 break;
-              case 7:
-                 probNewVehicleN = d;
-                 std::cout << probNewVehicleN << std::endl;
-                 break;
-              case 8:
-                 probNewVehicleS = d;
-                 std::cout << probNewVehicleS << std::endl;
-                 break;
-              case 9:
-                 probNewVehicleE = d;
-                 std::cout << probNewVehicleE << std::endl;
-                 break;
-              case 10:
-                 probNewVehicleW = d;
-                 std::cout << probNewVehicleW << std::endl;
-                 break;
-              case 11:
-                 proportionCars = d;
-                 std::cout << proportionCars << std::endl;
-                 break;
-              case 12:
-                 proportionSUVs = d;
-                 std::cout << proportionSUVs << std::endl;
-                 break;
-              case 13:
-                 proprtionTrucks = d;
-                 std::cout << proprtionTrucks << std::endl;
-                 break;
-              case 14:
-                 probRightCars = d;
-                 std::cout << probRightCars << std::endl;
-                 break;
-              case 15:
-                 probRightSUVs = d;
-                 std::cout << probRightSUVs << std::endl;
-                 break;
-              case 16:
-                 probRightTrucks = d;
-                 std::cout << probRightTrucks << std::endl;
-                 break;
-              case 17:
-                 probLeftCars = d;
-                 std::cout << probLeftCars << std::endl;
-                 break;
-              case 18:
-                 probLeftSUVs = d;
-                 std::cout << probLeftSUVs << std::endl;
-                 break;
-              case 19:
-                 probLeftTrucks = d;
-                 std::cout << probLeftTrucks << std::endl;
-                 break;
-              default: // code to be executed if n doesn't match any cases
-                 std::cerr << "Error executing cases." << std::endl;
-                 break;
-            }
-          }
-        }
+      if (infile.fail())
+      {
+         if (infile.eof())
+         {
+            break;
+         }
+         else
+         {
+            std::cerr << "Error reading the input." << std::endl;
+         }
+      }
+      else
+      {
+         switch (count)
+         {
+         case 1:
+            maxSimTime = static_cast<int>(d);
+            std::cout << maxSimTime << std::endl;
+            break;
+         case 2:
+            numSectionsBeforeIntersection = static_cast<int>(d);
+            std::cout << numSectionsBeforeIntersection << std::endl;
+            break;
+         case 3:
+            greenNS = static_cast<int>(d);
+            std::cout << greenNS << std::endl;
+            break;
+         case 4:
+            yellowNS = static_cast<int>(d);
+            std::cout << yellowNS << std::endl;
+            break;
+         case 5:
+            greenEW = static_cast<int>(d);
+            std::cout << greenEW << std::endl;
+            break;
+         case 6:
+            yellowEW = static_cast<int>(d);
+            std::cout << yellowEW << std::endl;
+            break;
+         case 7:
+            probNewVehicleN = d;
+            std::cout << probNewVehicleN << std::endl;
+            break;
+         case 8:
+            probNewVehicleS = d;
+            std::cout << probNewVehicleS << std::endl;
+            break;
+         case 9:
+            probNewVehicleE = d;
+            std::cout << probNewVehicleE << std::endl;
+            break;
+         case 10:
+            probNewVehicleW = d;
+            std::cout << probNewVehicleW << std::endl;
+            break;
+         case 11:
+            proportionCars = d;
+            std::cout << proportionCars << std::endl;
+            break;
+         case 12:
+            proportionSUVs = d;
+            std::cout << proportionSUVs << std::endl;
+            break;
+         case 13:
+            proprtionTrucks = d;
+            std::cout << proprtionTrucks << std::endl;
+            break;
+         case 14:
+            probRightCars = d;
+            std::cout << probRightCars << std::endl;
+            break;
+         case 15:
+            probRightSUVs = d;
+            std::cout << probRightSUVs << std::endl;
+            break;
+         case 16:
+            probRightTrucks = d;
+            std::cout << probRightTrucks << std::endl;
+            break;
+         case 17:
+            probLeftCars = d;
+            std::cout << probLeftCars << std::endl;
+            break;
+         case 18:
+            probLeftSUVs = d;
+            std::cout << probLeftSUVs << std::endl;
+            break;
+         case 19:
+            probLeftTrucks = d;
+            std::cout << probLeftTrucks << std::endl;
+            break;
+         default: // code to be executed if n doesn't match any cases
+            std::cerr << "Error executing cases." << std::endl;
+            break;
+         }
+      }
+   }
 
    infile.close();
-
-
-
-
-
 }
 
 /*
@@ -171,8 +166,8 @@ void Game::run()
    Animator animator(numSectionsBeforeIntersection);
 
    // create two traffic lights
-   TrafficLight lightNS(LightColor::green,greenNS,yellowNS,greenEW+yellowEW);
-   TrafficLight lightEW(LightColor::red,greenEW,yellowEW,greenNS+yellowNS);
+   TrafficLight lightNS(LightColor::green, greenNS, yellowNS, greenEW + yellowEW);
+   TrafficLight lightEW(LightColor::red, greenEW, yellowEW, greenNS + yellowNS);
 
    // create four intersectionTiles
    IntersectionTile it1(&lightNS);
@@ -194,88 +189,84 @@ void Game::run()
    // to do create generate vehicle,add to road
 
    std::mt19937 rng(this->seed);
-   double a = 0;  double b = 1.0;
+   double a = 0;
+   double b = 1.0;
    std::uniform_real_distribution<double> rand_double(a, b);
    double directionProb;
    double vehicleProb;
    double turnOrNot;
 
-   vector<Vehicle*> vehicles;
+   vector<Vehicle *> vehicles;
 
    // Vector to store the vehicles on the road
-
 
    int t = 0; // Counter for game
 
    while (t < this->maxSimTime)
    {
 
-     //Set up animation
-     animator.setLightNorthSouth(lightNS.getColor());
-     animator.setLightEastWest(lightEW.getColor());
+      //Set up animation
+      animator.setLightNorthSouth(lightNS.getColor());
+      animator.setLightEastWest(lightEW.getColor());
 
-     animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
-     animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
-     animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
-     animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
+      animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+      animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-     animator.draw(t);
-     std::cin.ignore();
+      animator.draw(t);
+      std::cin.ignore();
 
-     // update vehicles
-     directionProb = rand_double(rng);
-     vehicleProb = rand_double(rng);
-     turnOrNot = rand_double(rng);
-     generateDirections(&northBoundRoad,vehicles, directionProb,probNewVehicleN,vehicleProb,turnOrNot); //north
+      // update vehicles
+      directionProb = rand_double(rng);
+      vehicleProb = rand_double(rng);
+      turnOrNot = rand_double(rng);
+      generateDirections(&northBoundRoad, vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
 
-     directionProb = rand_double(rng);
-     vehicleProb = rand_double(rng);
-     turnOrNot = rand_double(rng);
-     generateDirections(&southBoundRoad,vehicles, directionProb,probNewVehicleS,vehicleProb,turnOrNot);//south
+      directionProb = rand_double(rng);
+      vehicleProb = rand_double(rng);
+      turnOrNot = rand_double(rng);
+      generateDirections(&southBoundRoad, vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
 
-     directionProb = rand_double(rng);
-     vehicleProb = rand_double(rng);
-     turnOrNot = rand_double(rng);
-     generateDirections(&eastBoundRoad, vehicles, directionProb,probNewVehicleE,vehicleProb,turnOrNot); //east
+      directionProb = rand_double(rng);
+      vehicleProb = rand_double(rng);
+      turnOrNot = rand_double(rng);
+      generateDirections(&eastBoundRoad, vehicles, directionProb, probNewVehicleE, vehicleProb, turnOrNot); //east
 
-     directionProb = rand_double(rng);
-     vehicleProb = rand_double(rng);
-     turnOrNot = rand_double(rng);
-     generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb,turnOrNot); //west
+      directionProb = rand_double(rng);
+      vehicleProb = rand_double(rng);
+      turnOrNot = rand_double(rng);
+      generateDirections(&westBoundRoad, vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
 
-     moveTraffic(vehicles); //updated
+      moveTraffic(vehicles); //updated
 
-     //Increment time: traffic light and for game
-    lightNS.decrement();
-    lightEW.decrement();
+      //Increment time: traffic light and for game
+      lightNS.decrement();
+      lightEW.decrement();
 
-     t++;
-
+      t++;
    }
 }
 
 /*
  * Handles the movements by traffic done in one 'second' of time.
  */
-void Game::moveTraffic(vector<Vehicle*> &a)
+void Game::moveTraffic(vector<Vehicle *> &a)
 {
-   cout << "the number of the current vehicles is " << a.size() <<endl;
-   vector<Vehicle*>::iterator it;
-  
+   vector<Vehicle *>::iterator it;
+
    // for (int i =0; i<a.size(); i++)
-   // { 
+   // {
    //    it = a.begin();
    //    Vehicle* temp = a[i];
-     
+
    //    if (i==0)
    //    {
    //       temp->move();
    //    }
-      
-     
-   
-   //    else if (temp->hasReachedEndOfRoad())  
-   //    {  
+
+   //    else if (temp->hasReachedEndOfRoad())
+   //    {
    //       cout << "the currentID is in nullptr " << temp->getVehicleID() <<endl;
    //       cout << "the current i is " <<i <<endl;
    //         delete (*it);
@@ -283,152 +274,113 @@ void Game::moveTraffic(vector<Vehicle*> &a)
 
    //    else
    //    {
-         
-        
+
    //    // cout << " the current ID is " << temp->getVehicleID() << endl;
    //     //cout << "the current i is " <<i <<endl;
-   //       temp->move(); // problem 
-        
-       
+   //       temp->move(); // problem
+
    //    }
-      
-      for (it = a.begin(); it!=a.end(); )
-      {
-         Vehicle* temp = *it;
-         if(temp->hasReachedEndOfRoad())
-         {
-            it=a.erase(*it); // how to erase the elements become a problem, I do not know why the iterator does not work.
-         }
-         else
-         {
-            it++;
-            temp->move();
-         }
-      }
-      it++;
 
-   }
-
-
-
-
-void Game:: generateDirections(Road *r, vector<Vehicle*> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
-{
-   Road temp = *r;
-   Direction direction =temp.getDirection();
-  
-   
-   if (temp.canSpawnVehicle()){
-   // if(direction == Direction::north){
-   // cout << "the direction now should be " << "north" << endl;
-   // }
-   // else if (direction == Direction::south)
+   // for (it = a.begin(); it != a.end();)
    // {
-   //    cout << "direction now should be " << "south" << endl;
+   //    Vehicle *temp = *it;
+   //    if (temp->hasReachedEndOfRoad())
+   //    {
+   //       it = a.erase(it);
+   //    }
+   //    else
+   //    {
+   //       it++;
+   //       temp->move();
+   //    }
    // }
-   // else if (direction == Direction::east)
-   // {
-   //    cout << "direction now should be " << "east" << endl;
-   // }
-   // else
-   // {
-   //    cout << "direction now should be " << "west" << endl;
-   // }
-   
-   
-   
-      
 
-     if(direction == Direction::north)
-     {
-       cout << "the direction now should be " << "north" << endl;
-     }
-
-     else if (direction == Direction::south)
-     {
-       cout << "direction now should be " << "south" << endl;
-     }
-
-     else if (direction == Direction::east)
-     {
-      cout << "direction now should be " << "east" << endl;
-     }
-
-     else
-     {
-      cout << "direction now should be " << "west" << endl;
-     }
-
-   if(directionprob <= probNewVehicle)
+   for (int i = 0; i < a.size(); i++)
    {
-      bool turnright = false;
-
-      if(vehicletype <= proportionCars)
+      if (a[i]->hasReachedEndOfRoad())
       {
-         cout << "The probability of turn to the right or not should be " << turnornot << endl;
-
-         if(turnornot<=probRightCars)
-         {
-           Car* a  = new Car (direction,true);
-            //cout << "it is turning?" << "true" <<endl;
-           
-           a->enterRoad(r->getQueueHead());
-           v.push_back(a);
-           cout << "Test" << "It's car with right turn" << endl;
-         }
-
-         else
-         {
-            Car* a  = new Car (direction, false);
-            a->enterRoad(r->getQueueHead());
-            v.push_back(a);
-            cout << "Test" << "It's a car with straight road" <<endl;
-             cout << "it is turning?" << "false" <<endl;
-
-         }
+         a.erase(a.begin() + i);
       }
-
-      else if ((vehicletype > proportionCars) && (vehicletype<=proportionCars+proportionSUVs))
-      {
-
-         if (turnornot <= probLeftSUVs)
-         {
-            Suv* a = new Suv(direction,true);
-            a->enterRoad(r->getQueueHead());
-            v.push_back(a);
-            cout << "Test" << "It's SUV with right turn" << endl;
-         }
-
-         else
-         {
-            cout << "Test" << "It's a SUV with straight road" <<endl;
-            Suv* a = new Suv(direction,false);
-             cout << "it is turning?" << "false" <<endl;
-            a->enterRoad(r->getQueueHead());
-             v.push_back(a);
-             
-         }
-      }
-
       else
       {
-         if (turnornot <= probRightTrucks)
+         a[i]->move();
+      }
+   }
+}
+
+void Game::generateDirections(Road *r, vector<Vehicle *> &v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
+{
+   std::cout << "GenerateDirections() called" << std::endl;
+
+   // The current road we are going to spawn a vehicle on
+   Road temp = *r;
+
+   // The direction of the road
+   Direction direction = temp.getDirection();
+
+   // Make sure there is space to spawn a vehicle
+   if (temp.canSpawnVehicle())
+   {
+
+      if (directionprob <= probNewVehicle)
+      {
+         bool turnright = false;
+
+         if (vehicletype <= proportionCars)
          {
-            cout << "Test" << "It's a truck with right turn" << endl;
-            Truck* a = new Truck (direction,true);
-            a->enterRoad(r->getQueueHead());
-            v.push_back(a);
+
+            if (turnornot <= probRightCars)
+            {
+               Car *a = new Car(direction, true);
+
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
+
+            else
+            {
+               Car *a = new Car(direction, false);
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
+         }
+
+         else if ((vehicletype > proportionCars) && (vehicletype <= proportionCars + proportionSUVs))
+         {
+
+            if (turnornot <= probLeftSUVs)
+            {
+               Suv *a = new Suv(direction, true);
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
+
+            else
+            {
+               Suv *a = new Suv(direction, false);
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
          }
 
          else
          {
-            cout << "Test" << "It's a truck with straight road" <<endl;
-            Truck* a = new Truck (direction,false);
-            a->enterRoad(r->getQueueHead());
-            v.push_back(a);
+            if (turnornot <= probRightTrucks)
+            {
+               Truck *a = new Truck(direction, true);
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
+
+            else
+            {
+
+               Truck *a = new Truck(direction, false);
+               a->enterRoad(r->getQueueHead());
+               v.push_back(a);
+            }
          }
       }
-    }
-  }
+   }
 }
 #endif
