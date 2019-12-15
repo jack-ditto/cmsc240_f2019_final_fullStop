@@ -52,7 +52,7 @@ Game::Game(std::string filePath)
          }
          else
          {
-            std::cerr << "Error reading the input." << std::endl;
+            std::cerr << "Error reading the input file " << filePath << " at line " << count << std::endl;
          }
       }
       else
@@ -113,8 +113,7 @@ Game::Game(std::string filePath)
          case 18:
             probLeftTrucks = d;
             break;
-         default: // code to be executed if n doesn't match any cases
-            std::cerr << "Error executing cases." << std::endl;
+         default: 
             break;
          }
       }
