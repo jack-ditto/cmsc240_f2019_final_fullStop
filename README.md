@@ -2,23 +2,22 @@
 CMSC 240 F2019 Traffic Simulation Project
 Group Members: Jack Ditto, Jing Dong, Rachel Morris
 
-Directions for Compiling: [TODO: when it compiles]
+**Directions for Compiling:** Classes required: Animator.* Vehicle.* VehicleBase.* Tile.* Road.* IntersectionTile.* Car.* Game.* Suv.* TrafficLight.* Truck.*
+If compiling on a Mac, call make. If compiling on a Windows system, use the appropriate lines which are commented out in the Makefile and then call make. The resulting executable is called test, so call ./test to run the traffic simulation. Then to step through the simulation, press enter.
 
-Design Decisions:
-  * Vehicles: (Primary Classes: VehicleBase, Vehicle, Car, SUV, Truck)
-    1. VehicleBase: [INSERT EDITS TO VEHICLEBASE OR DELETE HERE AND VEHICLEBASE ON LINE ABOVE]
-
-    2. Vehicle: (Inherits from VehicleBase)
+**Design Decisions:**
+  * Vehicles: (Primary Classes: Vehicle, Car, SUV, Truck)
+    1. Vehicle: (Inherits from VehicleBase)
          Vehicles store their length, pointers to the first and last tile they occupy. The set of "action" methods in Vehicle handle the Vehicle's movement (moving forward, turning right, and entering the road). These methods update whether a Tile isOccupied in order to connect with the Road.
 
-    3. Car: (Inherits from Vehicle and by extension VehicleBase)
-         Cars are vehicles that have length 2.
+    2. Car: (Inherits from Vehicle and by extension VehicleBase)
+         Cars are Vehicles that have length 2.
 
-    4. SUV: (Inherits from Vehicle and by extension VehicleBase)
-         SUVs are vehicles that have length 3.
+    3. SUV: (Inherits from Vehicle and by extension VehicleBase)
+         SUVs are Vehicles that have length 3.
 
-    5. Truck: (Inherits from Vehicle and by extension VehicleBase)
-         Trucks are vehicles that have length 4.
+    4. Truck: (Inherits from Vehicle and by extension VehicleBase)
+         Trucks are Vehicles that have length 4.
 
   * Road Construction: (Primary Classes: Tile, IntersectionTile, Road, TrafficLight)
     1. Tile:
