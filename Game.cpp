@@ -61,79 +61,57 @@ Game::Game(std::string filePath)
          {
          case 1:
             maxSimTime = static_cast<int>(d);
-            std::cout << maxSimTime << std::endl;
             break;
          case 2:
             numSectionsBeforeIntersection = static_cast<int>(d);
-            std::cout << numSectionsBeforeIntersection << std::endl;
             break;
          case 3:
             greenNS = static_cast<int>(d);
-            std::cout << greenNS << std::endl;
             break;
          case 4:
             yellowNS = static_cast<int>(d);
-            std::cout << yellowNS << std::endl;
             break;
          case 5:
             greenEW = static_cast<int>(d);
-            std::cout << greenEW << std::endl;
             break;
          case 6:
             yellowEW = static_cast<int>(d);
-            std::cout << yellowEW << std::endl;
             break;
          case 7:
             probNewVehicleN = d;
-            std::cout << probNewVehicleN << std::endl;
             break;
          case 8:
             probNewVehicleS = d;
-            std::cout << probNewVehicleS << std::endl;
             break;
          case 9:
             probNewVehicleE = d;
-            std::cout << probNewVehicleE << std::endl;
             break;
          case 10:
             probNewVehicleW = d;
-            std::cout << probNewVehicleW << std::endl;
             break;
          case 11:
             proportionCars = d;
-            std::cout << proportionCars << std::endl;
             break;
          case 12:
             proportionSUVs = d;
-            std::cout << proportionSUVs << std::endl;
             break;
          case 13:
-            proprtionTrucks = d;
-            std::cout << proprtionTrucks << std::endl;
+            probRightCars = d;
             break;
          case 14:
-            probRightCars = d;
-            std::cout << probRightCars << std::endl;
+            probLeftCars = d;
             break;
          case 15:
             probRightSUVs = d;
-            std::cout << probRightSUVs << std::endl;
             break;
          case 16:
-            probRightTrucks = d;
-            std::cout << probRightTrucks << std::endl;
+            probLeftSUVs = d;
             break;
          case 17:
-            probLeftCars = d;
-            std::cout << probLeftCars << std::endl;
+            probRightTrucks = d;
             break;
          case 18:
-            probLeftSUVs = d;
-            std::cout << probLeftSUVs << std::endl;
-            break;
-         case 19:
             probLeftTrucks = d;
-            std::cout << probLeftTrucks << std::endl;
             break;
          default: // code to be executed if n doesn't match any cases
             std::cerr << "Error executing cases." << std::endl;
@@ -216,22 +194,22 @@ void Game::run()
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&northBoundRoad, &vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
+      generateVehicle(&northBoundRoad, &vehicles, directionProb, probNewVehicleN, vehicleProb, turnOrNot); //north
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&southBoundRoad, &vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
+      generateVehicle(&southBoundRoad, &vehicles, directionProb, probNewVehicleS, vehicleProb, turnOrNot); //south
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&eastBoundRoad, &vehicles, directionProb, probNewVehicleE, vehicleProb, turnOrNot); //east
+      generateVehicle(&eastBoundRoad, &vehicles, directionProb, probNewVehicleE, vehicleProb, turnOrNot); //east
 
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
-      generateDirections(&westBoundRoad, &vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
+      generateVehicle(&westBoundRoad, &vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
 
       //Set up animation
       animator.setLightNorthSouth(lightNS.getColor());
@@ -279,7 +257,7 @@ void Game::moveTraffic(vector<Vehicle *> &a)
    }
 }
 
-void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionprob, double probNewVehicle, double vehicletype, double turnornot)
+void Game::generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, double probNewVehicle, double typeProb, double turnProb)
 {
 
    // The direction of the road
@@ -288,18 +266,13 @@ void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionpro
    // Make sure there is space to spawn a vehicle
    if (r->canSpawnVehicle())
    {
-
-      if (directionprob <= probNewVehicle)
+      if (directionProb <= probNewVehicle)
       {
-         bool turnright = false;
-
-         if (vehicletype <= proportionCars)
+         if (typeProb <= proportionCars)
          {
-
-            if (turnornot <= probRightCars)
+            if (turnProb <= probRightCars)
             {
                Car *a = new Car(direction, true);
-
                a->enterRoad(r->getQueueHead());
                v->push_back(a);
             }
@@ -312,10 +285,10 @@ void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionpro
             }
          }
 
-         else if ((vehicletype > proportionCars) && (vehicletype <= proportionCars + proportionSUVs))
+         else if ((typeProb > proportionCars) && (typeProb <= proportionCars + proportionSUVs))
          {
 
-            if (turnornot <= probLeftSUVs)
+            if (turnProb <= probRightSUVs)
             {
                Suv *a = new Suv(direction, true);
                a->enterRoad(r->getQueueHead());
@@ -332,7 +305,7 @@ void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionpro
 
          else
          {
-            if (turnornot <= probRightTrucks)
+            if (turnProb <= probRightTrucks)
             {
                Truck *a = new Truck(direction, true);
                a->enterRoad(r->getQueueHead());
@@ -341,7 +314,6 @@ void Game::generateDirections(Road *r, vector<Vehicle *> *v, double directionpro
 
             else
             {
-
                Truck *a = new Truck(direction, false);
                a->enterRoad(r->getQueueHead());
                v->push_back(a);

@@ -39,7 +39,7 @@ public:
    Game(std::string filePath);
    ~Game();
 
-   void generateDirections(Road *r, vector<Vehicle *> *v, double directionprob, double probNewVehicle, double vehicletype, double turnornot);
+   void generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, double probNewVehicle, double typeProb, double turnProb);
    void moveTraffic(vector<Vehicle *> &a);
    // Simulation running methods
    void run();
