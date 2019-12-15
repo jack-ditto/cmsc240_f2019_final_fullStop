@@ -44,7 +44,7 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	// Point the last Tile before intersection to IntersectionTile
 	prevTile->setStraight(intersectionTile1);
 	intersectionTile1->setBack(prevTile);
-   
+
 	Tile *transition = new Tile(); // Transition tile from 2nd intersection to rest of road
 
 	// Point 1) first IntersectionTile to prev tile
@@ -101,16 +101,15 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 Road::~Road()
 {
 
-	for ( int i = 0; i < this->road.size(); i++ ) 
-    {     
+	for (int i = 0; i < this->road.size(); i++)
+	{
 		// Only tiles were dynamically allocated, so don't free intersectiontiles
-		if(road[i]->getName() == "Tile")
+		if (road[i]->getName() == "Tile")
 		{
-			delete this->road[i];    
+			delete this->road[i];
 		}
-        
-    }    
-    road.clear(); 
+	}
+	road.clear();
 }
 
 /**

@@ -8,7 +8,7 @@
 using namespace std;
 
 // Typical use constructor for Vehicle
-Vehicle::Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight) : VehicleBase(VehicleType::car, direction)
+Vehicle::Vehicle(VehicleType vehicleType, Direction direction, int vehicleLength, bool willTurnRight) : VehicleBase(vehicleType, direction)
 {
    this->length = vehicleLength;        // Set the vehicle length
    this->willTurnRight = willTurnRight; // Whether Vehicle will turn right or now
@@ -181,7 +181,7 @@ void Vehicle::move()
          this->moveForward();
       }
    }
-   else if (next == nullptr)
+   else if (next == NULL)
    {
       this->reachedEndOfRoad = true;
 

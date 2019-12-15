@@ -7,7 +7,7 @@
 class Tile
 {
 private:
-	bool isEmpty;				   // Tile has a Vehicle on it
+	bool isEmpty;							 // Tile has a Vehicle on it
 	VehicleBase *occupyingVehicle = nullptr; // VehicleBase pointer to Vehicle occupying Tile
 
 	// NOTE: It would have been better here to use Vehicle instead of VehicleBase, but since Vehicle include Tile,

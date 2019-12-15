@@ -12,12 +12,14 @@ Tile::Tile()
 {
     this->name = "Tile";
     this->isEmpty = true;
+    this->setStraight(NULL);
+    this->setBack(NULL);
 }
 
 /*
  * Destructor
  */
-Tile::~Tile() 
+Tile::~Tile()
 {
     // std::cout << "Tile deconstructed!" << std::endl;
 }

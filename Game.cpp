@@ -158,11 +158,11 @@ Game::Game()
 
 Game::~Game()
 {
-   for ( int i = 0; i < this->vehicles.size(); i++ ) 
-    {       
-        delete this->vehicles[i];    
-    }    
-    this->vehicles.clear(); 
+   for (int i = 0; i < this->vehicles.size(); i++)
+   {
+      delete this->vehicles[i];
+   }
+   this->vehicles.clear();
 }
 
 /*
@@ -222,7 +222,7 @@ void Game::run()
       animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
       animator.draw(t);
-      std::cin.ignore();
+      std::cin.get(dummy);
 
       // update vehicles
       directionProb = rand_double(rng);
