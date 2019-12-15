@@ -209,7 +209,7 @@ void Game::run()
 
    int t = 0; // Counter for game
 
-   while (t < this->maxSimTime)
+   while (t <= this->maxSimTime)
    {
 
       //Set up animation
