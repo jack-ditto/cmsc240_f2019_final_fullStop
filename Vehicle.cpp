@@ -92,14 +92,12 @@ void Vehicle::moveForward()
 {
    // Set the previous tile to unoccupied
    Tile *prevt = this->tptr;
-   Tile *prevh = this->hptr;
 
    // Move each pointer forward
    this->hptr = this->hptr->getStraight();
    this->tptr = this->tptr->getStraight();
 
    // Unassign last position
-   prevh->setUnoccupied();
    prevt->setUnoccupied();
 
    // Set the tiles between head and tail to occupied
@@ -203,8 +201,6 @@ void Vehicle::move()
  */
 void Vehicle::turnRight()
 {
-
-   std::cout << this->getVehicleID() << " turning right..." << std::endl;
 
    // Set turning right to true if it isn't already
    if (!this->isTurningRight)

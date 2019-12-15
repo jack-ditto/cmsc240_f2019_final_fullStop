@@ -212,18 +212,6 @@ void Game::run()
    while (t < this->maxSimTime)
    {
 
-      //Set up animation
-      animator.setLightNorthSouth(lightNS.getColor());
-      animator.setLightEastWest(lightEW.getColor());
-
-      animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
-      animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
-      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
-      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
-
-      animator.draw(t);
-      std::cin.get(dummy);
-
       // update vehicles
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
@@ -244,6 +232,18 @@ void Game::run()
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
       generateDirections(&westBoundRoad, &vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
+
+      //Set up animation
+      animator.setLightNorthSouth(lightNS.getColor());
+      animator.setLightEastWest(lightEW.getColor());
+
+      animator.setVehiclesEastbound(eastBoundRoad.getRoadSnapshot());
+      animator.setVehiclesWestbound(westBoundRoad.getRoadSnapshot());
+      animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
+      animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
+
+      animator.draw(t);
+      std::cin.get(dummy);
 
       moveTraffic(vehicles); //updated
 
@@ -270,10 +270,11 @@ void Game::moveTraffic(vector<Vehicle *> &a)
          {
             a.erase(a.begin() + i);
          }
-         else
-         {
-            a[i]->move();
-         }
+      }
+
+      for (int i = 0; i < a.size(); i++)
+      {
+         a[i]->move();
       }
    }
 }
