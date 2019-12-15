@@ -59,4 +59,4 @@ If compiling on a Mac, call make. If compiling on a Windows system, use the appr
 
     * MoveTraffic: For our vector of Vehicle pointers, every Vehicle is either deleted if its tail pointer has reached the end of the road or it is moved by the Vehicle move method.
 
-    * GenerateDirections (SHOULD BE GENERATEVEHICLES): For a given road, generateDirections determines whether a new Vehicle is to be spawned in that direction, if so what type of Vehicle, and finally if it turns right. These decisions are made by comparing a randomly generated in [0,1] to the proportions defined by the input file.
+    * GenerateVehicles: For a given road, generateVehicles determines whether a new Vehicle is to be spawned in that direction, if so what type of Vehicle, and finally if it turns right. These decisions are made by comparing a randomly generated in [0,1] to the proportions defined by the input file.
