@@ -18,19 +18,19 @@ If compiling on a Mac, call make. If compiling on a Windows system, use the appr
 
       Methods:
 
-          * Getters for length and the current direction
+      * Getters for length and the current direction
 
-          * Setters for current direction and occupied (which makes Tiles in the Road as occupied)
+      * Setters for current direction and occupied (which makes Tiles in the Road as occupied)
 
-          * EnterRoad: lets the Vehicle enter the road with the head on the road and the tail on the invisible Tiles.
+      * EnterRoad: lets the Vehicle enter the road with the head on the road and the tail on the invisible Tiles.
 
-          * MoveForward: moves the pointers for the head and tail up one and updates which Tiles are occupied
+      * MoveForward: moves the pointers for the head and tail up one and updates which Tiles are occupied
 
-          * Move: handles logic for whether a Vehicle can move (i.e. stop if TrafficLight is red and next Tile is and IntersectionTile) and then appropriately calls the moveForward or turnRight method. Finally, when the Vehicle is at the end of the Road, move sets the Tiles it currently occupies to unoccupied.
+      * Move: handles logic for whether a Vehicle can move (i.e. stop if TrafficLight is red and next Tile is and IntersectionTile) and then appropriately calls the moveForward or turnRight method. Finally, when the Vehicle is at the end of the Road, move sets the Tiles it currently occupies to unoccupied.
 
-          * TurnRight: the head or tail is moved right if it is on an IntersectionTile or both the head and the tail are moved forward. A boolean isTurningRight keeps track of whether the Vehicle is currently in the process of a right turn.
+      * TurnRight: the head or tail is moved right if it is on an IntersectionTile or both the head and the tail are moved forward. A boolean isTurningRight keeps track of whether the Vehicle is currently in the process of a right turn.
 
-          * CanTurnRight: Implements the logic for whether a Vehicle can turn right. If green it is always true. If red, the Vehicle can only turn right if there is enough space.
+      * CanTurnRight: Implements the logic for whether a Vehicle can turn right. If green it is always true. If red, the Vehicle can only turn right if there is enough space.
 
   2. Car: (Inherits from Vehicle and by extension VehicleBase)
 
