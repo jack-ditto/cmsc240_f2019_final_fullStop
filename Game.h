@@ -30,19 +30,16 @@ private:
    double probLeftCars;               // Probability a car turns left
    double probLeftSUVs;               // Probability a SUV turns left
    double probLeftTrucks;             // Probability a truck turns left
-   vector<Vehicle *> vehicles;
+   vector<Vehicle *> vehicles;        // Vector of all vehicles on the road
    char dummy;
 
 public:
    // Constructors
-   Game();
    Game(std::string filePath);
    ~Game();
 
+   void run();
    void generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, double probNewVehicle, double typeProb, double turnProb);
    void moveTraffic(vector<Vehicle *> &a);
-   // Simulation running methods
-   void run();
-   void moveTraffic();
 };
 #endif

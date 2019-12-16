@@ -23,7 +23,7 @@ using namespace std;
  */
 Game::Game(std::string filePath)
 {
-   seed = 8675309; // use the seed 
+   seed = 8675309;
    std::cout << "Constructed using file!" << std::endl;
 
    std::ifstream infile;
@@ -113,7 +113,7 @@ Game::Game(std::string filePath)
          case 18:
             probLeftTrucks = d;
             break;
-         default: 
+         default:
             break;
          }
       }
@@ -123,18 +123,7 @@ Game::Game(std::string filePath)
 }
 
 /*
- * Default constructor. Use default values for testing.
- */
-Game::Game()
-{
-   // This is the place to initialize all the values we need for the game...
-   this->maxSimTime = 15;
-
-   std::cout << "Constructed using default constructor!" << std::endl;
-}
-
-/*
- * Deconstructor. Since the vehicle is dynamica allocated, the deconstructor dellocate it each time.
+ * Deconstructor. Since vehicle is dynamically allocated, the deconstructor dellocates them each time.
  */
 Game::~Game()
 {
@@ -154,17 +143,17 @@ void Game::run()
 
    Animator animator(numSectionsBeforeIntersection);
 
-   // create two traffic lights
+   // Create two traffic lights
    TrafficLight lightNS(LightColor::green, greenNS, yellowNS, greenEW + yellowEW);
    TrafficLight lightEW(LightColor::red, greenEW, yellowEW, greenNS + yellowNS);
 
-   // create four intersectionTiles
+   // Create four intersectionTiles
    IntersectionTile it1(&lightNS);
    IntersectionTile it2(&lightEW);
    IntersectionTile it3(&lightEW);
    IntersectionTile it4(&lightNS);
 
-   // create roads
+   // Create roads
    Road northBoundRoad(numSectionsBeforeIntersection, &it4, &it2, Direction::north);
    Road southBoundRoad(numSectionsBeforeIntersection, &it1, &it3, Direction::south);
    Road eastBoundRoad(numSectionsBeforeIntersection, &it3, &it4, Direction::east);
@@ -175,8 +164,7 @@ void Game::run()
    animator.setVehiclesSouthbound(southBoundRoad.getRoadSnapshot());
    animator.setVehiclesNorthbound(northBoundRoad.getRoadSnapshot());
 
-   // to do create generate vehicle,add to road
-
+   // Set up random number generation
    std::mt19937 rng(this->seed);
    double a = 0;
    double b = 1.0;
@@ -185,14 +173,11 @@ void Game::run()
    double vehicleProb;
    double turnOrNot;
 
-   // Vector to store the vehicles on the road
-
    int t = 0; // Counter for game
 
    while (t <= this->maxSimTime)
    {
-
-      // update vehicles
+      // Generate new vehicles
       directionProb = rand_double(rng);
       vehicleProb = rand_double(rng);
       turnOrNot = rand_double(rng);
@@ -213,7 +198,7 @@ void Game::run()
       turnOrNot = rand_double(rng);
       generateVehicle(&westBoundRoad, &vehicles, directionProb, probNewVehicleW, vehicleProb, turnOrNot); //west
 
-      //Set up animation
+      // Animate
       animator.setLightNorthSouth(lightNS.getColor());
       animator.setLightEastWest(lightEW.getColor());
 
@@ -225,9 +210,9 @@ void Game::run()
       animator.draw(t);
       std::cin.get(dummy);
 
-      moveTraffic(vehicles); //updated
+      moveTraffic(vehicles); // Vehicle positions updated
 
-      //Increment time: traffic light and for game
+      //Increment time: traffic light and "clock"
       lightNS.decrement();
       lightEW.decrement();
 
@@ -270,13 +255,13 @@ void Game::generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, 
    // Make sure there is space to spawn a vehicle
    if (r->canSpawnVehicle())
    {
-      // If there may be a car generated on the lane
+      // Determine if a vehicle is generated
       if (directionProb <= probNewVehicle)
       {
-         //the type of the car it will generated
+         // Car is generated
          if (typeProb <= proportionCars)
          {
-            // whether the car will make a turn
+            // Determine whether the car will turn right
             if (turnProb <= probRightCars)
             {
                Car *a = new Car(direction, true);
@@ -292,9 +277,11 @@ void Game::generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, 
             }
          }
 
+         // SUV is generated
          else if ((typeProb > proportionCars) && (typeProb <= proportionCars + proportionSUVs))
          {
 
+            // Determine whether the SUV turns right
             if (turnProb <= probRightSUVs)
             {
                Suv *a = new Suv(direction, true);
@@ -310,8 +297,10 @@ void Game::generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, 
             }
          }
 
+         // Generate truck
          else
          {
+            // Determine whether the truck turns right
             if (turnProb <= probRightTrucks)
             {
                Truck *a = new Truck(direction, true);
