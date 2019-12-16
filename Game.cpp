@@ -245,7 +245,9 @@ void Game::moveTraffic(vector<Vehicle *> &a)
       {
          if (a[i]->hasReachedEndOfRoad())
          {
+            Vehicle* vehicleToDelete = a[i];
             a.erase(a.begin() + i);
+            delete vehicleToDelete;
          }
       }
 
