@@ -17,7 +17,7 @@ private:
 public:
   IntersectionTile(TrafficLight *TrafficLight);    // Typical use constructor
   IntersectionTile(const IntersectionTile &other); // Copy constructor
-  ~IntersectionTile();                             // Deconstructor
+  ~IntersectionTile();                             // Destructor
 
   // Getter methods
   Tile *getStraight() override;

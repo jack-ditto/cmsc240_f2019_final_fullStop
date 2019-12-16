@@ -48,8 +48,8 @@ Road::Road(int num, IntersectionTile *intersectionTile1, IntersectionTile *inter
 	Tile *transition = new Tile(); // Transition tile from 2nd intersection to rest of road
 
 	// Point 1) first IntersectionTile to prev tile
-	//		 2) first IntersectionTile to secton IntersectionTile
-	//		 3) second IntersectionTile to first IntersectionTile
+	//		   2) first IntersectionTile to second IntersectionTile
+	//		   3) second IntersectionTile to first IntersectionTile
 	//       4) second IntersectionTile to next Tile (rest of road)
 	switch (direction)
 	{

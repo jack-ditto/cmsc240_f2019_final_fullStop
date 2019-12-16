@@ -24,7 +24,6 @@ using namespace std;
 Game::Game(std::string filePath)
 {
    seed = 8675309;
-   std::cout << "Constructed using file!" << std::endl;
 
    std::ifstream infile;
    infile.open(filePath);
@@ -139,8 +138,6 @@ Game::~Game()
  */
 void Game::run()
 {
-   std::cout << "The game is running..." << std::endl;
-
    Animator animator(numSectionsBeforeIntersection);
 
    // Create two traffic lights
