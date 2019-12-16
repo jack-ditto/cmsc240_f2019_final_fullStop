@@ -23,7 +23,7 @@ using namespace std;
  */
 Game::Game(std::string filePath)
 {
-   seed = 8675309;
+   seed = 8675309; // use the seed 
    std::cout << "Constructed using file!" << std::endl;
 
    std::ifstream infile;
@@ -133,6 +133,9 @@ Game::Game()
    std::cout << "Constructed using default constructor!" << std::endl;
 }
 
+/*
+ * Deconstructor. Since the vehicle is dynamica allocated, the deconstructor dellocate it each time.
+ */
 Game::~Game()
 {
    for (int i = 0; i < this->vehicles.size(); i++)
@@ -267,10 +270,13 @@ void Game::generateVehicle(Road *r, vector<Vehicle *> *v, double directionProb, 
    // Make sure there is space to spawn a vehicle
    if (r->canSpawnVehicle())
    {
+      // If there may be a car generated on the lane
       if (directionProb <= probNewVehicle)
       {
+         //the type of the car it will generated
          if (typeProb <= proportionCars)
          {
+            // whether the car will make a turn
             if (turnProb <= probRightCars)
             {
                Car *a = new Car(direction, true);
